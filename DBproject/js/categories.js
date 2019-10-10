@@ -204,7 +204,7 @@ $(document).ready(function(){
 				var $this = $(this);
 		        // var filterValue = $(this).attr('data-filter');
 				// grid.isotope({ filter: filterValue });
-				var $buttonGroup = $this.parents('.button-group');
+				var $buttonGroup = $this.parents('.dropdown-group');
 				var filterGroup = $buttonGroup.attr('data-filter-group');
 				filters[ filterGroup ] = $this.attr('data-filter');
 
