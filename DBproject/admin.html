@@ -22,7 +22,7 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" onload=empQuery()>
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
@@ -153,13 +153,13 @@
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
-                  <tr>
+                  <tr align="center">
                     <th>employeeNumber</th>
-                    <th>lastName</th>
                     <th>firstName</th>
+                    <th>lastName</th>
                     <th>extension</th>
                     <th>email</th>
-                    <th>officeCode</th>
+                    <th >officeCode</th>
                     <th>reportTo</th>
                     <th>jobTitle</th>
                   </tr>
@@ -167,8 +167,8 @@
                 <tfoot>
                   <tr>
                     <th>employeeNumber</th>
-                    <th>lastName</th>
                     <th>firstName</th>
+                    <th>lastName</th>
                     <th>extension</th>
                     <th>email</th>
                     <th>officeCode</th>
@@ -176,17 +176,8 @@
                     <th>jobTitle</th>
                   </tr>
                 </tfoot>
-                <tbody>
-                  <tr>
-                    <td>Tiger Nixon</td>
-                    <td>System Architect</td>
-                    <td>Edinburgh</td>
-                    <td>61</td>
-                    <td>2011/04/25</td>
-                    <td>System Architect</td>
-                    <td>Edinburgh</td>
-                    <td>$320,800</td>
-                  </tr>
+                <tbody id="TableBody">
+
                 
                 </tbody>
               </table>
@@ -237,6 +228,8 @@
     </div>
   </div>
 
+
+  <script src="js/WebDB-Query.js"></script>
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -255,6 +248,7 @@
   <!-- Demo scripts for this page-->
   <script src="js/demo/datatables-demo.js"></script>
   <script src="js/demo/chart-area-demo.js"></script>
+  
 
 </body>
 
