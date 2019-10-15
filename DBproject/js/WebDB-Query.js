@@ -64,7 +64,7 @@ function empQuery(){
         reportsto = results.rows.item(i).reportsTo
         title = results.rows.item(i).jobTitle
         tableBody.innerHTML += `
-        <tr>
+        <tr align="center">
         <td>`+enumber+`</td>
         <td>`+fname+`</td>
         <td>`+lname+`</td>

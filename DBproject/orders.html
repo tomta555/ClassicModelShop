@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>stock-in</title>
+  <title>order</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -83,7 +83,7 @@
       <li class="nav-item active">
         <a class="nav-link" href="index.html">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>stock</span>
+          <span>Dashboard</span>
         </a>
       </li>
       <li class="nav-item dropdown">
@@ -102,31 +102,36 @@
           <a class="dropdown-item" href="blank.html">Blank Page</a>
         </div>
       </li>
-      
+
+      <li class="nav-item">
+        <a class="nav-link" href="index.html">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Product Catalog</span></a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="admin.html">
           <i class="fas fa-fw fa-table"></i>
-          <span>Employee management</span></a>
+          <span>Employees</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="order_table.html">
+        <a class="nav-link" href="orders.html">
           <i class="fas fa-fw fa-table"></i>
-          <span>Order Status</span></a>
+          <span>Orders</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="stock_table.html">
+        <a class="nav-link" href="stocks.html">
           <i class="fas fa-fw fa-table"></i>
-          <span>Stock in System</span></a>
+          <span>Stocks</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="product_tables.html">
+        <a class="nav-link" href="customers.html">
           <i class="fas fa-fw fa-table"></i>
-          <span>Products Catalog pages</span></a>
+          <span>Customers</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="member_table.html">
+        <a class="nav-link" href="coupons.html">
           <i class="fas fa-fw fa-table"></i>
-          <span>Member pages</span></a>
+          <span>Coupon Codes</span></a>
       </li>
     </ul>
 
@@ -137,7 +142,7 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="#">Stock-in</a>
+            <a href="#">order</a>
           </li>
           
         </ol>
@@ -154,24 +159,24 @@
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
-                    <th>productCode</th>
-                    <th>productName</th>
-                    <th>productScale</th>
-                    <th>ProductDescription</th>
-                    <th>quantityInStock</th>
-                    <th>buyPrice</th>
-                    <th>MSRP</th>
+                    <th>orderNumber</th>
+                    <th>orderDate</th>
+                    <th>requiredDate</th>
+                    <th>shippedDate</th>
+                    <th>status</th>
+                    <th>comments</th>
+                    <th>customerNumber</th>
                   </tr>
                 </thead>
                 <tfoot>
                   <tr>
-                    <th>productCode</th>
-                    <th>productName</th>
-                    <th>productScale</th>
-                    <th>ProductDescription</th>
-                    <th>quantityInStock</th>
-                    <th>buyPrice</th>
-                    <th>MSRP</th>
+                    <th>orderNumber</th>
+                    <th>orderDate</th>
+                    <th>requiredDate</th>
+                    <th>shippedDate</th>
+                    <th>status</th>
+                    <th>comments</th>
+                    <th>customerNumber</th>
                   </tr>
                 </tfoot>
                 <tbody>
@@ -181,10 +186,11 @@
                     <td>Edinburgh</td>
                     <td>61</td>
                     <td>2011/04/25</td>
-                    <td>$320,800</td>
+                    <td>2011/04/25</td>
                     <td>$320,800</td>
                   </tr>
-                  </tbody>
+                  
+                </tbody>
               </table>
             </div>
           </div>
