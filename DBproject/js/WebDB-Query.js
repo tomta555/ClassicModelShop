@@ -108,7 +108,7 @@ function customerQuery(){
         <td>`+memberPoint+`</td>
         <td>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddressesModal" onclick=viewCustomerAddr(this.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling)>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddressesModal" onclick=viewCustomerAddr(this.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling)>
             View Addresses</button>
         </td>
         <td>
@@ -132,8 +132,9 @@ function viewCustomerAddr(location){
   var postalCode;
   var country;
   const cNum = location.textContent;
-  const tableBody = document.querySelector('#viewAddresses');
-  tableBody.innerHTML ="";
+  // console.log(cNum)
+  const viewAddr = document.querySelector('#viewAddresses');
+  viewAddr.innerHTML ="";
   db.transaction(function (tx) {
     tx.executeSql('SELECT * FROM customersAddresses WHERE customerNumber = ?', [cNum], function (tx, results) {
       var len = results.rows.length, i;
@@ -145,7 +146,7 @@ function viewCustomerAddr(location){
         state = results.rows.item(i).state
         postalCode = results.rows.item(i).postalCode
         country = results.rows.item(i).country
-        tableBody.innerHTML += `
+        viewAddr.innerHTML += `
         <tr align="center">
         <td>`+cNumber+`</td>
         <td>`+addrline1+`</td>
