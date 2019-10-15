@@ -552,6 +552,7 @@ pre code {
 .pre-scrollable {
   max-height: 340px;
   overflow-y: scroll;
+  
 }
 
 .container {
@@ -6148,7 +6149,7 @@ a.close.disabled {
 
 .modal-dialog-scrollable .modal-content {
   max-height: calc(100vh - 1rem);
-  overflow: hidden;
+  overflow: auto;
 }
 
 .modal-dialog-scrollable .modal-header,
@@ -6159,6 +6160,8 @@ a.close.disabled {
 
 .modal-dialog-scrollable .modal-body {
   overflow-y: auto;
+  overflow-x: auto;
+
 }
 
 .modal-dialog-centered {
@@ -6205,13 +6208,14 @@ a.close.disabled {
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  width: 100%;
+  width: 120%; /*width size screen*/
   pointer-events: auto;
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 0.3rem;
   outline: 0;
+  
 }
 
 .modal-backdrop {
@@ -6249,7 +6253,7 @@ a.close.disabled {
 }
 
 .modal-header .close {
-  padding: 1rem 1rem;
+  padding: 1rem 1rem ;
   margin: -1rem -1rem -1rem auto;
 }
 
@@ -6259,6 +6263,7 @@ a.close.disabled {
 }
 
 .modal-body {
+  height: auto;
   position: relative;
   -webkit-box-flex: 1;
   -ms-flex: 1 1 auto;
@@ -6296,11 +6301,12 @@ a.close.disabled {
   width: 50px;
   height: 50px;
   overflow: scroll;
+  
 }
 
 @media (min-width: 576px) {
   .modal-dialog {
-    max-width: 500px;
+    max-width: 1000px; /*width size screen*/
     margin: 1.75rem auto;
   }
   .modal-dialog-scrollable {
@@ -6317,6 +6323,7 @@ a.close.disabled {
   }
   .modal-sm {
     max-width: 300px;
+    
   }
 }
 
@@ -6324,6 +6331,7 @@ a.close.disabled {
   .modal-lg,
   .modal-xl {
     max-width: 800px;
+    
   }
 }
 
