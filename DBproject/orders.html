@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>order</title>
+  <title>Orders</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -22,7 +22,7 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" onload=orderQuery()>
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
@@ -158,37 +158,30 @@
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
-                  <tr>
+                  <tr align="center">
                     <th>orderNumber</th>
                     <th>orderDate</th>
                     <th>requiredDate</th>
                     <th>shippedDate</th>
                     <th>status</th>
-                    <th>comments</th>
+                    <!-- <th>comments</th> -->
                     <th>customerNumber</th>
+                    <th>memberPoint</th>
                   </tr>
                 </thead>
                 <tfoot>
-                  <tr>
+                  <tr align="center">
                     <th>orderNumber</th>
                     <th>orderDate</th>
                     <th>requiredDate</th>
                     <th>shippedDate</th>
                     <th>status</th>
-                    <th>comments</th>
+                    <!-- <th>comments</th> -->
                     <th>customerNumber</th>
+                    <th>memberPoint</th>
                   </tr>
                 </tfoot>
-                <tbody>
-                  <tr>
-                    <td>Tiger Nixon</td>
-                    <td>System Architect</td>
-                    <td>Edinburgh</td>
-                    <td>61</td>
-                    <td>2011/04/25</td>
-                    <td>2011/04/25</td>
-                    <td>$320,800</td>
-                  </tr>
+                <tbody id="TableBody">
                   
                 </tbody>
               </table>
@@ -239,6 +232,7 @@
     </div>
   </div>
 
+  <script src="js/WebDB-Query.js"></script>
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
