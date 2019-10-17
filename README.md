@@ -7,7 +7,7 @@
 3. Copy ClassicModelShop.db ไปไว้ที่ 
 - C:\Users\\%USERNAME%\AppData\Local\Google\Chrome\User Data\Default\databases\http_127.0.0.1_5500
 - (ไม่รู้ว่าไปยังไงก็ Copy ไปวางในช่อง Address หรือ กด Windows Key + R แล้ววางในช่อง กด OK)
-4. จะมีไฟล์ ชื่อเป็น [ตัวเลข] ไม่มีนามสกุล ให้แทนที่ไฟล์นี้ด้วย ClassicModelShop.db ด้วยโดยให้เปลี่ยนชื่อจาก ClassicModelShop.db เป็น [ตัวเลข] นั้น แล้วลบ .db ออกด้วย
+4. จะมีไฟล์ ชื่อเป็น [ตัวเลข] ไม่มีนามสกุล ให้แทนที่ไฟล์นี้ด้วย ClassicModelShop.db ด้วยโดยให้เปลี่ยนชื่อจาก ClassicModelShop.db เป็น [ตัวเลข] นั้น แล้วลบ .db ออกด้วย (ลบไฟล์ชื่อ [ตัวเลข] ออก เอา ClassicModelShop.db เปลี่ยนชื่อไปแทนที่)
 5. Refresh หน้าเว็บที่เปิดไว้ จะได้ข้อมูลจาก Database ใหม่
 
 **ถ้าไฟล์ ClassicModelShop.db มีการเปลี่ยนแปลง**
