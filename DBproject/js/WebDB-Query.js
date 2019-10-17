@@ -79,7 +79,7 @@ function customerQuery(){
   var cNumber;
   var cName;
   var contactFName;
-  var contactLname;
+  var contactLName;
   var cPhone;
   var saleRep;
   var creditLimit;
@@ -91,16 +91,17 @@ function customerQuery(){
       for (i = 0; i < len; i++) {
         cNumber = results.rows.item(i).customerNumber
         cName = results.rows.item(i).customerName
-        contactLname = results.rows.item(i).contactLastName
+        contactLName = results.rows.item(i).contactLastName
         contactFName = results.rows.item(i).contactFirstName
         cPhone = results.rows.item(i).phone
         saleRep = results.rows.item(i).salesRepEmployeeNumber
         creditLimit = results.rows.item(i).creditLimit
+        memberPoint = results.rows.item(i).mPoint
         tableBody.innerHTML += `
         <tr align="center"> <!-- open1-->
         <td>`+cNumber+`</td>
         <td>`+cName+`</td>
-        <td>`+contactLname+`</td>
+        <td>`+contactLName+`</td>
         <td>`+contactFName+`</td>
         <td>`+cPhone+`</td>
         <td>`+saleRep+`</td>
@@ -122,6 +123,7 @@ function customerQuery(){
     }, null);
   });
 }
+
 function viewCustomerAddr(location){
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   var cNumber;
@@ -161,7 +163,41 @@ function viewCustomerAddr(location){
     }, null);
   });
 }
+function addCustomer(){
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  var cNumber = document.getElementById("cNum").value;
+  var cName = document.getElementById("cName").value;
+  var contactFName = document.getElementById("cFName").value;
+  var contactLName = document.getElementById("cLName").value;
+  var cPhone = document.getElementById("cPhone").value;
+  var addrline1 = document.getElementById("cAddr1").value;
+  var addrline2 = document.getElementById("cAddr2").value;
+  var city = document.getElementById("cCity").value;
+  var state = document.getElementById("cState").value;
+  var postalCode = document.getElementById("cPostal").value;
+  var country = document.getElementById("cCountry").value;
+  var saleRep = document.getElementById("cRep").value;
+  var creditLimit = document.getElementById("cCredit").value;
+  var memberPoint = 0;
+  db.transaction(function (tx) {
+    tx.executeSql('INSERT INTO customers VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [cNumber,cName,contactLName,contactFName,cPhone,saleRep,creditLimit,memberPoint]); 
+    tx.executeSql('INSERT INTO customersAddresses VALUES (?, ?, ?, ?, ?, ?, ?)', [cNumber,addrline1,addrline2,city,state,postalCode,country]); 
+  });
+}
 
+function addCustomerAddress(){
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  var cNumber = document.getElementById("cNum2").value;
+  var addrline1 = document.getElementById("cAddr1-2").value;
+  var addrline2 = document.getElementById("cAddr2-2").value;
+  var city = document.getElementById("cCity2").value;
+  var state = document.getElementById("cState2").value;
+  var postalCode = document.getElementById("cPostal2").value;
+  var country = document.getElementById("cCountry2").value;
+  db.transaction(function (tx) {
+    tx.executeSql('INSERT INTO customersAddresses VALUES (?, ?, ?, ?, ?, ?, ?)', [cNumber,addrline1,addrline2,city,state,postalCode,country]); 
+  });
+}
 function orderQuery(){
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   var orderNumber;
@@ -171,7 +207,7 @@ function orderQuery(){
   var status;
   var comments;
   var customerNumber;
-  var memberPoint = 0;
+  var memberPoint;
   const tableBody = document.querySelector('#TableBody')
   db.transaction(function (tx) {
     tx.executeSql('SELECT * FROM orders', [], function (tx, results) {
@@ -184,6 +220,7 @@ function orderQuery(){
         status = results.rows.item(i).status
         comments = results.rows.item(i).comments
         customerNumber = results.rows.item(i).customerNumber
+        memberPoint = results.rows.item(i).mPointGet
         tableBody.innerHTML += `
         <tr align="center">
         <td>`+orderNumber+`</td>
@@ -264,6 +301,41 @@ function couponQuery(){
     }, null);
   });
 }
+
+function tableSearch() {
+  // Declare variables
+  var $rows = $('#TableBody tr');
+  $('#quicksearch').keyup(debounce(function() {
+  
+    var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
+      reg = RegExp(val, 'i'),
+      text;
+  
+    $rows.show().filter(function() {
+      text = $(this).text().replace(/\s+/g, ' ');
+      return !reg.test(text);
+    }).hide();
+  }, 300));
+  
+  function debounce(func, wait, immediate) {
+    var timeout;
+    return function() {
+      var context = this,
+        args = arguments;
+      var later = function() {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
+  };
+  
+}
+  
+
 // function AddtoCart(){
 
 //   }

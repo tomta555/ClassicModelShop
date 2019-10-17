@@ -147,16 +147,7 @@
           </li>
         </ol>
 
-        <div>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddMemberModal">
-            <!-- start11 -->
-            Add
-          </button>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddAddressModal">
-            <!-- start11 -->
-            Add Address
-          </button>
-        </div>
+
         <!-- DataTables Example -->
         <div class="card mb-3">
           <div class="card-header">
@@ -171,7 +162,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="AddMemberTitle">ADD Member</h5>
+                  <h5 class="modal-title" id="AddMemberTitle">Add Member</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -183,74 +174,74 @@
 
                       <div class="form-group">
                         <label class="col-form-label">customerNumber:</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" id="cNum">
                       </div>
 
                       <div class="form-group">
                         <label class="col-form-label">customerName:</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" id="cName">
                       </div>
 
                       <div class="form-group">
                         <label class="col-form-label">contactLastName:</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" id="cLName">
                       </div>
 
                       <div class="form-group">
                           <label class="col-form-label">contactFirstName:</label>
-                          <input type="text" class="form-control">
+                          <input type="text" class="form-control" id="cFName">
                         </div>
 
                       <div class="form-group">
                         <label class="col-form-label">phone:</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" id="cPhone">
                       </div>
 
                       <div class="form-group">
                         <label class="col-form-label">addressLine1:</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" id="cAddr1">
                       </div>
 
                       <div class="form-group">
                         <label class="col-form-label">addressLine2:</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" id="cAddr2">
                       </div>
 
                       <div class="form-group">
                         <label class="col-form-label">city:</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" id="cCity">
                       </div>
 
                       <div class="form-group">
                         <label class="col-form-label">state:</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" id="cState">
                       </div>
 
                       <div class="form-group">
                         <label class="col-form-label">postalCode:</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" id="cPostal">
                       </div>
 
                       <div class="form-group">
                         <label class="col-form-label">country:</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" id="cCountry">
                       </div>
 
                       <div class="form-group">
-                        <label class="col-form-label">salesRepEmpic:</label>
-                        <input type="text" class="form-control">
+                        <label class="col-form-label">salesRep:</label>
+                        <input type="text" class="form-control" id="cRep">
                       </div>
 
                       <div class="form-group">
                         <label class="col-form-label">creditLimit:</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" id="cCredit">
                       </div>
                     </form>
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                  <button type="button" class="btn btn-primary">Add</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-success" onclick="addCustomer()" data-dismiss="modal" >Add</button>
                 </div>
               </div>
             </div>
@@ -274,52 +265,68 @@
 
                       <div class="form-group">
                         <label class="col-form-label">customerNumber:</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" id="cNum2">
                       </div>
                       
                       <div class="form-group">
                         <label class="col-form-label">addressLine1:</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" id="cAddr1-2">
                       </div>
 
                       <div class="form-group">
                         <label class="col-form-label">addressLine2:</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" id="cAddr2-2">
                       </div>
 
                       <div class="form-group">
                         <label class="col-form-label">city:</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" id="cCity2">
                       </div>
 
                       <div class="form-group">
                         <label class="col-form-label">state:</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" id="cState2">
                       </div>
 
                       <div class="form-group">
                         <label class="col-form-label">postalCode:</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" id="cPostal2">
                       </div>
 
                       <div class="form-group">
                         <label class="col-form-label">country:</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" id="cCountry2">
                       </div>
                     </form>
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                  <button type="button" class="btn btn-primary">Add</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-success" onclick="addCustomerAddress()" data-dismiss="modal">Add</button>
                 </div>
               </div>
             </div>
           </div> <!-- end11 -->
 
+          
+
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              
+              <p>
+                <form class="form-inline">
+                 
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddMemberModal" style="margin-right: 20px">
+                      Add Member
+                    </button>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddAddressModal">
+                      Add Address
+                    </button> 
+                    <input type="text" class="form-control-searchbox" id="quicksearch" onkeyup="tableSearch()" placeholder="Search" style="margin-left: 475px">
+                  </form>
+                </p>
+
+                <table class="table table-bordered" id="dataTable0" width="100%" cellspacing="0">
                 <thead>
                   <tr align="center">
                     <!-- <th>No.</th> -->
@@ -351,6 +358,7 @@
                   </tr>
                 </tfoot>
                 <tbody id="TableBody">
+                  
 
                 </tbody>
               </table>
@@ -374,7 +382,7 @@
                           Data Table Example</div>
                         <div class="card-body">
                           <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
                               <thead>
                                 <tr align="center">
                                   <th>customerNumber</th>
@@ -420,7 +428,7 @@
                           Data Table Example</div>
                         <div class="card-body">
                           <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
                               <thead>
                                 <tr align="center">
                                   <th>customerNumber</th>
@@ -433,7 +441,7 @@
                                   <th>state</th>
                                   <th>postalCode</th>
                                   <th>country</th>
-                                  <th>salesRepEmpic</th>
+                                  <th>salesRep</th>
                                   <th>creditLimit</th>
                                 </tr>
                               </thead>
@@ -510,8 +518,11 @@
         </div>
       </div>
     </div>
-
+    <!-- <script sec="js/qsearch.js"></script> -->
+    <!-- <script src="js/jquery-3.2.1.min.js"></script> -->
     <script src="js/WebDB-Query.js"></script>
+    
+    
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
