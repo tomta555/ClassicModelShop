@@ -98,7 +98,7 @@ function customerQuery(){
         creditLimit = results.rows.item(i).creditLimit
         memberPoint = results.rows.item(i).mPoint
         tableBody.innerHTML += `
-        <tr align="center"> <!-- open1-->
+        <tr align="center">
         <td>`+cNumber+`</td>
         <td>`+cName+`</td>
         <td>`+contactLName+`</td>
@@ -109,15 +109,15 @@ function customerQuery(){
         <td>`+memberPoint+`</td>
         <td>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddressesModal" onclick=viewCustomerAddr(this.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling)>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddressesModal" onclick=viewCustomerAddr(this.parentNode.parentNode.firstChild.nextSibling)>
             View Addresses</button>
         </td>
         <td>
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#HistoryModal">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#HistoryModal" onclick=viewOrderedHistory(this.parentNode.parentNode.firstChild.nextSibling)>
             View History</button>
         </td>
-      </tr> <!-- close1-->
+      </tr>
       `;
       }
     }, null);
@@ -157,8 +157,80 @@ function viewCustomerAddr(location){
         <td>`+state+`</td>
         <td>`+postalCode+`</td>
         <td>`+country+`</td>
+        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#EditModal" onclick="editCustomerAddr(this)">
+        Edit</button></td>
+        <td><button type="button" class="btn btn-danger">
+        Delete</button></td>
       </tr>
       `;
+      }
+    }, null);
+  });
+}
+function editCustomerAddr(location){
+  const editBody = document.querySelector('#editAddress')
+  editBody.innerHTML =`
+  <tr>
+  <td><input type="text" class="form-control" id="edit1"></td>
+  <td><input type="text" class="form-control" id="edit2"></td>
+  <td><input type="text" class="form-control" id="edit3"></td>
+  <td><input type="text" class="form-control" id="edit4"></td>
+  <td><input type="text" class="form-control" id="edit5"></td>
+  <td><input type="text" class="form-control" id="edit6"></td>
+</tr>
+  `
+  console.log(location.parentNode.previousSibling.previousSibling.textContent)
+  document.getElementById("edit1").value = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.textContent
+  document.getElementById("edit2").value = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.textContent
+  document.getElementById("edit3").value = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.textContent
+  document.getElementById("edit4").value = location.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.textContent
+  document.getElementById("edit5").value = location.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.textContent
+  document.getElementById("edit6").value = location.parentNode.previousSibling.previousSibling.textContent
+}
+
+function viewOrderedHistory(location){
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  var orderNumber;
+  var	orderDate;
+  var	requiredDate;
+  var	shippedDate;
+  var	status;
+  var comment;
+  var customerNumber;
+  var	memberPoint;
+  const cNum = location.textContent;
+  // console.log(cNum)
+  const viewHistory = document.querySelector('#viewHistory');
+  viewHistory.innerHTML ="";
+  db.transaction(function (tx) {
+    tx.executeSql('SELECT * FROM orders WHERE customerNumber = ?', [cNum], function (tx, results) {
+      var len = results.rows.length, i;
+      if(len > 0){
+        for (i = 0; i < len; i++) {
+          orderNumber = results.rows.item(i).orderNumber
+          orderDate = results.rows.item(i).orderDate
+          requiredDate = results.rows.item(i).requiredDate
+          shippedDate = results.rows.item(i).shippedDate
+          status = results.rows.item(i).status
+          comments = results.rows.item(i).comments
+          customerNumber = results.rows.item(i).customerNumber
+          memberPoint = results.rows.item(i).mPointGet
+          viewHistory.innerHTML += `
+          <tr align="center">
+          <td>`+customerNumber+`</td>
+          <td>`+orderNumber+`</td>
+          <td>`+orderDate+`</td>
+          <td>`+requiredDate+`</td>
+          <td>`+shippedDate+`</td>
+          <td>`+status+`</td>
+          <td>`+memberPoint+`</td>
+          <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewCusComment" onclick="">
+        View comments</button></td>
+        </tr>
+        `;
+        } 
+      }else{
+        viewHistory.innerHTML += `<h1 align="center">No Data</h1>`
       }
     }, null);
   });
