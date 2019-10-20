@@ -198,6 +198,7 @@ $(document).ready(function(){
 			var filters = {};
 	        $('.item_filter_btn').on('click', function()
 	        {
+				//set parent to currently select
 	        	var parent = $(this).parent().parent().find('.isotope_filter_text span');
 				parent.text($(this).text());
 
@@ -222,6 +223,14 @@ $(document).ready(function(){
 			  }
 
     	}
-    }
+	}
+	
+
 
 });
+
+
+// fucntion to fix text and "Add to cart" button not showing in some product
+function allVClick(){
+	document.getElementById("allVendor").click();
+}

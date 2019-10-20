@@ -159,7 +159,7 @@ function viewCustomerAddr(location){
         <td>`+country+`</td>
         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#EditModal" onclick="editCustomerAddr(this)">
         Edit</button></td>
-        <td><button type="button" class="btn btn-danger">
+        <td><button type="button" class="btn btn-danger" onclick="deleteCustomerAddr(this)">
         Delete</button></td>
       </tr>
       `;
@@ -167,8 +167,14 @@ function viewCustomerAddr(location){
     }, null);
   });
 }
+
+var editCusNum;
+var initAddrLine1;
+
 function editCustomerAddr(location){
   const editBody = document.querySelector('#editAddress')
+  editCusNum = location.parentNode.parentNode.firstChild.nextSibling.textContent;
+  initAddrLine1 = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.textContent;
   editBody.innerHTML =`
   <tr>
   <td><input type="text" class="form-control" id="edit1"></td>
@@ -179,13 +185,46 @@ function editCustomerAddr(location){
   <td><input type="text" class="form-control" id="edit6"></td>
 </tr>
   `
-  console.log(location.parentNode.previousSibling.previousSibling.textContent)
+  
   document.getElementById("edit1").value = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.textContent
   document.getElementById("edit2").value = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.textContent
   document.getElementById("edit3").value = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.textContent
   document.getElementById("edit4").value = location.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.textContent
   document.getElementById("edit5").value = location.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.textContent
   document.getElementById("edit6").value = location.parentNode.previousSibling.previousSibling.textContent
+}
+
+function editAddressApply(){
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  var initAddrLine11 = initAddrLine1;
+  var cNumber = editCusNum;
+  var addrline1 = document.getElementById("edit1").value
+  var addrline2 = document.getElementById("edit2").value
+  var city = document.getElementById("edit3").value
+  var state = document.getElementById("edit4").value
+  var postalCode = document.getElementById("edit5").value
+  var country = document.getElementById("edit6").value
+  db.transaction(function (tx) {
+    tx.executeSql('UPDATE customersAddresses SET addressLine1 = ?, addressLine2 = ?, city = ?, state = ?, postalCode = ?, country = ? WHERE customerNumber = ? AND addressLine1 = ?', 
+    [addrline1,addrline2,city,state,postalCode,country,cNumber,initAddrLine11]);
+  });
+}
+
+function deleteCustomerAddr(location){
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  const table = document.querySelector('#viewAddresses');
+  const delRow = location.parentNode.parentNode.rowIndex - 1;
+  editCusNum = location.parentNode.parentNode.firstChild.nextSibling.textContent;
+  initAddrLine1 = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.textContent;
+  console.log()
+  if(table.rows.length != 1){
+    table.deleteRow(delRow)
+    db.transaction(function (tx) {
+      tx.executeSql('DELETE FROM customersAddresses WHERE customerNumber = ? AND addressLine1 = ?', [editCusNum,initAddrLine1]);
+    });
+  }
+  
+
 }
 
 function viewOrderedHistory(location){
@@ -195,7 +234,6 @@ function viewOrderedHistory(location){
   var	requiredDate;
   var	shippedDate;
   var	status;
-  var comment;
   var customerNumber;
   var	memberPoint;
   const cNum = location.textContent;
@@ -212,7 +250,6 @@ function viewOrderedHistory(location){
           requiredDate = results.rows.item(i).requiredDate
           shippedDate = results.rows.item(i).shippedDate
           status = results.rows.item(i).status
-          comments = results.rows.item(i).comments
           customerNumber = results.rows.item(i).customerNumber
           memberPoint = results.rows.item(i).mPointGet
           viewHistory.innerHTML += `
@@ -224,7 +261,7 @@ function viewOrderedHistory(location){
           <td>`+shippedDate+`</td>
           <td>`+status+`</td>
           <td>`+memberPoint+`</td>
-          <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewCusComment" onclick="">
+          <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentModal" onclick="viewComment(this.parentNode.parentNode.firstChild.nextSibling)">
         View comments</button></td>
         </tr>
         `;
@@ -235,6 +272,26 @@ function viewOrderedHistory(location){
     }, null);
   });
 }
+
+function viewComment(location){
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  var comments;
+  const cNum = location.textContent;
+  const orderNum = location.nextSibling.nextSibling.textContent;
+  const viewComment = document.querySelector('#viewComment');
+  db.transaction(function (tx) {
+    tx.executeSql('SELECT comments FROM orders WHERE customerNumber = ? AND orderNumber = ?', [cNum,orderNum], function (tx, results) {
+          comments = results.rows.item(0).comments
+          viewComment.innerHTML = `
+          <p>
+          `+comments+`
+          </p>
+        `;
+        
+    }, null);
+  });
+}
+
 function addCustomer(){
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   var cNumber = document.getElementById("cNum").value;
@@ -269,7 +326,35 @@ function addCustomerAddress(){
   db.transaction(function (tx) {
     tx.executeSql('INSERT INTO customersAddresses VALUES (?, ?, ?, ?, ?, ?, ?)', [cNumber,addrline1,addrline2,city,state,postalCode,country]); 
   });
+
 }
+
+function clearAddAddrForm(){
+  document.getElementById("cNum2").value = "";
+  document.getElementById("cAddr1-2").value = "";
+  document.getElementById("cAddr2-2").value = "";
+  document.getElementById("cCity2").value = "";
+  document.getElementById("cState2").value = "";
+  document.getElementById("cPostal2").value = "";
+  document.getElementById("cCountry2").value = "";
+}
+
+function clearAddMemberForrm(){
+  document.getElementById("cNum").value = "";
+  document.getElementById("cName").value = "";
+  document.getElementById("cFName").value = "";
+  document.getElementById("cLName").value = "";
+  document.getElementById("cPhone").value = "";
+  document.getElementById("cAddr1").value = "";
+  document.getElementById("cAddr2").value = "";
+  document.getElementById("cCity").value = "";
+  document.getElementById("cState").value = "";
+  document.getElementById("cPostal").value = "";
+  document.getElementById("cCountry").value = "";
+  document.getElementById("cRep").value = "";
+  document.getElementById("cCredit").value = "";
+}
+
 function orderQuery(){
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   var orderNumber;
