@@ -16,17 +16,18 @@ function showProducts(){
         pVendor = results.rows.item(i).productVendor
         var splitScale = scale.split(":")
         var tagScale =  tagScaleDef + splitScale[splitScale.length-1] + " " + pVendor.replace(/\s/g, '');
+        console.log(pVendor)
         list.innerHTML += `
         <div class="product grid-item `+tagScale+`">
           <div class="product_inner">
             <div class="product_image">
-              <img src="images/product_1.jpg" alt="">
+              <img src="images/`+pVendor.replace(/\s/g, '')+`.jpg">
               <div class="product_tag">`+scale+`</div>
             </div>
             <div class="product_content text-center">
-              <div class="product_title" id="XXXX" ><a href="product.html">` + pname + `</a></div>
+              <div class="textBox">
+              <div class="product_title"><a href="#">` + pname + `</a></div></div>
               <div class="product_price">`+ "$" + price + `</div>
-              <div class="product_button ml-auto mr-auto trans_200"><a href="#">Add to cart</a></div>
             </div>
           </div>	
         </div>`;
@@ -107,14 +108,10 @@ function customerQuery(){
         <td>`+saleRep+`</td>
         <td>`+creditLimit+`</td>
         <td>`+memberPoint+`</td>
-        <td>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddressesModal" onclick=viewCustomerAddr(this.parentNode.parentNode.firstChild.nextSibling)>
+        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddressesModal" onclick=viewCustomerAddr(this.parentNode.parentNode.firstChild.nextSibling)>
             View Addresses</button>
         </td>
-        <td>
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#HistoryModal" onclick=viewOrderedHistory(this.parentNode.parentNode.firstChild.nextSibling)>
+        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#HistoryModal" onclick=viewOrderedHistory(this.parentNode.parentNode.firstChild.nextSibling)>
             View History</button>
         </td>
       </tr>
@@ -134,7 +131,6 @@ function viewCustomerAddr(location){
   var postalCode;
   var country;
   const cNum = location.textContent;
-  // console.log(cNum)
   const viewAddr = document.querySelector('#viewAddresses');
   viewAddr.innerHTML ="";
   db.transaction(function (tx) {
@@ -161,11 +157,13 @@ function viewCustomerAddr(location){
         Edit</button></td>
         <td><button type="button" class="btn btn-danger" onclick="deleteCustomerAddr(this)">
         Delete</button></td>
-      </tr>
+        </tr>
       `;
       }
     }, null);
   });
+
+  console.log(cNumber)
 }
 
 var editCusNum;
@@ -339,7 +337,7 @@ function clearAddAddrForm(){
   document.getElementById("cCountry2").value = "";
 }
 
-function clearAddMemberForrm(){
+function clearAddMemberForm(){
   document.getElementById("cNum").value = "";
   document.getElementById("cName").value = "";
   document.getElementById("cFName").value = "";
@@ -387,6 +385,8 @@ function orderQuery(){
         <td>`+status+`</td>
         <td>`+customerNumber+`</td>
         <td>`+memberPoint+`</td>
+        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#" onclick="">
+        View Comments</button></td>
       </tr>`;
       }
     }, null);
@@ -422,6 +422,10 @@ function stocksQuery(){
         <td>`+quantityInStock+`</td>
         <td>`+buyPrice+`</td>
         <td>`+MSRP+`</td>
+        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#" onclick="">
+        Product Description</button></td>
+        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#" onclick="">
+        Edit</button></td>
       </tr>`;
       }
     }, null);
@@ -491,7 +495,6 @@ function tableSearch() {
   };
   
 }
-  
 
 // function AddtoCart(){
 

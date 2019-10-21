@@ -156,7 +156,15 @@
             Data Table Example</div>
           <div class="card-body">
             <div class="table-responsive">
-                <p><input type="text" class="form-control" id="quicksearch" onkeyup="tableSearch()" placeholder="Search"></p>
+              <p>
+                <form class="form-inline">
+                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#"
+                    style="margin-right: 20px" onclick="">
+                    New Order</button>
+                  <input type="text" class="form-control-searchbox tableSearch" id="quicksearch" onkeyup="tableSearch()"
+                    placeholder="Search" style="margin-left: 610px">
+                </form>
+              </p>
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr align="center">
@@ -165,9 +173,9 @@
                     <th>requiredDate</th>
                     <th>shippedDate</th>
                     <th>status</th>
-                    <!-- <th>comments</th> -->
                     <th>customerNumber</th>
                     <th>memberPoint</th>
+                    <th>comments</th>
                   </tr>
                 </thead>
                 <tfoot>
@@ -177,9 +185,9 @@
                     <th>requiredDate</th>
                     <th>shippedDate</th>
                     <th>status</th>
-                    <!-- <th>comments</th> -->
                     <th>customerNumber</th>
                     <th>memberPoint</th>
+                    <th>comments</th>
                   </tr>
                 </tfoot>
                 <tbody id="TableBody">
@@ -249,9 +257,6 @@
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin.min.js"></script>
 
-  <!-- Demo scripts for this page-->
-  <script src="js/demo/datatables-demo.js"></script>
-  <script src="js/demo/chart-area-demo.js"></script>
 
 </body>
 
