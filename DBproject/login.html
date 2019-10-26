@@ -9,14 +9,13 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin - Login</title>
+  <title>Login</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
   <!-- Custom styles for this template-->
   <link href="styles/sb-admin.css" rel="stylesheet">
-
 </head>
 
 <body class="bg-dark">
@@ -28,8 +27,8 @@
         <form>
           <div class="form-group">
             <div class="form-label-group">
-              <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
-              <label for="inputEmail">Email address</label>
+              <input type="text" id="inputEnum" class="form-control" placeholder="Employee Number" required="required"  autofocus="autofocus">
+              <label for="inputEnum">Employee Number</label>
             </div>
           </div>
           <div class="form-group">
@@ -46,7 +45,7 @@
               </label>
             </div>
           </div>
-          <a class="btn btn-primary btn-block" href="index.html">Login</a>
+          <a class="btn btn-primary btn-block" onclick="loginSubmit()">Login</a>
         </form>
         <div class="text-center">
           <a class="d-block small mt-3" href="register.html">Register an Account</a>
@@ -57,11 +56,13 @@
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script data-main="js/login.js" src="js/require.js"></script>
+  <script data-main="js/main.js" src="js/require.js"></script>
+  <script data-main="vendor/jquery/jquery.min.js" src="js/require.js"></script>
+  <script data-main="vendor/bootstrap/js/bootstrap.bundle.min.js" src="js/require.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script data-main="vendor/jquery-easing/jquery.easing.min.js" src="js/require.js"></script>
 
 </body>
 

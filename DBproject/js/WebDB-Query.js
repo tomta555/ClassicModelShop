@@ -1,28 +1,28 @@
+
 function showProducts(){
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
-  var pname = "";
-  var price = 0;
-  var scale = "";
-  var tagScaleDef = "sc1s";
-  var pVendor = "";
-  const list = document.querySelector('#productCat');
+  let pname = "";
+  let price = 0;
+  let scale = "";
+  let tagScaleDef = "sc1s";
+  let pVendor = "";
+  let list = document.querySelector('#productCat');
   db.transaction(function (tx) {
     tx.executeSql('SELECT * FROM products', [], function (tx, results) {
-      var len = results.rows.length, i;
+      let len = results.rows.length, i;
       for (i = 0; i < len; i++) {
         pname = results.rows.item(i).productName
         price = results.rows.item(i).MSRP
         scale = results.rows.item(i).productScale
         pVendor = results.rows.item(i).productVendor
-        var splitScale = scale.split(":")
-        var tagScale =  tagScaleDef + splitScale[splitScale.length-1] + " " + pVendor.replace(/\s/g, '');
-        console.log(pVendor)
-        list.innerHTML += `
-        <div class="product grid-item `+tagScale+`">
+        let splitScale = scale.split(":")
+        let tagScale = tagScaleDef + splitScale[splitScale.length - 1] + " " + pVendor.replace(/\s/g, '');
+        let node = `
+        <div class="product grid-item `+ tagScale + `">
           <div class="product_inner">
             <div class="product_image">
-              <img src="images/`+pVendor.replace(/\s/g, '')+`.jpg">
-              <div class="product_tag">`+scale+`</div>
+              <img src="images/`+ pVendor.replace(/\s/g, '') + `.jpg">
+              <div class="product_tag">`+ scale + `</div>
             </div>
             <div class="product_content text-center">
               <div class="textBox">
@@ -31,6 +31,7 @@ function showProducts(){
             </div>
           </div>	
         </div>`;
+        list.insertAdjacentHTML('beforeend',node)
       }
     }, null);
   });
@@ -38,18 +39,18 @@ function showProducts(){
 
 function employeesQuery(){
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
-  var enumber;
-  var fname;
-  var lname;
-  var exten;
-  var email;
-  var office;
-  var reportsto;
-  var title;
+  let enumber;
+  let fname;
+  let lname;
+  let exten;
+  let email;
+  let office;
+  let reportsto;
+  let title;
   const tableBody = document.querySelector('#TableBody')
   db.transaction(function (tx) {
     tx.executeSql('SELECT * FROM employees', [], function (tx, results) {
-      var len = results.rows.length, i;
+      let len = results.rows.length, i;
       for (i = 0; i < len; i++) {
         enumber = results.rows.item(i).employeeNumber
         fname = results.rows.item(i).firstName
@@ -59,7 +60,7 @@ function employeesQuery(){
         office = results.rows.item(i).officeCode
         reportsto = results.rows.item(i).reportsTo
         title = results.rows.item(i).jobTitle
-        tableBody.innerHTML += `
+        let node = `
         <tr align="center">
         <td>`+enumber+`</td>
         <td>`+fname+`</td>
@@ -70,6 +71,7 @@ function employeesQuery(){
         <td>`+reportsto+`</td>
         <td>`+title+`</td>
       </tr>`;
+      tableBody.insertAdjacentHTML('beforeend',node)
       }
     }, null);
   });
@@ -77,18 +79,18 @@ function employeesQuery(){
 
 function customerQuery(){
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
-  var cNumber;
-  var cName;
-  var contactFName;
-  var contactLName;
-  var cPhone;
-  var saleRep;
-  var creditLimit;
-  var memberPoint = 0;
+  let cNumber;
+  let cName;
+  let contactFName;
+  let contactLName;
+  let cPhone;
+  let saleRep;
+  let creditLimit;
+  let memberPoint = 0;
   const tableBody = document.querySelector('#TableBody')
   db.transaction(function (tx) {
     tx.executeSql('SELECT * FROM customers', [], function (tx, results) {
-      var len = results.rows.length, i;
+      let len = results.rows.length, i;
       for (i = 0; i < len; i++) {
         cNumber = results.rows.item(i).customerNumber
         cName = results.rows.item(i).customerName
@@ -98,7 +100,7 @@ function customerQuery(){
         saleRep = results.rows.item(i).salesRepEmployeeNumber
         creditLimit = results.rows.item(i).creditLimit
         memberPoint = results.rows.item(i).mPoint
-        tableBody.innerHTML += `
+        let node = `
         <tr align="center">
         <td>`+cNumber+`</td>
         <td>`+cName+`</td>
@@ -116,6 +118,7 @@ function customerQuery(){
         </td>
       </tr>
       `;
+      tableBody.insertAdjacentHTML('beforeend',node)
       }
     }, null);
   });
@@ -123,19 +126,19 @@ function customerQuery(){
 
 function viewCustomerAddr(location){
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
-  var cNumber;
-  var addrline1;
-  var addrline2;
-  var city;
-  var state;
-  var postalCode;
-  var country;
+  let cNumber;
+  let addrline1;
+  let addrline2;
+  let city;
+  let state;
+  let postalCode;
+  let country;
   const cNum = location.textContent;
   const viewAddr = document.querySelector('#viewAddresses');
   viewAddr.innerHTML ="";
   db.transaction(function (tx) {
     tx.executeSql('SELECT * FROM customersAddresses WHERE customerNumber = ?', [cNum], function (tx, results) {
-      var len = results.rows.length, i;
+      let len = results.rows.length, i;
       for (i = 0; i < len; i++) {
         cNumber = results.rows.item(i).customerNumber
         addrline1 = results.rows.item(i).addressLine1
@@ -144,7 +147,7 @@ function viewCustomerAddr(location){
         state = results.rows.item(i).state
         postalCode = results.rows.item(i).postalCode
         country = results.rows.item(i).country
-        viewAddr.innerHTML += `
+        let node = `
         <tr align="center">
         <td>`+cNumber+`</td>
         <td>`+addrline1+`</td>
@@ -159,11 +162,12 @@ function viewCustomerAddr(location){
         Delete</button></td>
         </tr>
       `;
+      viewAddr.insertAdjacentHTML('beforeend',node)
       }
     }, null);
   });
 
-  console.log(cNumber)
+  // console.log(cNumber)
 }
 
 var editCusNum;
@@ -194,14 +198,14 @@ function editCustomerAddr(location){
 
 function editAddressApply(){
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
-  var initAddrLine11 = initAddrLine1;
-  var cNumber = editCusNum;
-  var addrline1 = document.getElementById("edit1").value
-  var addrline2 = document.getElementById("edit2").value
-  var city = document.getElementById("edit3").value
-  var state = document.getElementById("edit4").value
-  var postalCode = document.getElementById("edit5").value
-  var country = document.getElementById("edit6").value
+  let initAddrLine11 = initAddrLine1;
+  let cNumber = editCusNum;
+  let addrline1 = document.getElementById("edit1").value
+  let addrline2 = document.getElementById("edit2").value
+  let city = document.getElementById("edit3").value
+  let state = document.getElementById("edit4").value
+  let postalCode = document.getElementById("edit5").value
+  let country = document.getElementById("edit6").value
   db.transaction(function (tx) {
     tx.executeSql('UPDATE customersAddresses SET addressLine1 = ?, addressLine2 = ?, city = ?, state = ?, postalCode = ?, country = ? WHERE customerNumber = ? AND addressLine1 = ?', 
     [addrline1,addrline2,city,state,postalCode,country,cNumber,initAddrLine11]);
@@ -214,7 +218,6 @@ function deleteCustomerAddr(location){
   const delRow = location.parentNode.parentNode.rowIndex - 1;
   editCusNum = location.parentNode.parentNode.firstChild.nextSibling.textContent;
   initAddrLine1 = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.textContent;
-  console.log()
   if(table.rows.length != 1){
     table.deleteRow(delRow)
     db.transaction(function (tx) {
@@ -227,20 +230,19 @@ function deleteCustomerAddr(location){
 
 function viewOrderedHistory(location){
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
-  var orderNumber;
-  var	orderDate;
-  var	requiredDate;
-  var	shippedDate;
-  var	status;
-  var customerNumber;
-  var	memberPoint;
+  let orderNumber;
+  let	orderDate;
+  let	requiredDate;
+  let	shippedDate;
+  let	status;
+  let customerNumber;
+  let	memberPoint;
   const cNum = location.textContent;
-  // console.log(cNum)
   const viewHistory = document.querySelector('#viewHistory');
   viewHistory.innerHTML ="";
   db.transaction(function (tx) {
     tx.executeSql('SELECT * FROM orders WHERE customerNumber = ?', [cNum], function (tx, results) {
-      var len = results.rows.length, i;
+      let len = results.rows.length, i;
       if(len > 0){
         for (i = 0; i < len; i++) {
           orderNumber = results.rows.item(i).orderNumber
@@ -250,7 +252,7 @@ function viewOrderedHistory(location){
           status = results.rows.item(i).status
           customerNumber = results.rows.item(i).customerNumber
           memberPoint = results.rows.item(i).mPointGet
-          viewHistory.innerHTML += `
+          let node =  `
           <tr align="center">
           <td>`+customerNumber+`</td>
           <td>`+orderNumber+`</td>
@@ -263,6 +265,7 @@ function viewOrderedHistory(location){
         View comments</button></td>
         </tr>
         `;
+        viewHistory.insertAdjacentHTML('beforeend',node)
         } 
       }else{
         viewHistory.innerHTML += `<h1 align="center">No Data</h1>`
@@ -273,7 +276,7 @@ function viewOrderedHistory(location){
 
 function viewComment(location){
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
-  var comments;
+  let comments;
   const cNum = location.textContent;
   const orderNum = location.nextSibling.nextSibling.textContent;
   const viewComment = document.querySelector('#viewComment');
@@ -292,20 +295,20 @@ function viewComment(location){
 
 function addCustomer(){
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
-  var cNumber = document.getElementById("cNum").value;
-  var cName = document.getElementById("cName").value;
-  var contactFName = document.getElementById("cFName").value;
-  var contactLName = document.getElementById("cLName").value;
-  var cPhone = document.getElementById("cPhone").value;
-  var addrline1 = document.getElementById("cAddr1").value;
-  var addrline2 = document.getElementById("cAddr2").value;
-  var city = document.getElementById("cCity").value;
-  var state = document.getElementById("cState").value;
-  var postalCode = document.getElementById("cPostal").value;
-  var country = document.getElementById("cCountry").value;
-  var saleRep = document.getElementById("cRep").value;
-  var creditLimit = document.getElementById("cCredit").value;
-  var memberPoint = 0;
+  let cNumber = document.getElementById("cNum").value;
+  let cName = document.getElementById("cName").value;
+  let contactFName = document.getElementById("cFName").value;
+  let contactLName = document.getElementById("cLName").value;
+  let cPhone = document.getElementById("cPhone").value;
+  let addrline1 = document.getElementById("cAddr1").value;
+  let addrline2 = document.getElementById("cAddr2").value;
+  let city = document.getElementById("cCity").value;
+  let state = document.getElementById("cState").value;
+  let postalCode = document.getElementById("cPostal").value;
+  let country = document.getElementById("cCountry").value;
+  let saleRep = document.getElementById("cRep").value;
+  let creditLimit = document.getElementById("cCredit").value;
+  let memberPoint = 0;
   db.transaction(function (tx) {
     tx.executeSql('INSERT INTO customers VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [cNumber,cName,contactLName,contactFName,cPhone,saleRep,creditLimit,memberPoint]); 
     tx.executeSql('INSERT INTO customersAddresses VALUES (?, ?, ?, ?, ?, ?, ?)', [cNumber,addrline1,addrline2,city,state,postalCode,country]); 
@@ -314,13 +317,13 @@ function addCustomer(){
 
 function addCustomerAddress(){
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
-  var cNumber = document.getElementById("cNum2").value;
-  var addrline1 = document.getElementById("cAddr1-2").value;
-  var addrline2 = document.getElementById("cAddr2-2").value;
-  var city = document.getElementById("cCity2").value;
-  var state = document.getElementById("cState2").value;
-  var postalCode = document.getElementById("cPostal2").value;
-  var country = document.getElementById("cCountry2").value;
+  let cNumber = document.getElementById("cNum2").value;
+  let addrline1 = document.getElementById("cAddr1-2").value;
+  let addrline2 = document.getElementById("cAddr2-2").value;
+  let city = document.getElementById("cCity2").value;
+  let state = document.getElementById("cState2").value;
+  let postalCode = document.getElementById("cPostal2").value;
+  let country = document.getElementById("cCountry2").value;
   db.transaction(function (tx) {
     tx.executeSql('INSERT INTO customersAddresses VALUES (?, ?, ?, ?, ?, ?, ?)', [cNumber,addrline1,addrline2,city,state,postalCode,country]); 
   });
@@ -355,18 +358,18 @@ function clearAddMemberForm(){
 
 function orderQuery(){
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
-  var orderNumber;
-  var orderDate;
-  var requiredDate;
-  var shippedDate;
-  var status;
-  var comments;
-  var customerNumber;
-  var memberPoint;
+  let orderNumber;
+  let orderDate;
+  let requiredDate;
+  let shippedDate;
+  let status;
+  let comments;
+  let customerNumber;
+  let memberPoint;
   const tableBody = document.querySelector('#TableBody')
   db.transaction(function (tx) {
     tx.executeSql('SELECT * FROM orders', [], function (tx, results) {
-      var len = results.rows.length, i;
+      let len = results.rows.length, i;
       for (i = 0; i < len; i++) {
         orderNumber = results.rows.item(i).orderNumber
         orderDate = results.rows.item(i).orderDate
@@ -376,7 +379,7 @@ function orderQuery(){
         comments = results.rows.item(i).comments
         customerNumber = results.rows.item(i).customerNumber
         memberPoint = results.rows.item(i).mPointGet
-        tableBody.innerHTML += `
+        let node = `
         <tr align="center">
         <td>`+orderNumber+`</td>
         <td>`+orderDate+`</td>
@@ -388,6 +391,7 @@ function orderQuery(){
         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#" onclick="">
         View Comments</button></td>
       </tr>`;
+      tableBody.insertAdjacentHTML('beforeend',node)
       }
     }, null);
   });
@@ -395,17 +399,17 @@ function orderQuery(){
 
 function stocksQuery(){
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
-  var productCode
-  var productName
-  var productScale
-  var ProductDescription
-  var quantityInStock
-  var buyPrice
-  var MSRP
+  let productCode
+  let productName
+  let productScale
+  let ProductDescription
+  let quantityInStock
+  let buyPrice
+  let MSRP
   const tableBody = document.querySelector('#TableBody')
   db.transaction(function (tx) {
     tx.executeSql('SELECT * FROM products', [], function (tx, results) {
-      var len = results.rows.length, i;
+      let len = results.rows.length, i;
       for (i = 0; i < len; i++) {
         productCode = results.rows.item(i).productCode
         productName = results.rows.item(i).productName
@@ -414,7 +418,7 @@ function stocksQuery(){
         quantityInStock = results.rows.item(i).quantityInStock
         buyPrice = results.rows.item(i).buyPrice
         MSRP = results.rows.item(i).MSRP
-        tableBody.innerHTML += `
+        let node = `
         <tr align="center">
         <td>`+productCode+`</td>
         <td>`+productName+`</td>
@@ -427,29 +431,30 @@ function stocksQuery(){
         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#" onclick="">
         Edit</button></td>
       </tr>`;
+      tableBody.insertAdjacentHTML('beforeend',node)
       }
     }, null);
   });
 }
 
 function couponQuery(){
-  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
-  var discountCode
-  var discountAmount
-  var timeCanUse
-  var expiryDate
-  var usedTime
+  let db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  let discountCode
+  let discountAmount
+  let timeCanUse
+  let expiryDate
+  let usedTime
   const tableBody = document.querySelector('#TableBody')
   db.transaction(function (tx) {
     tx.executeSql('SELECT * FROM coupons', [], function (tx, results) {
-      var len = results.rows.length, i;
+      let len = results.rows.length, i;
       for (i = 0; i < len; i++) {
         discountCode = results.rows.item(i).discountCode
         discountAmount = results.rows.item(i).discountAmount
         timeCanUse = results.rows.item(i).timeCanUse
         expiryDate = results.rows.item(i).expiryDate
         usedTime = results.rows.item(i).usedTime
-        tableBody.innerHTML += `
+        let node = `
         <tr align="center">
         <td>`+(i+1)+`</td>
         <td>`+discountCode+`</td>
@@ -458,6 +463,7 @@ function couponQuery(){
         <td>`+expiryDate+`</td>
         <td>`+usedTime+`</td>
       </tr>`;
+      tableBody.insertAdjacentHTML('beforeend',node)
       }
     }, null);
   });
