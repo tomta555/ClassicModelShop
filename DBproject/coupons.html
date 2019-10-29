@@ -162,8 +162,8 @@
             <div class="table-responsive">
               <p>
                 <form class="form-inline">
-                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#"
-                    style="margin-right: 20px" onclick="">
+                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddCouponModal"
+                    style="margin-right: 20px">
                     New Coupon</button>
                   <input type="text" class="form-control-searchbox tableSearch" id="quicksearch" onkeyup="tableSearch()"
                     placeholder="Search" style="margin-left: 590px">
@@ -177,7 +177,7 @@
                     <th>discountAmount</th>
                     <th>timeCanUse</th>
                     <th>expiryDate</th>
-                    <th>usedTime</th>
+                    <th>delete</th>
                   </tr>
                 </thead>
                 <tfoot>
@@ -187,7 +187,7 @@
                     <th>discountAmount</th>
                     <th>timeCanUse</th>
                     <th>expiryDate</th>
-                    <th>usedTime</th>
+                    <th>delete</th>
                   </tr>
                 </tfoot>
                 <tbody id="TableBody">
@@ -199,6 +199,51 @@
           <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
 
+        <div class="modal fade" id="AddCouponModal" tabindex="-1" role="dialog"
+        aria-labelledby="AddCouponModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="AddCouponModalTitle">Add Coupon</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <!--Infromation Add-->
+              <div class="table-responsive">
+                <form>
+
+                  <div class="form-group">
+                    <label class="col-form-label">discountCode:</label>
+                    <input type="text" class="form-control" id="disCode">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-form-label">discountAmount:</label>
+                    <input type="text" class="form-control" id="disAmount">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-form-label">timeCanUse:</label>
+                    <input type="text" class="form-control" id="disUse">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-form-label">expiryDate:</label>
+                    <input type="text" class="form-control" id="disExp">
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-success" onclick="addCoupon()"
+                data-dismiss="modal">Add</button>
+            </div>
+          </div>
+        </div>
+      </div> <!-- end11 -->
       </div>
       <!-- /.container-fluid -->
 

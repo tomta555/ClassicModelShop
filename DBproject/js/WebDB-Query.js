@@ -1,5 +1,5 @@
 
-function showProducts(){
+function showProducts() {
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let pname = "";
   let price = 0;
@@ -31,13 +31,13 @@ function showProducts(){
             </div>
           </div>	
         </div>`;
-        list.insertAdjacentHTML('beforeend',node)
+        list.insertAdjacentHTML('beforeend', node)
       }
     }, null);
   });
 }
 
-function employeesQuery(){
+function employeesQuery() {
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let enumber;
   let fname;
@@ -62,22 +62,22 @@ function employeesQuery(){
         title = results.rows.item(i).jobTitle
         let node = `
         <tr align="center">
-        <td>`+enumber+`</td>
-        <td>`+fname+`</td>
-        <td>`+lname+`</td>
-        <td>`+exten+`</td>
-        <td>`+email+`</td>
-        <td>`+office+`</td>
-        <td>`+reportsto+`</td>
-        <td>`+title+`</td>
+        <td>`+ enumber + `</td>
+        <td>`+ fname + `</td>
+        <td>`+ lname + `</td>
+        <td>`+ exten + `</td>
+        <td>`+ email + `</td>
+        <td>`+ office + `</td>
+        <td>`+ reportsto + `</td>
+        <td>`+ title + `</td>
       </tr>`;
-      tableBody.insertAdjacentHTML('beforeend',node)
+        tableBody.insertAdjacentHTML('beforeend', node)
       }
     }, null);
   });
 }
 
-function customerQuery(){
+function customerQuery() {
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let cNumber;
   let cName;
@@ -102,14 +102,14 @@ function customerQuery(){
         memberPoint = results.rows.item(i).mPoint
         let node = `
         <tr align="center">
-        <td>`+cNumber+`</td>
-        <td>`+cName+`</td>
-        <td>`+contactLName+`</td>
-        <td>`+contactFName+`</td>
-        <td>`+cPhone+`</td>
-        <td>`+saleRep+`</td>
-        <td>`+creditLimit+`</td>
-        <td>`+memberPoint+`</td>
+        <td>`+ cNumber + `</td>
+        <td>`+ cName + `</td>
+        <td>`+ contactLName + `</td>
+        <td>`+ contactFName + `</td>
+        <td>`+ cPhone + `</td>
+        <td>`+ saleRep + `</td>
+        <td>`+ creditLimit + `</td>
+        <td>`+ memberPoint + `</td>
         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddressesModal" onclick=viewCustomerAddr(this.parentNode.parentNode.firstChild.nextSibling)>
             View Addresses</button>
         </td>
@@ -118,13 +118,13 @@ function customerQuery(){
         </td>
       </tr>
       `;
-      tableBody.insertAdjacentHTML('beforeend',node)
+        tableBody.insertAdjacentHTML('beforeend', node)
       }
     }, null);
   });
 }
 
-function viewCustomerAddr(location){
+function viewCustomerAddr(location) {
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let cNumber;
   let addrline1;
@@ -135,7 +135,7 @@ function viewCustomerAddr(location){
   let country;
   const cNum = location.textContent;
   const viewAddr = document.querySelector('#viewAddresses');
-  viewAddr.innerHTML ="";
+  viewAddr.innerHTML = "";
   db.transaction(function (tx) {
     tx.executeSql('SELECT * FROM customersAddresses WHERE customerNumber = ?', [cNum], function (tx, results) {
       let len = results.rows.length, i;
@@ -149,20 +149,20 @@ function viewCustomerAddr(location){
         country = results.rows.item(i).country
         let node = `
         <tr align="center">
-        <td>`+cNumber+`</td>
-        <td>`+addrline1+`</td>
-        <td>`+addrline2+`</td>
-        <td>`+city+`</td>
-        <td>`+state+`</td>
-        <td>`+postalCode+`</td>
-        <td>`+country+`</td>
+        <td>`+ cNumber + `</td>
+        <td>`+ addrline1 + `</td>
+        <td>`+ addrline2 + `</td>
+        <td>`+ city + `</td>
+        <td>`+ state + `</td>
+        <td>`+ postalCode + `</td>
+        <td>`+ country + `</td>
         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#EditModal" onclick="editCustomerAddr(this)">
         Edit</button></td>
         <td><button type="button" class="btn btn-danger" onclick="deleteCustomerAddr(this)">
         Delete</button></td>
         </tr>
       `;
-      viewAddr.insertAdjacentHTML('beforeend',node)
+        viewAddr.insertAdjacentHTML('beforeend', node)
       }
     }, null);
   });
@@ -173,11 +173,11 @@ function viewCustomerAddr(location){
 var editCusNum;
 var initAddrLine1;
 
-function editCustomerAddr(location){
+function editCustomerAddr(location) {
   const editBody = document.querySelector('#editAddress')
   editCusNum = location.parentNode.parentNode.firstChild.nextSibling.textContent;
   initAddrLine1 = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.textContent;
-  editBody.innerHTML =`
+  editBody.innerHTML = `
   <tr>
   <td><input type="text" class="form-control" id="edit1"></td>
   <td><input type="text" class="form-control" id="edit2"></td>
@@ -187,7 +187,7 @@ function editCustomerAddr(location){
   <td><input type="text" class="form-control" id="edit6"></td>
 </tr>
   `
-  
+
   document.getElementById("edit1").value = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.textContent
   document.getElementById("edit2").value = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.textContent
   document.getElementById("edit3").value = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.textContent
@@ -196,7 +196,7 @@ function editCustomerAddr(location){
   document.getElementById("edit6").value = location.parentNode.previousSibling.previousSibling.textContent
 }
 
-function editAddressApply(){
+function editAddressApply() {
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let initAddrLine11 = initAddrLine1;
   let cNumber = editCusNum;
@@ -207,43 +207,43 @@ function editAddressApply(){
   let postalCode = document.getElementById("edit5").value
   let country = document.getElementById("edit6").value
   db.transaction(function (tx) {
-    tx.executeSql('UPDATE customersAddresses SET addressLine1 = ?, addressLine2 = ?, city = ?, state = ?, postalCode = ?, country = ? WHERE customerNumber = ? AND addressLine1 = ?', 
-    [addrline1,addrline2,city,state,postalCode,country,cNumber,initAddrLine11]);
+    tx.executeSql('UPDATE customersAddresses SET addressLine1 = ?, addressLine2 = ?, city = ?, state = ?, postalCode = ?, country = ? WHERE customerNumber = ? AND addressLine1 = ?',
+      [addrline1, addrline2, city, state, postalCode, country, cNumber, initAddrLine11]);
   });
 }
 
-function deleteCustomerAddr(location){
+function deleteCustomerAddr(location) {
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   const table = document.querySelector('#viewAddresses');
   const delRow = location.parentNode.parentNode.rowIndex - 1;
   editCusNum = location.parentNode.parentNode.firstChild.nextSibling.textContent;
   initAddrLine1 = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.textContent;
-  if(table.rows.length != 1){
+  if (table.rows.length != 1) {
     table.deleteRow(delRow)
     db.transaction(function (tx) {
-      tx.executeSql('DELETE FROM customersAddresses WHERE customerNumber = ? AND addressLine1 = ?', [editCusNum,initAddrLine1]);
+      tx.executeSql('DELETE FROM customersAddresses WHERE customerNumber = ? AND addressLine1 = ?', [editCusNum, initAddrLine1]);
     });
   }
-  
+
 
 }
 
-function viewOrderedHistory(location){
+function viewOrderedHistory(location) {
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let orderNumber;
-  let	orderDate;
-  let	requiredDate;
-  let	shippedDate;
-  let	status;
+  let orderDate;
+  let requiredDate;
+  let shippedDate;
+  let status;
   let customerNumber;
-  let	memberPoint;
+  let memberPoint;
   const cNum = location.textContent;
   const viewHistory = document.querySelector('#viewHistory');
-  viewHistory.innerHTML ="";
+  viewHistory.innerHTML = "";
   db.transaction(function (tx) {
     tx.executeSql('SELECT * FROM orders WHERE customerNumber = ?', [cNum], function (tx, results) {
       let len = results.rows.length, i;
-      if(len > 0){
+      if (len > 0) {
         for (i = 0; i < len; i++) {
           orderNumber = results.rows.item(i).orderNumber
           orderDate = results.rows.item(i).orderDate
@@ -252,48 +252,48 @@ function viewOrderedHistory(location){
           status = results.rows.item(i).status
           customerNumber = results.rows.item(i).customerNumber
           memberPoint = results.rows.item(i).mPointGet
-          let node =  `
+          let node = `
           <tr align="center">
-          <td>`+customerNumber+`</td>
-          <td>`+orderNumber+`</td>
-          <td>`+orderDate+`</td>
-          <td>`+requiredDate+`</td>
-          <td>`+shippedDate+`</td>
-          <td>`+status+`</td>
-          <td>`+memberPoint+`</td>
+          <td>`+ customerNumber + `</td>
+          <td>`+ orderNumber + `</td>
+          <td>`+ orderDate + `</td>
+          <td>`+ requiredDate + `</td>
+          <td>`+ shippedDate + `</td>
+          <td>`+ status + `</td>
+          <td>`+ memberPoint + `</td>
           <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentModal" onclick="viewComment(this.parentNode.parentNode.firstChild.nextSibling)">
         View comments</button></td>
         </tr>
         `;
-        viewHistory.insertAdjacentHTML('beforeend',node)
-        } 
-      }else{
+          viewHistory.insertAdjacentHTML('beforeend', node)
+        }
+      } else {
         viewHistory.innerHTML += `<h1 align="center">No Data</h1>`
       }
     }, null);
   });
 }
 
-function viewComment(location){
+function viewComment(location) {
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let comments;
   const cNum = location.textContent;
   const orderNum = location.nextSibling.nextSibling.textContent;
   const viewComment = document.querySelector('#viewComment');
   db.transaction(function (tx) {
-    tx.executeSql('SELECT comments FROM orders WHERE customerNumber = ? AND orderNumber = ?', [cNum,orderNum], function (tx, results) {
-          comments = results.rows.item(0).comments
-          viewComment.innerHTML = `
+    tx.executeSql('SELECT comments FROM orders WHERE customerNumber = ? AND orderNumber = ?', [cNum, orderNum], function (tx, results) {
+      comments = results.rows.item(0).comments
+      viewComment.innerHTML = `
           <p>
-          `+comments+`
+          `+ comments + `
           </p>
         `;
-        
+
     }, null);
   });
 }
 
-function addCustomer(){
+function addCustomer() {
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let cNumber = document.getElementById("cNum").value;
   let cName = document.getElementById("cName").value;
@@ -310,12 +310,12 @@ function addCustomer(){
   let creditLimit = document.getElementById("cCredit").value;
   let memberPoint = 0;
   db.transaction(function (tx) {
-    tx.executeSql('INSERT INTO customers VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [cNumber,cName,contactLName,contactFName,cPhone,saleRep,creditLimit,memberPoint]); 
-    tx.executeSql('INSERT INTO customersAddresses VALUES (?, ?, ?, ?, ?, ?, ?)', [cNumber,addrline1,addrline2,city,state,postalCode,country]); 
+    tx.executeSql('INSERT INTO customers VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [cNumber, cName, contactLName, contactFName, cPhone, saleRep, creditLimit, memberPoint]);
+    tx.executeSql('INSERT INTO customersAddresses VALUES (?, ?, ?, ?, ?, ?, ?)', [cNumber, addrline1, addrline2, city, state, postalCode, country]);
   });
 }
 
-function addCustomerAddress(){
+function addCustomerAddress() {
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let cNumber = document.getElementById("cNum2").value;
   let addrline1 = document.getElementById("cAddr1-2").value;
@@ -325,12 +325,12 @@ function addCustomerAddress(){
   let postalCode = document.getElementById("cPostal2").value;
   let country = document.getElementById("cCountry2").value;
   db.transaction(function (tx) {
-    tx.executeSql('INSERT INTO customersAddresses VALUES (?, ?, ?, ?, ?, ?, ?)', [cNumber,addrline1,addrline2,city,state,postalCode,country]); 
+    tx.executeSql('INSERT INTO customersAddresses VALUES (?, ?, ?, ?, ?, ?, ?)', [cNumber, addrline1, addrline2, city, state, postalCode, country]);
   });
 
 }
 
-function clearAddAddrForm(){
+function clearAddAddrForm() {
   document.getElementById("cNum2").value = "";
   document.getElementById("cAddr1-2").value = "";
   document.getElementById("cAddr2-2").value = "";
@@ -340,7 +340,7 @@ function clearAddAddrForm(){
   document.getElementById("cCountry2").value = "";
 }
 
-function clearAddMemberForm(){
+function clearAddMemberForm() {
   document.getElementById("cNum").value = "";
   document.getElementById("cName").value = "";
   document.getElementById("cFName").value = "";
@@ -356,7 +356,7 @@ function clearAddMemberForm(){
   document.getElementById("cCredit").value = "";
 }
 
-function orderQuery(){
+function orderQuery() {
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let orderNumber;
   let orderDate;
@@ -381,23 +381,144 @@ function orderQuery(){
         memberPoint = results.rows.item(i).mPointGet
         let node = `
         <tr align="center">
-        <td>`+orderNumber+`</td>
-        <td>`+orderDate+`</td>
-        <td>`+requiredDate+`</td>
-        <td>`+shippedDate+`</td>
-        <td>`+status+`</td>
-        <td>`+customerNumber+`</td>
-        <td>`+memberPoint+`</td>
-        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#" onclick="">
-        View Comments</button></td>
+        <td>`+ customerNumber + `</td>
+        <td>`+ orderNumber + `</td>
+        <td>`+ orderDate + `</td>
+        <td>`+ requiredDate + `</td>
+        <td>`+ shippedDate + `</td>
+        <td>`+ status + `</td>
+        <td>`+ memberPoint + `</td>
+        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentModal" onclick="viewComment(this.parentNode.parentNode.firstChild.nextSibling)">
+        View</button></td>
+        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#DetailModal" onclick="viewOrderDetail(this.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling)">
+        View</button></td>
+        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#EditModal" onclick="editOrder(this.parentNode.parentNode.firstChild.nextSibling)">
+        Edit</button></td>
       </tr>`;
-      tableBody.insertAdjacentHTML('beforeend',node)
+        tableBody.insertAdjacentHTML('beforeend', node)
       }
     }, null);
   });
 }
 
-function stocksQuery(){
+function viewOrderDetail(location) {
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  let orderNumber
+  let productCode
+  let quantityOrdered
+  let priceEach
+  let orderLineNumber
+  const orderNum = location.textContent;
+  const viewOrderDetail = document.querySelector('#viewOrderDetail');
+  viewOrderDetail.innerHTML = "";
+  db.transaction(function (tx) {
+    tx.executeSql('SELECT * FROM orderdetails WHERE orderNumber = ?', [orderNum], function (tx, results) {
+      let len = results.rows.length, i;
+      for (i = 0; i < len; i++) {
+        orderNumber = results.rows.item(i).orderNumber
+        productCode = results.rows.item(i).productCode
+        quantityOrdered = results.rows.item(i).quantityOrdered
+        priceEach = results.rows.item(i).priceEach
+        orderLineNumber = results.rows.item(i).orderLineNumber
+        let node = `
+          <tr align="center">
+          <td>`+ orderNumber + `</td>
+          <td>`+ productCode + `</td>
+          <td>`+ quantityOrdered + `</td>
+          <td>`+ priceEach + `</td>
+          <td>`+ orderLineNumber + `</td>
+        </tr>
+        `;
+        viewOrderDetail.insertAdjacentHTML('beforeend', node)
+      }
+    }, null);
+  });
+}
+
+function editOrder(location) {
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  const cNum = location.textContent;
+  const orderNum = location.nextSibling.nextSibling.textContent;
+  const tableBody = document.querySelector('#editOrder')
+  tableBody.innerHTML = ""
+  db.transaction(function (tx) {
+    tx.executeSql('SELECT * FROM orders WHERE customerNumber = ? AND orderNumber = ?', [cNum, orderNum], function (tx, results) {
+      shippedDate = results.rows.item(0).shippedDate
+      status = results.rows.item(0).status
+      comments = results.rows.item(0).comments
+      let node = `
+        <tr align="center">
+        <td>`+ cNum + `</td>
+        <td>`+ orderNum + `</td>
+        <td><input type="text" class="form-control" id="editShippedDate" value=`+ shippedDate + `></td>
+        <td id="editStatus">`+ status + `</td>
+        <td><input type="text" class="form-control" id="editComments" value=`+ comments + `></td>
+        </tr>`
+      tableBody.insertAdjacentHTML('beforeend', node)
+    }, null);
+  });
+}
+
+function editStatus(location) {
+
+  const status = document.querySelector("#editStatus")
+  status.textContent = location.textContent
+}
+
+function editOrderApply() {
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  let cNum = document.getElementById("editShippedDate").parentNode.previousSibling.previousSibling.previousSibling.previousSibling.textContent
+  let orderNum = document.getElementById("editShippedDate").parentNode.previousSibling.previousSibling.textContent
+  let shippedDate = document.getElementById("editShippedDate").value
+  let comments = document.getElementById("editComments").value
+  let status = document.getElementById("editStatus").textContent
+  db.transaction(function (tx) {
+    tx.executeSql('UPDATE orders SET shippedDate = ?, status = ?, comments = ? WHERE customerNumber = ? AND orderNumber = ?',
+      [shippedDate, status, comments, cNum, orderNum]);
+  });
+}
+
+function paymentApply(){
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  let cNum = document.getElementById("paymentCNum").value
+  let pCheck = document.getElementById("paymentCheck").value
+  let pDate = document.getElementById("paymentDate").value
+  let pAmount = document.getElementById("paymentAmount").value
+  db.transaction(function (tx) {
+    tx.executeSql('INSERT INTO payments VALUES (?,?,?,?)',
+      [cNum, pCheck, pDate, pAmount]);
+  });
+}
+
+function paymentsQuery(){
+  let db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  let customerNumber
+  let checkNumber
+  let paymentDate
+  let amount
+  const tableBody = document.querySelector('#viewPayments')
+  db.transaction(function (tx) {
+    tx.executeSql('SELECT * FROM payments', [], function (tx, results) {
+      let len = results.rows.length, i;
+      for (i = 0; i < len; i++) {
+        customerNumber = results.rows.item(i).customerNumber
+        checkNumber = results.rows.item(i).checkNumber
+        paymentDate = results.rows.item(i).paymentDate
+        amount = results.rows.item(i).amount
+        let node = `
+        <tr align="center">
+        <td>`+ customerNumber+ `</td>
+        <td>`+ checkNumber + `</td>
+        <td>`+ paymentDate + `</td>
+        <td>`+ amount + `</td>
+      </tr>`;
+        tableBody.insertAdjacentHTML('beforeend', node)
+      }
+    }, null);
+  });
+}
+
+function stocksQuery() {
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let productCode
   let productName
@@ -420,30 +541,29 @@ function stocksQuery(){
         MSRP = results.rows.item(i).MSRP
         let node = `
         <tr align="center">
-        <td>`+productCode+`</td>
-        <td>`+productName+`</td>
-        <td>`+productScale+`</td>
-        <td>`+quantityInStock+`</td>
-        <td>`+buyPrice+`</td>
-        <td>`+MSRP+`</td>
+        <td>`+ productCode + `</td>
+        <td>`+ productName + `</td>
+        <td>`+ productScale + `</td>
+        <td>`+ quantityInStock + `</td>
+        <td>`+ buyPrice + `</td>
+        <td>`+ MSRP + `</td>
         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#" onclick="">
         Product Description</button></td>
         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#" onclick="">
         Edit</button></td>
       </tr>`;
-      tableBody.insertAdjacentHTML('beforeend',node)
+        tableBody.insertAdjacentHTML('beforeend', node)
       }
     }, null);
   });
 }
 
-function couponQuery(){
+function couponQuery() {
   let db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let discountCode
   let discountAmount
   let timeCanUse
   let expiryDate
-  let usedTime
   const tableBody = document.querySelector('#TableBody')
   db.transaction(function (tx) {
     tx.executeSql('SELECT * FROM coupons', [], function (tx, results) {
@@ -456,40 +576,63 @@ function couponQuery(){
         usedTime = results.rows.item(i).usedTime
         let node = `
         <tr align="center">
-        <td>`+(i+1)+`</td>
-        <td>`+discountCode+`</td>
-        <td>`+"$"+discountAmount+`</td>
-        <td>`+timeCanUse+`</td>
-        <td>`+expiryDate+`</td>
-        <td>`+usedTime+`</td>
+        <td>`+ (i + 1) + `</td>
+        <td>`+ discountCode + `</td>
+        <td>`+ "$" + discountAmount + `</td>
+        <td>`+ timeCanUse + `</td>
+        <td>`+ expiryDate + `</td>
+        <td><button type="button" class="btn btn-danger" onclick="deleteCoupon(this)">
+        Delete</button></td>
       </tr>`;
-      tableBody.insertAdjacentHTML('beforeend',node)
+        tableBody.insertAdjacentHTML('beforeend', node)
       }
     }, null);
+  });
+}
+
+function addCoupon(){
+  let discountCode = document.getElementById("disCode").value
+  let discountAmount = document.getElementById("disAmount").value
+  let timeCanUse = document.getElementById("disUse").value
+  let expiryDate = document.getElementById("disExp").value
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  db.transaction(function (tx) {
+    tx.executeSql('INSERT INTO coupons VALUES (?, ?, ?, ?)', [discountCode,discountAmount,timeCanUse,expiryDate]);
+  });
+}
+
+function deleteCoupon(location){
+  const code = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.textContent
+  const table = document.querySelector('#TableBody');
+  const delRow = location.parentNode.parentNode.rowIndex - 1;
+  table.deleteRow(delRow)
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  db.transaction(function (tx) {
+    tx.executeSql('DELETE FROM coupons WHERE discountCode = ?', [code]);
   });
 }
 
 function tableSearch() {
   // Declare variables
   var $rows = $('#TableBody tr');
-  $('#quicksearch').keyup(debounce(function() {
-  
+  $('#quicksearch').keyup(debounce(function () {
+
     var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
       reg = RegExp(val, 'i'),
       text;
-  
-    $rows.show().filter(function() {
+
+    $rows.show().filter(function () {
       text = $(this).text().replace(/\s+/g, ' ');
       return !reg.test(text);
     }).hide();
   }, 300));
-  
+
   function debounce(func, wait, immediate) {
     var timeout;
-    return function() {
+    return function () {
       var context = this,
         args = arguments;
-      var later = function() {
+      var later = function () {
         timeout = null;
         if (!immediate) func.apply(context, args);
       };
@@ -499,7 +642,7 @@ function tableSearch() {
       if (callNow) func.apply(context, args);
     };
   };
-  
+
 }
 
 // function AddtoCart(){
