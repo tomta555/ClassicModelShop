@@ -18,7 +18,7 @@
     if (user != "") {
       
     }else {
-      location.href='admin.html'
+      location.href='login.html'
       // user = prompt("Please enter your name:", "");
       // if (user != "" && user != null) {
       //   setCookie("username", user, 365);
