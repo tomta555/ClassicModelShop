@@ -16,20 +16,35 @@ require(['bcrypt'], function(bcrypt) {
                     console.log(bcrypt.compareSync(empPass, passHash))
                     if(bcrypt.compareSync(empPass, passHash)){
                         // Create Cookie    
+                        console.log("login_complete")
+                        setCookie("empNum",empNum,1);
+                                           
+                       // location.href='admin.html'
                     }else{
+                        // setCookie(empNum,"lop",0);
+                         
+                        console.log("password incorrect")
+    
+                    }                                      
+                }else{
                         alert("Can't find user in database or Password not match!!")
                     }
-                    
-                }
-                
+                            
             })
         });
     }
 
-
 });
 }
 
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+
+    // setCookie("empNum",empNum,0);  ลบcookie
     // var bcrypt = require('./bcrypt');
 
 
