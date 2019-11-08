@@ -23,7 +23,7 @@ $(document).ready(function()
 
 	var menu = $('.menu');
 	var burger = $('.hamburger');
-	var menuActive = false;
+	var menuActive = false; 
 
 	$(window).on('resize', function()
 	{
@@ -193,7 +193,7 @@ $(document).ready(function(){
 	        	});
 			});
 			
-			
+			 
 			// Filtering
 			var filters = {};
 	        $('.item_filter_btn').on('click', function()
@@ -221,7 +221,7 @@ $(document).ready(function(){
 				}
 				return value;
 			  }
-
+ 
     	}
 	}
 	

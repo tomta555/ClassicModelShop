@@ -137,7 +137,7 @@ function viewCustomerAddr(location) {
   const viewAddr = document.querySelector('#viewAddresses');
   viewAddr.innerHTML = "";
   db.transaction(function (tx) {
-    tx.executeSql('SELECT * FROM customersAddresses WHERE customerNumber = ?', [cNum], function (tx, results) {
+    tx.executeSql('SELECT * FROM customersAddresses WHERE customerNumber = ? AND DELETE_FLAG = "No"', [cNum], function (tx, results) {
       let len = results.rows.length, i;
       for (i = 0; i < len; i++) {
         cNumber = results.rows.item(i).customerNumber
@@ -221,7 +221,7 @@ function deleteCustomerAddr(location) {
   if (table.rows.length != 1) {
     table.deleteRow(delRow)
     db.transaction(function (tx) {
-      tx.executeSql('DELETE FROM customersAddresses WHERE customerNumber = ? AND addressLine1 = ?', [editCusNum, initAddrLine1]);
+      tx.executeSql('UPDATE customersAddresses SET DELETE_FLAG = "Yes" WHERE customerNumber = ? AND addressLine1 = ?', [editCusNum, initAddrLine1]);
     });
   }
 
@@ -324,14 +324,16 @@ function addCustomerAddress() {
   let state = document.getElementById("cState2").value;
   let postalCode = document.getElementById("cPostal2").value;
   let country = document.getElementById("cCountry2").value;
+  var addrNum = document.getElementById("cAddrNum").value;
   db.transaction(function (tx) {
-    tx.executeSql('INSERT INTO customersAddresses VALUES (?, ?, ?, ?, ?, ?, ?)', [cNumber, addrline1, addrline2, city, state, postalCode, country]);
+    tx.executeSql('INSERT INTO customersAddresses VALUES (?, ?, ?, ?, ?, ?, ?, ?,"No")', [cNumber, addrline1, addrline2, city, state, postalCode, country,addrNum]);
   });
 
 }
 
 function clearAddAddrForm() {
   document.getElementById("cNum2").value = "";
+  document.getElementById("cAddrNum").value = "";
   document.getElementById("cAddr1-2").value = "";
   document.getElementById("cAddr2-2").value = "";
   document.getElementById("cCity2").value = "";
@@ -346,6 +348,7 @@ function clearAddMemberForm() {
   document.getElementById("cFName").value = "";
   document.getElementById("cLName").value = "";
   document.getElementById("cPhone").value = "";
+  document.getElementById("cAddrNum1").value = "";
   document.getElementById("cAddr1").value = "";
   document.getElementById("cAddr2").value = "";
   document.getElementById("cCity").value = "";
