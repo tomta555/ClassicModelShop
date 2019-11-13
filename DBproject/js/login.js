@@ -17,9 +17,8 @@ require(['bcrypt'], function(bcrypt) {
                     if(bcrypt.compareSync(empPass, passHash)){
                         // Create Cookie    
                         console.log("login_complete")
-                        setCookie("empNum",empNum,1);
-                                           
-                       // location.href='admin.html'
+                        setCookie("empNum",empNum,1);     
+                        location.href='admin.html'
                     }else{
                         // setCookie(empNum,"lop",0);
                          

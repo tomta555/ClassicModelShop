@@ -521,7 +521,7 @@ function paymentsQuery(){
   });
 }
 
-function stocksQuery() {
+function productQuery() {
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let productCode
   let productName
@@ -612,6 +612,117 @@ function deleteCoupon(location){
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   db.transaction(function (tx) {
     tx.executeSql('DELETE FROM coupons WHERE discountCode = ?', [code]);
+  });
+}
+
+function clearDetailRow(){
+  let addStock = document.querySelector("#DetailRow")
+  addStock.innerHTML = `                            
+  <div class="form-group">
+  <input type="text" class="form-control" style="margin-right: 40px;" id="stockNumD" placeholder="stockNumber">
+  </div>
+  <div class="form-group">
+  <input type="text" class="form-control" style="margin-right: 40px;" id="productCodeD" placeholder="productCode">
+  </div>
+  <div class="form-group">
+  <input type="text" class="form-control" style="margin-right:200px;" id="qtyD" placeholder="quantity">
+  </div>
+  <div>`
+}
+
+function addStock(){ 
+  let stockNum = document.getElementById("stockNumD").value
+  let productCode = document.getElementById("productCodeD").value
+  let qty = document.getElementById("qtyD").value
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  db.transaction(function (tx) {
+    tx.executeSql('INSERT INTO stockDetails VALUES (?, ?, ?)', [stockNum,productCode,qty]);
+  });
+}
+
+function clearStockRow(){
+  document.getElementById("updateStock").value = ""
+  document.getElementById("stockInDate").value = ""
+  
+}
+
+function updateStock(){
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  let stockNum = document.getElementById("updateStock").value
+  let date = document.getElementById("stockInDate").value
+  let productCode
+  let qty
+  db.transaction(function (tx) {
+    tx.executeSql('SELECT sum(quantity) as qty FROM stockDetails WHERE stockNumber = ?', [stockNum], function (tx, results) {
+      let totalQty = results.rows.item(0).qty
+      tx.executeSql('INSERT INTO stock VALUES (?, ?, ?)', [stockNum,date,totalQty]);
+    }, null);
+    tx.executeSql('SELECT * FROM stockDetails WHERE stockNumber = ?', [stockNum], function (tx, results) {
+      let len = results.rows.length, i;
+      for (i = 0; i < len; i++) {
+        productCode = results.rows.item(i).productCode
+        qty = results.rows.item(i).quantity
+        tx.executeSql('UPDATE products SET quantityInStock = quantityInStock + ? WHERE productCode = ?', [qty,productCode]);
+      }
+    }, null);
+    
+  });
+}
+
+function stockQuery(){
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  let stockNum = ""
+  let date = ""
+  let amount = ""
+  const TableBody = document.querySelector('#TableBody');
+  TableBody.innerHTML = ""
+  db.transaction(function (tx) {
+    tx.executeSql('SELECT * FROM stock ', [], function (tx, results) {
+      let len = results.rows.length, i;
+      for (i = 0; i < len; i++) {
+        stockNum = results.rows.item(i).stockNumber
+        date = results.rows.item(i).date
+        amount = results.rows.item(i).amount
+        let node = `
+        <tr align="center">
+        <td>`+ stockNum + `</td>
+        <td>`+ date + `</td>
+        <td>`+ amount + `</td>
+        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#DetailModal" onclick="viewStockDetail(this)">
+      View stockDetail</button></td>
+      </tr>
+        `
+        TableBody.insertAdjacentHTML('beforeend', node)
+      }
+
+    }, null);
+  });
+}
+
+function viewStockDetail(location){
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  let stockNum = location.parentNode.parentNode.firstChild.nextSibling.textContent
+  let productCode
+  let quantity
+  const viewStockDetail = document.querySelector('#viewStockDetail');
+  viewStockDetail.innerHTML = ""
+  db.transaction(function (tx) {
+    tx.executeSql('SELECT * FROM stockDetails WHERE stockNumber = ? ', [stockNum], function (tx, results) {
+      let len = results.rows.length, i;
+      for (i = 0; i < len; i++) {
+        stockNum = results.rows.item(i).stockNumber
+        productCode = results.rows.item(i).productCode
+        quantity = results.rows.item(i).quantity
+        let node = `
+        <tr align="center">
+        <td>`+ stockNum + `</td>
+        <td>`+ productCode + `</td>
+        <td>`+ quantity + `</td>
+        `
+        viewStockDetail.insertAdjacentHTML('beforeend', node)
+      }
+
+    }, null);
   });
 }
 

@@ -14,11 +14,18 @@
   }
   
 
-    var user = getCookie("username");
-    if (user != "") {
-      
+    var user = getCookie("empNum");
+    if (user == "") {
+      if(this.location.pathname == '/login.html'){
+
+      }else{
+        location.href = 'login.html'
+      }
     }else {
-      location.href='login.html'
+      if(this.location.pathname == '/login.html'){
+        location.href = 'admin.html'
+      }
+        
       // user = prompt("Please enter your name:", "");
       // if (user != "" && user != null) {
       //   setCookie("username", user, 365);

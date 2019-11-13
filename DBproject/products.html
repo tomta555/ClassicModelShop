@@ -22,7 +22,7 @@
   <script src="js/checkcookie.js"></script>
 </head>
 
-<body id="page-top" onload=stockQuery()>
+<body id="page-top" onload=productQuery()>
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
@@ -151,9 +151,13 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="#">Stock-in</a>
+            <a href="#">Products</a>
           </li>
+
         </ol>
+
+
+
         <!-- DataTables Example -->
         <div class="card mb-3">
           <div class="card-header">
@@ -163,31 +167,36 @@
             <div class="table-responsive">
               <p>
                 <form class="form-inline">
-                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#StockinModal"
-                    style="margin-right: 20px">
-                    Stock-in</button>
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#updateStockModal"
-                    style="margin-right: 20px">
-                    Update Stock</button>
+                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#"
+                    style="margin-right: 20px" onclick="">
+                    New Product</button>
                   <input type="text" class="form-control-searchbox tableSearch" id="quicksearch" onkeyup="tableSearch()"
-                    placeholder="Search" style="margin-left:495px">
+                    placeholder="Search" style="margin-left: 593px">
                 </form>
               </p>
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr align="center">
-                    <th>stockNumber</th>
-                    <th>stock-in Date</th>
-                    <th>totalQuantity</th>
-                    <th>viewDetails</th>
+                    <th>productCode</th>
+                    <th>productName</th>
+                    <th>productScale</th>
+                    <th>quantityInStock</th>
+                    <th>buyPrice</th>
+                    <th>MSRP</th>
+                    <th>ProductDescription</th>
+                    <th>Edit</th>
                   </tr>
                 </thead>
                 <tfoot>
                   <tr align="center">
-                    <th>stockNumber</th>
-                    <th>stock-in Date</th>
-                    <th>totalQuantity</th>
-                    <th>viewDetails</th>
+                    <th>productCode</th>
+                    <th>productName</th>
+                    <th>productScale</th>
+                    <th>quantityInStock</th>
+                    <th>buyPrice</th>
+                    <th>MSRP</th>
+                    <th>ProductDescription</th>
+                    <th>Edit</th>
                   </tr>
                 </tfoot>
                 <tbody id="TableBody">
@@ -198,115 +207,7 @@
           </div>
           <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
-                  <!-- Modal -->
-                  <div class="modal fade" id="StockinModal" tabindex="-1" role="dialog"
-                  aria-labelledby="StockinModalTitle" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="StockinModalTitle">Stock-in</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <!--Infromation Add-->
-                        <div class="table-responsive">
-                          <form class="form-inline" id="DetailRow">
-                            <div class="form-group">
-                              <input type="text" class="form-control" style="margin-right: 40px;" id="stockNumD" placeholder="stockNumber">
-                            </div>
-                            <div class="form-group">
-                              <input type="text" class="form-control" style="margin-right: 40px;" id="productCodeD" placeholder="productCode">
-                            </div>
-                            <div class="form-group">
-                              <input type="text" class="form-control" style="margin-right:200px;" id="qtyD" placeholder="quantity">
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearDetailRow()">Cancel</button>
-                        <button type="button" class="btn btn-success" onclick="addStock();clearDetailRow()"
-                          data-dismiss="modal">Add</button>
-                      </div>
-                    </div>
-                  </div>
-                </div> <!-- end11 -->
-                  <!-- Modal -->
-                  <div class="modal fade" id="updateStockModal" tabindex="-1" role="dialog"
-                  aria-labelledby="updateStockModalTitle" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="updateStockModalTitle">Update Stock</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <!--Infromation Add-->
-                        <div class="table-responsive">
-                          <form class="form-inline">
-                            <div class="form-group">
-                              <input type="text" class="form-control" style="margin-right: 40px;"  id="updateStock" placeholder="stockNumber">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" style="margin-right: 40px;"  id="stockInDate" placeholder="stock-in Date">
-                              </div>
-                          </form>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearStockRow()">Cancel</button>
-                        <button type="button" class="btn btn-success" onclick="updateStock();clearStockRow()"
-                          data-dismiss="modal">Update</button>
-                      </div>
-                    </div>
-                  </div>
-                </div> <!-- end11 -->
 
-                <div class="modal fade" id="DetailModal" tabindex="-1" role="dialog" aria-labelledby="DetailModalLabel"
-                aria-hidden="true">
-                <!-- open2-->
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="DetailModalLabel">Stock Details</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <!-- information -->
-                      <div class="card mb-3">
-                        <div class="card-header">
-                          <i class="fas fa-table"></i>
-                          Stock Details</div>
-                        <div class="card-body">
-                          <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
-                              <thead>
-                                <tr align="center">
-                                  <th>stockNumber</th>
-                                  <th>productCode</th>
-                                  <th>quantity</th>
-                                </tr>
-                              </thead>
-                              <tbody id="viewStockDetail">
-      
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
       </div>
       <!-- /.container-fluid -->
 
