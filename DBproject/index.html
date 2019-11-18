@@ -14,154 +14,163 @@
 	<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
 	<link rel="stylesheet" type="text/css" href="styles/categories.css">
 	<link rel="stylesheet" type="text/css" href="styles/categories_responsive.css">
-
+	<script src="js/checkcookie.js"></script>
 
 </head>
 
 <body onload="allVClick()">
-	<div class="super_container">
-
-
-
-		<!-- Home -->
-
-		<div class="home">
-			<div class="parallax_background parallax-window" data-parallax="scroll"
-				data-image-src="images/indexHead.jpg" data-speed="0.8"></div>
-			<div class="home_container">
-				<div class="home_content">
-					<div class="home_title">Shop</div>
-					<div class="breadcrumbs">
-						<ul class="d-flex flex-row align-items-center justify-content-start">
-							<li><a href="index.html">Home</a></li>
-							<li><a href="#">Classic</a></li>
-							<li>Model</li>
-						</ul>
+	<div class="super_container2">
+		<!-- Header -->
+		<header class="header">
+			<div class="header_content d-flex flex-row align-items-center justify-content-start">
+				<!-- Header Extra -->
+				<div class="header_extra ml-auto d-flex flex-row align-items-center justify-content-start">
+					<!-- Language -->
+					<div class="info_languages has_children">
+						<div class="language_flag"><img src="images/flag_1.svg" alt="https://www.flaticon.com/authors/freepik"></div>
 					</div>
+				</div>
+		</header>
+	</div>
+
+	<!-- Home -->
+	<div class="home">
+		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="images/indexHead.jpg"
+			data-speed="0.8"></div>
+		<div class="home_container">
+			<div class="home_content">
+				<div class="home_title">Shop</div>
+				<div class="breadcrumbs">
+					<ul class="d-flex flex-row align-items-center justify-content-start">
+						<li><a href="index.html">Home</a></li>
+						<li><a>Classic</a></li>
+						<li>Model</li>
+					</ul>
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<!-- Products -->
+	<!-- Products -->
 
-		<div class="products">
+	<div class="products">
 
-			<!-- Sorting & Filtering -->
-			<div class="products_bar">
-				<div class="section_container">
-					<div class="container">
-						<div class="row">
-							<div class="col">
-								<div
-									class="products_bar_content d-flex flex-column flex-xxl-row align-items-start align-items-xxl-center justify-content-start">
-									<!-- <div class="product_categories"> -->
-									<!-- <ul class="d-flex flex-row align-items-start justify-content-start flex-wrap"> -->
-									<!-- <li class="active"><a href="#">All</a></li> -->
-									<!-- <li><a href="#">Hot Products</a></li> -->
-									<!-- <li><a href="#">New Products</a></li>
+		<!-- Sorting & Filtering -->
+		<div class="products_bar">
+			<div class="section_container">
+				<div class="container">
+					<div class="row">
+						<div class="col">
+							<div
+								class="products_bar_content d-flex flex-column flex-xxl-row align-items-start align-items-xxl-center justify-content-start">
+								<!-- <div class="product_categories"> -->
+								<!-- <ul class="d-flex flex-row align-items-start justify-content-start flex-wrap"> -->
+								<!-- <li class="active"><a href="#">All</a></li> -->
+								<!-- <li><a href="#">Hot Products</a></li> -->
+								<!-- <li><a href="#">New Products</a></li>
 											<li><a href="#">Sale Products</a></li> -->
-									<!-- </ul> -->
-									<!-- </div> -->
-									<div class="products_dropdown text-right product_dropdown_filter dropdown-group"
-										data-filter-group="vendor">
-										<div class="isotope_filter_text"><span>All Vendor</span><i
+								<!-- </ul> -->
+								<!-- </div> -->
+								<div class="products_dropdown text-right product_dropdown_filter dropdown-group"
+									data-filter-group="vendor">
+									<div class="isotope_filter_text"><span>All Vendor</span><i class="fa fa-caret-down"
+											aria-hidden="true"></i></div>
+									<ul>
+										<li id="allVendor" class="item_filter_btn" data-filter="*">All Vendor</li>
+										<li class="item_filter_btn" data-filter=".MinLinDiecast">Min Lin Diecast</li>
+										<li class="item_filter_btn" data-filter=".ClassicMetalCreations">Classic Metal
+											Creations</li>
+										<li class="item_filter_btn" data-filter=".Highway66MiniClassics">Highway 66 Mini
+											Classics</li>
+										<li class="item_filter_btn" data-filter=".RedStartDiecast">Red Start Diecast
+										</li>
+										<li class="item_filter_btn" data-filter=".MotorCityArtClassics">Motor City Art
+											Classics</li>
+										<li class="item_filter_btn" data-filter=".SecondGearDiecast">Second Gear Diecast
+										</li>
+										<li class="item_filter_btn" data-filter=".AutoartStudioDesign">Autoart Studio
+											Design</li>
+										<li class="item_filter_btn" data-filter=".WellyDiecastProductions">Welly Diecast
+											Productions</li>
+										<li class="item_filter_btn" data-filter=".UnimaxArtGalleries">Unimax Art
+											Galleries</li>
+										<li class="item_filter_btn" data-filter=".StudioMArtModels">Studio M Art Models
+										</li>
+										<li class="item_filter_btn" data-filter=".ExotoDesigns">Exoto Designs</li>
+										<li class="item_filter_btn" data-filter=".GearboxCollectibles">Gearbox
+											Collectibles</li>
+										<li class="item_filter_btn" data-filter=".MinLinDiecast">Carousel DieCast
+											Legends</li>
+									</ul>
+								</div>
+								<div class="products_dropdown text-right product_dropdown_filter dropdown-group"
+									data-filter-group="scale">
+									<div class="isotope_filter_text"><span>All Scale</span><i class="fa fa-caret-down"
+											aria-hidden="true"></i></div>
+									<ul>
+										<li class="item_filter_btn" data-filter="*">All Scale</li>
+										<li class="item_filter_btn" data-filter=".sc1s10">1:10</li>
+										<li class="item_filter_btn" data-filter=".sc1s12">1:12</li>
+										<li class="item_filter_btn" data-filter=".sc1s18">1:18</li>
+										<li class="item_filter_btn" data-filter=".sc1s24">1:24</li>
+										<li class="item_filter_btn" data-filter=".sc1s32">1:32</li>
+										<li class="item_filter_btn" data-filter=".sc1s50">1:50</li>
+										<li class="item_filter_btn" data-filter=".sc1s72">1:72</li>
+										<li class="item_filter_btn" data-filter=".sc1s700">1:700</li>
+									</ul>
+								</div>
+								<div
+									class="products_bar_side ml-xxl-auto d-flex flex-row align-items-center justify-content-start">
+									<div class="products_dropdown product_dropdown_sorting">
+										<div class="isotope_sorting_text"><span>Default Sorting</span><i
 												class="fa fa-caret-down" aria-hidden="true"></i></div>
 										<ul>
-											<li id="allVendor" class="item_filter_btn" data-filter="*">All Vendor</li>
-											<li class="item_filter_btn" data-filter=".MinLinDiecast">Min Lin Diecast
-											</li>
-											<li class="item_filter_btn" data-filter=".ClassicMetalCreations">Classic
-												Metal Creations</li>
-											<li class="item_filter_btn" data-filter=".Highway66MiniClassics">Highway 66
-												Mini Classics</li>
-											<li class="item_filter_btn" data-filter=".RedStartDiecast">Red Start Diecast
-											</li>
-											<li class="item_filter_btn" data-filter=".MotorCityArtClassics">Motor City
-												Art Classics</li>
-											<li class="item_filter_btn" data-filter=".SecondGearDiecast">Second Gear
-												Diecast</li>
-											<li class="item_filter_btn" data-filter=".AutoartStudioDesign">Autoart
-												Studio Design</li>
-											<li class="item_filter_btn" data-filter=".WellyDiecastProductions">Welly
-												Diecast Productions</li>
-											<li class="item_filter_btn" data-filter=".UnimaxArtGalleries">Unimax Art
-												Galleries</li>
-											<li class="item_filter_btn" data-filter=".StudioMArtModels">Studio M Art
-												Models</li>
-											<li class="item_filter_btn" data-filter=".ExotoDesigns">Exoto Designs</li>
-											<li class="item_filter_btn" data-filter=".GearboxCollectibles">Gearbox
-												Collectibles</li>
-											<li class="item_filter_btn" data-filter=".MinLinDiecast">Carousel DieCast
-												Legends</li>
+											<li class="item_sorting_btn"
+												data-isotope-option='{ "sortBy": "original-order" }'>Default</li>
+											<li class="item_sorting_btn" data-isotope-option='{ "sortBy": "price" }'>
+												Price</li>
+											<li class="item_sorting_btn" data-isotope-option='{ "sortBy": "name" }'>
+												Name</li>
 										</ul>
 									</div>
-									<div class="products_dropdown text-right product_dropdown_filter dropdown-group"
-										data-filter-group="scale">
-										<div class="isotope_filter_text"><span>All Scale</span><i
-												class="fa fa-caret-down" aria-hidden="true"></i></div>
-										<ul>
-											<li class="item_filter_btn" data-filter="*">All Scale</li>
-											<li class="item_filter_btn" data-filter=".sc1s10">1:10</li>
-											<li class="item_filter_btn" data-filter=".sc1s12">1:12</li>
-											<li class="item_filter_btn" data-filter=".sc1s18">1:18</li>
-											<li class="item_filter_btn" data-filter=".sc1s24">1:24</li>
-											<li class="item_filter_btn" data-filter=".sc1s32">1:32</li>
-											<li class="item_filter_btn" data-filter=".sc1s50">1:50</li>
-											<li class="item_filter_btn" data-filter=".sc1s72">1:72</li>
-											<li class="item_filter_btn" data-filter=".sc1s700">1:700</li>
-										</ul>
-									</div>
-									<div
-										class="products_bar_side ml-xxl-auto d-flex flex-row align-items-center justify-content-start">
-										<div class="products_dropdown product_dropdown_sorting">
-											<div class="isotope_sorting_text"><span>Default Sorting</span><i
-													class="fa fa-caret-down" aria-hidden="true"></i></div>
-											<ul>
-												<li class="item_sorting_btn"
-													data-isotope-option='{ "sortBy": "original-order" }'>Default</li>
-												<li class="item_sorting_btn"
-													data-isotope-option='{ "sortBy": "price" }'>Price</li>
-												<li class="item_sorting_btn" data-isotope-option='{ "sortBy": "name" }'>
-													Name</li>
-											</ul>
-										</div>
-										<div class="product_categories" id="login_button">
-											<ul class="d-flex flex-row align-items-start justify-content-start flex-wrap">
-												<li class="active"><a href="login.html">Login</a></li>
-											</ul>
-										</div>
-									</div>
+									<!-- <div class="product_view d-flex flex-row align-items-center justify-content-start">
+											<div class="view_item active"><img src="images/view_1.png" alt=""></div>
+											<div class="view_item"><img src="images/view_2.png" alt=""></div>
+											<div class="view_item"><img src="images/view_3.png" alt=""></div>
+										</div> -->
+
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="section_container">
-				<div class="container">
-					<div class="row">
-						<div class="col">
-							<div class="products_container grid" id="productCat">
+		</div>
+		<div class="section_container">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="products_container grid" id="productCat">
 
-								<script>
-									let db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
-									let pname = "";
-									let price = 0;
-									let scale = "";
-									let tagScaleDef = "sc1s";
-									let pVendor = "";
-									let list = document.querySelector('#productCat');
-									db.transaction(function (tx) {
-										tx.executeSql('SELECT * FROM products', [], function (tx, results) {
-											let len = results.rows.length, i;
-											for (i = 0; i < len; i++) {
-												pname = results.rows.item(i).productName
-												price = results.rows.item(i).MSRP
-												scale = results.rows.item(i).productScale
-												pVendor = results.rows.item(i).productVendor
-												let splitScale = scale.split(":")
-												let tagScale = tagScaleDef + splitScale[splitScale.length - 1] + " " + pVendor.replace(/\s/g, '');
-												let node = `
+							<script>
+								var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+								var pname = "";
+								var price = 0;
+								var scale = "";
+								var tagScaleDef = "sc1s";
+								var pVendor = "";
+								const list = document.querySelector('#productCat');
+								db.transaction(function (tx) {
+									tx.executeSql('SELECT * FROM products', [], function (tx, results) {
+										var len = results.rows.length, i;
+										for (i = 0; i < len; i++) {
+											pname = results.rows.item(i).productName
+											price = results.rows.item(i).MSRP
+											scale = results.rows.item(i).productScale
+											pVendor = results.rows.item(i).productVendor
+											var splitScale = scale.split(":")
+											var tagScale = tagScaleDef + splitScale[splitScale.length - 1] + " " + pVendor.replace(/\s/g, '');
+											list.innerHTML += `
 												<div class="product grid-item `+ tagScale + `">
 													<div class="product_inner">
 														<div class="product_image">
@@ -170,66 +179,58 @@
 														</div>
 														<div class="product_content text-center">
 															<div class="textBox">
-															<div class="product_title"><a href="#">` + pname + `</a></div></div>
+															<div class="product_title"><a>` + pname + `</a></div></div>
 															<div class="product_price">`+ "$" + price + `</div>
 														</div>
 													</div>	
 												</div>`;
-												list.insertAdjacentHTML('beforeend',node)
-											}
-										}, null);
-									});
-								</script>
-							</div>
+										}
+									}, null);
+								});
+							</script>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
+
+	<!-- Footer -->
+
+	<footer class="footer">
+		<div class="footer_content">
+			<div class="section_container">
+				<div class="container">
+					<div class="row">
 
 
-		<!-- Footer -->
-
-		<footer class="footer">
-			<div class="footer_content">
-				<div class="section_container">
-					<div class="container">
-						<div class="row">
-
-
-
-
-
-							<!-- Credits -->
-							<div class="credits">
-								<div class="section_container">
-									<div class="container">
-										<div class="row">
-											<div class="col">
-												<div
-													class="credits_content d-flex flex-row align-items-center justify-content-end">
-													<div class="credits_text">
-														<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-														Copyright &copy;
-														<script>document.write(new Date().getFullYear());</script> All
-														rights reserved |
-														This template is made with <i class="fa fa-heart-o"
-															aria-hidden="true"></i> by
-														<a href="https://colorlib.com" target="_blank">Colorlib</a>
-														<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-													</div>
+						<!-- Credits -->
+						<div class="credits">
+							<div class="section_container">
+								<div class="container">
+									<div class="row">
+										<div class="col">
+											<div
+												class="credits_content d-flex flex-row align-items-center justify-content-end">
+												<div class="credits_text">
+													<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+													Copyright &copy;
+													<script>document.write(new Date().getFullYear());</script> All
+													rights reserved |
+													This template is made with <i class="fa fa-heart-o"
+														aria-hidden="true"></i> by
+													<a href="https://colorlib.com" target="_blank">Colorlib</a>
+													<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-		</footer>
+						</div>
+	</footer>
 
 	</div>
-
-	<!-- <script src="js/WebDB-Query.js"></script> -->
-
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="styles/bootstrap-4.1.3/popper.js"></script>
 	<script src="styles/bootstrap-4.1.3/bootstrap.min.js"></script>
@@ -247,7 +248,3 @@
 </body>
 
 </html>
-
-<!-- เช็คว่าLogin รึยัง??Login,index
-indexกรณีloginแล้่วให้เข้ารหัสแล้วมีlogout  
-สร้าง logout.js ลบ cookie   -->

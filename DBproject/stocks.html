@@ -37,32 +37,6 @@
 
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto ml-md-0">
-      <li class="nav-item dropdown no-arrow mx-1">
-        <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-bell fa-fw"></i>
-          <span class="badge badge-danger">9+</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown no-arrow mx-1">
-        <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-envelope fa-fw"></i>
-          <span class="badge badge-danger">7</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
       <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
@@ -100,10 +74,6 @@
           <a class="dropdown-item" href="login.html">Login</a>
           <a class="dropdown-item" href="register.html">Register</a>
           <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
-          <div class="dropdown-divider"></div>
-          <h6 class="dropdown-header">Other Pages:</h6>
-          <a class="dropdown-item" href="404.html">404 Page</a>
-          <a class="dropdown-item" href="blank.html">Blank Page</a>
         </div>
       </li>
 
@@ -111,6 +81,11 @@
         <a class="nav-link" href="index.html">
           <i class="fas fa-fw fa-table"></i>
           <span>Product Catalog</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="catagories.html">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Catagories</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="admin.html">
@@ -166,7 +141,7 @@
                   <button type="button" class="btn btn-success" data-toggle="modal" data-target="#StockinModal"
                     style="margin-right: 20px">
                     Stock-in</button>
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#updateStockModal"
+                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#updateStockModal"
                     style="margin-right: 20px">
                     Update Stock</button>
                   <input type="text" class="form-control-searchbox tableSearch" id="quicksearch" onkeyup="tableSearch()"
@@ -198,115 +173,122 @@
           </div>
           <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
-                  <!-- Modal -->
-                  <div class="modal fade" id="StockinModal" tabindex="-1" role="dialog"
-                  aria-labelledby="StockinModalTitle" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="StockinModalTitle">Stock-in</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <!--Infromation Add-->
-                        <div class="table-responsive">
-                          <form class="form-inline" id="DetailRow">
-                            <div class="form-group">
-                              <input type="text" class="form-control" style="margin-right: 40px;" id="stockNumD" placeholder="stockNumber">
-                            </div>
-                            <div class="form-group">
-                              <input type="text" class="form-control" style="margin-right: 40px;" id="productCodeD" placeholder="productCode">
-                            </div>
-                            <div class="form-group">
-                              <input type="text" class="form-control" style="margin-right:200px;" id="qtyD" placeholder="quantity">
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearDetailRow()">Cancel</button>
-                        <button type="button" class="btn btn-success" onclick="addStock();clearDetailRow()"
-                          data-dismiss="modal">Add</button>
-                      </div>
+        <!-- Modal -->
+        <div class="modal fade" id="StockinModal" tabindex="-1" role="dialog" aria-labelledby="StockinModalTitle"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="StockinModalTitle">Stock-in</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <!--Infromation Add-->
+                <div class="table-responsive">
+                  <form class="form-inline" id="DetailRow">
+                    <div class="form-group">
+                      <input type="text" class="form-control" style="margin-right: 40px;" id="stockNumD"
+                        placeholder="stockNumber">
                     </div>
-                  </div>
-                </div> <!-- end11 -->
-                  <!-- Modal -->
-                  <div class="modal fade" id="updateStockModal" tabindex="-1" role="dialog"
-                  aria-labelledby="updateStockModalTitle" aria-hidden="true">
-                  <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="updateStockModalTitle">Update Stock</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <!--Infromation Add-->
-                        <div class="table-responsive">
-                          <form class="form-inline">
-                            <div class="form-group">
-                              <input type="text" class="form-control" style="margin-right: 40px;"  id="updateStock" placeholder="stockNumber">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" style="margin-right: 40px;"  id="stockInDate" placeholder="stock-in Date">
-                              </div>
-                          </form>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearStockRow()">Cancel</button>
-                        <button type="button" class="btn btn-success" onclick="updateStock();clearStockRow()"
-                          data-dismiss="modal">Update</button>
-                      </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" style="margin-right: 40px;" id="productCodeD"
+                        placeholder="productCode">
                     </div>
-                  </div>
-                </div> <!-- end11 -->
+                    <div class="form-group">
+                      <input type="text" class="form-control" style="margin-right:200px;" id="qtyD"
+                        placeholder="quantity">
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal"
+                  onclick="clearDetailRow()">Cancel</button>
+                <button type="button" class="btn btn-success" onclick="addStock();clearDetailRow()"
+                  data-dismiss="modal">Add</button>
+              </div>
+            </div>
+          </div>
+        </div> <!-- end11 -->
+        <!-- Modal -->
+        <div class="modal fade" id="updateStockModal" tabindex="-1" role="dialog"
+          aria-labelledby="updateStockModalTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="updateStockModalTitle">Update Stock</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <!--Infromation Add-->
+                <div class="table-responsive">
+                  <form class="form-inline">
+                    <div class="form-group">
+                      <input type="text" class="form-control" style="margin-right: 40px;" id="updateStock"
+                        placeholder="stockNumber">
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" style="margin-right: 40px;" id="stockInDate"
+                        placeholder="stock-in Date">
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal"
+                  onclick="clearStockRow()">Cancel</button>
+                <button type="button" class="btn btn-success" onclick="updateStock();clearStockRow()"
+                  data-dismiss="modal">Update</button>
+              </div>
+            </div>
+          </div>
+        </div> <!-- end11 -->
 
-                <div class="modal fade" id="DetailModal" tabindex="-1" role="dialog" aria-labelledby="DetailModalLabel"
-                aria-hidden="true">
-                <!-- open2-->
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="DetailModalLabel">Stock Details</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <!-- information -->
-                      <div class="card mb-3">
-                        <div class="card-header">
-                          <i class="fas fa-table"></i>
-                          Stock Details</div>
-                        <div class="card-body">
-                          <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
-                              <thead>
-                                <tr align="center">
-                                  <th>stockNumber</th>
-                                  <th>productCode</th>
-                                  <th>quantity</th>
-                                </tr>
-                              </thead>
-                              <tbody id="viewStockDetail">
-      
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      </div>
+        <div class="modal fade" id="DetailModal" tabindex="-1" role="dialog" aria-labelledby="DetailModalLabel"
+          aria-hidden="true">
+          <!-- open2-->
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="DetailModalLabel">Stock Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <!-- information -->
+                <div class="card mb-3">
+                  <div class="card-header">
+                    <i class="fas fa-table"></i>
+                    Stock Details</div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                        <thead>
+                          <tr align="center">
+                            <th>stockNumber</th>
+                            <th>productCode</th>
+                            <th>quantity</th>
+                          </tr>
+                        </thead>
+                        <tbody id="viewStockDetail">
+
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
               </div>
+            </div>
+          </div>
+        </div>
       </div>
       <!-- /.container-fluid -->
 
