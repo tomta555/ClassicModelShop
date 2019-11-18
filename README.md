@@ -12,6 +12,3 @@
 
 **ถ้าไฟล์ ClassicModelShop.db มีการเปลี่ยนแปลง**
 - Pull งานลงไปใหม่ (ใช้คำสั่ง git pull)
-
-**ถ้าเปิดหน้า index.html ด้วย Live-server แล้ว Product มันบัคโหลดไม่ขึ้นหรือทะลุลงไปด้านล่าง** 
-- ให้กด Ctrl + Shift + R ช้าๆ จนกว่า Product จะโหลดเรียงกัน
