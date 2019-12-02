@@ -7,5 +7,3 @@ requirejs.config({
 
 require(['login.js'])
 require(['register.js'])
-
-require(['cookie.js'])

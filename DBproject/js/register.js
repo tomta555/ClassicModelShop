@@ -14,6 +14,7 @@ function registerSubmit() {
                 db.transaction(function (tx) {
                     tx.executeSql('SELECT passHash FROM employees WHERE employeeNumber = ?', [empNum],function (tx, results) {
                         let pass = results.rows.item(0).passHash
+                        location.href='login.html'
                         if(pass != null){
                             alert("There exists password for this user")
                             throw new Error("There exists password for this user");

@@ -20,7 +20,7 @@ require(['bcrypt'], function(bcrypt) {
                         setCookie("empNum",empNum,1);     
                         location.href='admin.html'
                     }else{
-                        // setCookie(empNum,"lop",0);
+                        // setCookie(empNum,empNum,0);
                          
                         console.log("password incorrect")
     
