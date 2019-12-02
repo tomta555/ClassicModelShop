@@ -552,9 +552,9 @@ function productQuery() {
         <td>`+ quantityInStock + `</td>
         <td>`+ buyPrice + `</td>
         <td>`+ MSRP + `</td>
-        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#" onclick="">
+        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ProductDesModal" onclick="">
         Product Description</button></td>
-        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#" onclick="">
+        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productEditModal" onclick="">
         Edit</button></td>
       </tr>`;
         tableBody.insertAdjacentHTML('beforeend', node)
