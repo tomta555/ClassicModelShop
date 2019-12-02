@@ -70,6 +70,8 @@ function employeesQuery() {
         <td>`+ office + `</td>
         <td>`+ reportsto + `</td>
         <td>`+ title + `</td>
+        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#EditModal" onclick="editEmployee(this)">
+        Edit</button></td>
       </tr>`;
         tableBody.insertAdjacentHTML('beforeend', node)
       }

@@ -129,7 +129,99 @@
           
         </ol>
 
-       
+                <div class="modal fade" id="AddMemberModal" tabindex="-1" role="dialog" aria-labelledby="AddMemberTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="AddMemberTitle">Add Member</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <!--Infromation Add-->
+                  <div class="table-responsive">
+                    <form>
+
+                      <div class="form-group">
+                        <label class="col-form-label">customerNumber:</label>
+                        <input type="text" class="form-control" id="cNum">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-form-label">customerName:</label>
+                        <input type="text" class="form-control" id="cName">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-form-label">contactLastName:</label>
+                        <input type="text" class="form-control" id="cLName">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-form-label">contactFirstName:</label>
+                        <input type="text" class="form-control" id="cFName">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-form-label">phone:</label>
+                        <input type="text" class="form-control" id="cPhone">
+                      </div>
+                      <div class="form-group">
+                        <label class="col-form-label">addrNumber:</label>
+                        <input type="text" class="form-control" id="cAddrNum1">
+                      </div>
+                      <div class="form-group">
+                        <label class="col-form-label">addressLine1:</label>
+                        <input type="text" class="form-control" id="cAddr1">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-form-label">addressLine2:</label>
+                        <input type="text" class="form-control" id="cAddr2">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-form-label">city:</label>
+                        <input type="text" class="form-control" id="cCity">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-form-label">state:</label>
+                        <input type="text" class="form-control" id="cState">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-form-label">postalCode:</label>
+                        <input type="text" class="form-control" id="cPostal">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-form-label">country:</label>
+                        <input type="text" class="form-control" id="cCountry">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-form-label">salesRep:</label>
+                        <input type="text" class="form-control" id="cRep">
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-form-label">creditLimit:</label>
+                        <input type="text" class="form-control" id="cCredit">
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-success" onclick="addCustomer()"
+                    data-dismiss="modal">Add</button>
+                </div>
+              </div>
+            </div>
+          </div>
 
         <!-- DataTables Example -->
         <div class="card mb-3">
@@ -140,7 +232,7 @@
             <div class="table-responsive">
               <p>
                 <form class="form-inline">
-                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#"
+                  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#AddEmployeeModal"
                     style="margin-right: 20px" onclick="">
                     New Employee</button>
                   <input type="text" class="form-control-searchbox tableSearch" id="quicksearch" onkeyup="tableSearch()"
@@ -158,6 +250,7 @@
                     <th >officeCode</th>
                     <th>reportTo</th>
                     <th>jobTitle</th>
+                    <th>Edit</th>
                   </tr>
                 </thead>
                 <tfoot>
@@ -170,6 +263,7 @@
                     <th>officeCode</th>
                     <th>reportTo</th>
                     <th>jobTitle</th>
+                    <th>Edit</th>
                   </tr>
                 </tfoot>
                 <tbody id="TableBody">
@@ -184,6 +278,72 @@
 
       </div>
       <!-- /.container-fluid -->
+
+      <div class="modal fade" id="AddEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="AddEmployeeTitle"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="AddEmployTitle">Add Employee</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!--Infromation Add-->
+            <div class="table-responsive">
+              <form>
+
+                <div class="form-group">
+                  <label class="col-form-label">employeeNumber:</label>
+                  <input type="text" class="form-control" id="enumber">
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label">firstName:</label>
+                  <input type="text" class="form-control" id="fname">
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label">lastName:</label>
+                  <input type="text" class="form-control" id="lname">
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label">extension:</label>
+                  <input type="text" class="form-control" id="exten">
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label">email:</label>
+                  <input type="text" class="form-control" id="email">
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">officeCode:</label>
+                  <input type="text" class="form-control" id="office">
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">reportTo:</label>
+                  <input type="text" class="form-control" id="reportsto">
+                </div>
+
+                <div class="form-group">
+                  <label class="col-form-label">jobTitle:</label>
+                  <input type="text" class="form-control" id="title">
+                </div>
+
+
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-success" onclick="addCustomer()"
+              data-dismiss="modal">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
       <!-- Sticky Footer -->
       <footer class="sticky-footer">
