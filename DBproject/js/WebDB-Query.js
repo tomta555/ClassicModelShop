@@ -649,13 +649,12 @@ function clearStockRow(){
 function updateStock(){
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let stockNum = document.getElementById("updateStock").value
-  let date = document.getElementById("stockInDate").value
   let productCode
   let qty
   db.transaction(function (tx) {
     tx.executeSql('SELECT sum(quantity) as qty FROM stockDetails WHERE stockNumber = ?', [stockNum], function (tx, results) {
       let totalQty = results.rows.item(0).qty
-      tx.executeSql('INSERT INTO stock VALUES (?, ?, ?)', [stockNum,date,totalQty]);
+        tx.executeSql('INSERT INTO stock VALUES (?, date("now"), ?)', [stockNum,totalQty]);
     }, null);
     tx.executeSql('SELECT * FROM stockDetails WHERE stockNumber = ?', [stockNum], function (tx, results) {
       let len = results.rows.length, i;

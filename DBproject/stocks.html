@@ -145,7 +145,7 @@
                     style="margin-right: 20px">
                     Update Stock</button>
                   <input type="text" class="form-control-searchbox tableSearch" id="quicksearch" onkeyup="tableSearch()"
-                    placeholder="Search" style="margin-left:495px">
+                    placeholder="Search" style="margin-left:480px">
                 </form>
               </p>
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -204,10 +204,10 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal"
-                  onclick="clearDetailRow()">Cancel</button>
                 <button type="button" class="btn btn-success" onclick="addStock();clearDetailRow()"
                   data-dismiss="modal">Add</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"
+                  onclick="clearDetailRow()">Cancel</button>
               </div>
             </div>
           </div>
@@ -231,18 +231,14 @@
                       <input type="text" class="form-control" style="margin-right: 40px;" id="updateStock"
                         placeholder="stockNumber">
                     </div>
-                    <div class="form-group">
-                      <input type="text" class="form-control" style="margin-right: 40px;" id="stockInDate"
-                        placeholder="stock-in Date">
-                    </div>
                   </form>
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal"
-                  onclick="clearStockRow()">Cancel</button>
                 <button type="button" class="btn btn-success" onclick="updateStock();clearStockRow()"
                   data-dismiss="modal">Update</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"
+                  onclick="clearStockRow()">Cancel</button>
               </div>
             </div>
           </div>
