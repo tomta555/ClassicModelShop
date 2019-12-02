@@ -526,6 +526,7 @@ function productQuery() {
   let productCode
   let productName
   let productScale
+  let productVendor
   let ProductDescription
   let quantityInStock
   let buyPrice
@@ -538,7 +539,8 @@ function productQuery() {
         productCode = results.rows.item(i).productCode
         productName = results.rows.item(i).productName
         productScale = results.rows.item(i).productScale
-        ProductDescription = results.rows.item(i).ProductDescription
+        productVendor = results.rows.item(i).productVendor
+        ProductDescription = results.rows.item(i).productDescription
         quantityInStock = results.rows.item(i).quantityInStock
         buyPrice = results.rows.item(i).buyPrice
         MSRP = results.rows.item(i).MSRP
@@ -547,12 +549,13 @@ function productQuery() {
         <td>`+ productCode + `</td>
         <td>`+ productName + `</td>
         <td>`+ productScale + `</td>
+        <td>`+ productVendor + `</td>
         <td>`+ quantityInStock + `</td>
         <td>`+ buyPrice + `</td>
         <td>`+ MSRP + `</td>
-        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ProductDesModal" onclick="">
+        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ProductDesModal" onclick="ProductDescription(this)">
         Product Description</button></td>
-        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productEditModal" onclick="">
+        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productEditModal" onclick="ProductEdit(this)">
         Edit</button></td>
       </tr>`;
         tableBody.insertAdjacentHTML('beforeend', node)
@@ -560,6 +563,64 @@ function productQuery() {
     }, null);
   });
 }
+
+function ProductDescription(location) { 
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  let productCodeLocation = location.parentNode.parentNode.firstChild.nextSibling.textContent
+  const tableBody = document.querySelector('#viewProDes')
+  tableBody.innerHTML = ""
+  db.transaction(function (tx) {
+    tx.executeSql('SELECT * FROM products WHERE productCode = ?', [productCodeLocation], function (tx, results) {
+      let ProductDescription
+        ProductDescription = results.rows.item(0).productDescription
+        let node = `
+        <div><a>`+ProductDescription+`</a></div>
+        `;
+        tableBody.insertAdjacentHTML('beforeend', node)
+    }, null);
+  });
+}
+
+function ProductEdit(location) { 
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  let productCode
+  let productName
+  let productScale
+  let productVendor
+  let ProductDescription
+  let quantityInStock
+  let buyPrice
+  let MSRP
+  let productCodeLocation = location.parentNode.parentNode.firstChild.nextSibling.textContent
+  const tableBody = document.querySelector('#editProduct')
+  tableBody.innerHTML = ""
+  db.transaction(function (tx) {
+    tx.executeSql('SELECT * FROM products WHERE productCode = ?', [productCodeLocation], function (tx, results) {
+        productCode = results.rows.item(0).productCode
+        productName = results.rows.item(0).productName
+        productScale = results.rows.item(0).productScale
+        productVendor = results.rows.item(0).productVendor
+        ProductDescription = results.rows.item(0).productDescription
+        quantityInStock = results.rows.item(0).quantityInStock
+        buyPrice = results.rows.item(0).buyPrice
+        MSRP = results.rows.item(0).MSRP
+        let node = `
+        <tr align="center">
+        <td>`+ productCode + `</td>
+        <td>`+ productName + `</td>
+        <td>`+ productScale + `</td>
+        <td>`+ productVendor + `</td>
+        <td>`+ quantityInStock + `</td>
+        <td>`+ buyPrice + `</td>
+        <td>`+ MSRP + `</td>
+      </tr>`;
+        tableBody.insertAdjacentHTML('beforeend', node)
+      
+    }, null);
+  });
+}
+
+
 
 function couponQuery() {
   let db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
