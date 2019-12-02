@@ -70,7 +70,7 @@ function employeesQuery() {
         <td>`+ office + `</td>
         <td>`+ reportsto + `</td>
         <td>`+ title + `</td>
-        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#employeeEditModal" onclick="">
+        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#employeeEditModal" onclick="employeeEdit(this)">
         Edit</button></td>
       </tr>`;
         tableBody.insertAdjacentHTML('beforeend', node)
@@ -78,6 +78,47 @@ function employeesQuery() {
     }, null);
   });
 }
+
+function employeeEdit(location) { console.log(location.parentNode.parentNode.firstChild.nextSibling.textContent)
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  let enumber;
+  let fname;  
+  let lname;
+  let exten;
+  let email;
+  let office;
+  let reportsto;
+  let title;
+  let Enumbers = location.parentNode.parentNode.firstChild.nextSibling.textContent
+  const tableBody = document.querySelector('#editemployee')
+  tableBody.innerHTML = ""
+  db.transaction(function (tx) {
+    tx.executeSql('SELECT * FROM employees WHERE employeeNumber = ?', [Enumbers], function (tx, results) {
+        enumber = results.rows.item(0).employeeNumber
+        fname = results.rows.item(0).lastName
+        lname = results.rows.item(0).firstName
+        exten = results.rows.item(0).extension
+        email = results.rows.item(0).email
+        office = results.rows.item(0).officeCode
+        reportsto = results.rows.item(0).reportsTo
+        title = results.rows.item(0).jobTitle
+        let node = `
+        <tr align="center">
+        <td>`+ enumber + `</td>
+        <td>`+ fname + `</td>
+        <td>`+ lname + `</td>
+        <td>`+ exten + `</td>
+        <td>`+ email + `</td>
+        <td>`+ office + `</td>
+        <td>`+ reportsto + `</td>
+        <td>`+ title + `</td>
+      </tr>`;
+        tableBody.insertAdjacentHTML('beforeend', node)
+      
+    }, null);
+  });
+}
+
 
 function customerQuery() {
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
