@@ -192,7 +192,8 @@
 															<div class="product_title"><a>` + pname + `</a></div></div>
 															<div class="product_price">`+ "$" + price + `</div>
 															<div style="display:none">`+ pCode + `</div>
-															<div class="product_button ml-auto mr-auto trans_200"><a href="#">Add to cart</a></div>
+															<div style="display:none">`+ pVendor + `</div>
+															<div class="product_button ml-auto mr-auto trans_200"><a href="#" onclick="AddtoCart(this)">Add to cart</a></div>
 														</div>
 													</div>	
 												</div>`;
@@ -335,6 +336,7 @@
 	<script src="plugins/Isotope/isotope.pkgd.min.js"></script>
 	<script src="plugins/Isotope/fitcolumns.js"></script>
 	<script src="js/categories.js"></script>
+	<script src="js/addTocart.js"></script>
 </body>
 
 </html>

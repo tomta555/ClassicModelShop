@@ -120,14 +120,14 @@ $(document).ready(function()
 				{
 					original = parseFloat(qty.find('.product_num').text());
 					console.log(original)
-					if(original > 0)
+					if(original > 1)
 						{
 							newValue = original - 1;
 
-							var SumTotal = parseFloat(NumTotal);
-							Total = ((original-1) * SumTotal).toFixed(2);
-							var t = document.querySelector('#TotalSum');
-							t.innerHTML = "<span>Total: </span>$"+Total;
+							// var SumTotal = parseFloat(NumTotal);
+							// Total = ((original-1) * SumTotal).toFixed(2);
+							// var t = document.querySelector('#TotalSum');
+							// t.innerHTML = "$"+Total;
 						}
 					num.text(newValue);
 
@@ -144,10 +144,10 @@ $(document).ready(function()
 					num.text(newValue);
 
 					//Sum up Total
-					var SumTotal = parseFloat(NumTotal);
-					Total = ((original+1) * SumTotal).toFixed(2);
-					var t = document.querySelector('#TotalSum');
-					t.innerHTML = "<span>Total: </span>$"+Total;
+					// var SumTotal = parseFloat(NumTotal);
+					// Total = ((original+1) * SumTotal).toFixed(2);
+					// var t = document.querySelector('#TotalSum');
+					// t.innerHTML = "$"+Total;
 
 				});
 			});
