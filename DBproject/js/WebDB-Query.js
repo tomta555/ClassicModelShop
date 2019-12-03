@@ -49,7 +49,9 @@ function employeesQuery() {
   let title;
   const tableBody = document.querySelector('#TableBody')
   db.transaction(function (tx) {
-    tx.executeSql('SELECT * FROM employees', [], function (tx, results) {
+    var ps = getCookie("empNum")
+    console.log(ps)
+    tx.executeSql('SELECT * FROM employees WHERE employeeNumber = ? or reportsTo = ? ', [ps,ps], function (tx, results) {
       let len = results.rows.length, i;
       for (i = 0; i < len; i++) {
         enumber = results.rows.item(i).employeeNumber
@@ -753,12 +755,13 @@ function clearStockRow(){
 function updateStock(){
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let stockNum = document.getElementById("updateStock").value
+  let date = document.getElementById("stockInDate").value
   let productCode
   let qty
   db.transaction(function (tx) {
     tx.executeSql('SELECT sum(quantity) as qty FROM stockDetails WHERE stockNumber = ?', [stockNum], function (tx, results) {
       let totalQty = results.rows.item(0).qty
-        tx.executeSql('INSERT INTO stock VALUES (?, date("now"), ?)', [stockNum,totalQty]);
+      tx.executeSql('INSERT INTO stock VALUES (?, ?, ?)', [stockNum,date,totalQty]);
     }, null);
     tx.executeSql('SELECT * FROM stockDetails WHERE stockNumber = ?', [stockNum], function (tx, results) {
       let len = results.rows.length, i;
@@ -865,3 +868,18 @@ function tableSearch() {
 // function AddtoCart(){
 
 //   }
+// getCookie
+function getCookie(cname) {
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
