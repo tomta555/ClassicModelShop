@@ -176,6 +176,12 @@ function addEmployee() {
 }
 
 function editEmployee(location) {
+  let job1;
+  let job2;
+  let job3;
+  let job4;
+  let job5;
+  let job6;
   const editBody = document.querySelector('#editemployee')
   edEmployee = location.parentNode.parentNode.firstChild.nextSibling.textContent;
   edmail = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.textContent;
@@ -184,12 +190,25 @@ function editEmployee(location) {
   <tr>
 
   <td><input type="text" class="form-control" id="edit1"></td>
-  <td><input type="text" class="form-control" id="edit2"></td>
-  
+  <td><div class="container">
+  <div class="row">
+      <div class="col-8 col-md-6">     
+        <select class="custom-select" id="edit2">
+          <option selected>`+edTitle+`</option>
+          <option value="VP Sales">VP Sales</option>
+          <option value="VP Marketing">VP Marketing</option>
+          <option value="Sales Manager (APAC)">Sales Manager (APAC)</option>
+          <option value="Sale Manager (EMEA)">Sale Manager (EMEA)</option>
+          <option value="Sales Manager (NA)">Sales Manager (NA)</option>
+          <option value="Sales Rep">Sales Rep</option>
+        </select>   
+      </div>
+  </div></td>  
 </tr>
   `
   document.getElementById("edit1").value = edmail
   document.getElementById("edit2").value = edTitle
+  
 
 }
 
