@@ -3,7 +3,10 @@ function cart_Clear() {
     db.transaction(function (tx) {
         tx.executeSql('DELETE FROM carts');
     });
-    this.location.reload(true)
+    if(this.location.pathname == '/cart.html'){
+        this.location.reload(true)
+    }
+    
 }
 
 function cart_Query() {
@@ -187,8 +190,24 @@ function fillShipToLine(){
     let text = e.options[e.selectedIndex].text;
     var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
     db.transaction(function (tx) {
-        tx.executeSql('SELECT addressLine1 FROM customersAddresses WHERE customerNumber = ? AND addressNumber = ? AND DELETE_FLAG = "No"', [custNumber,text], function (tx, results) {
-            document.getElementById("ShipToAddress").value = results.rows.item(0).addressLine1
+        tx.executeSql('SELECT * FROM customersAddresses WHERE customerNumber = ? AND addressNumber = ? AND DELETE_FLAG = "No"', [custNumber,text], function (tx, results) {
+            let addr1 = results.rows.item(0).addressLine1
+            let addr2 
+            let addrState
+            if(results.rows.item(0).addressLine2 != null){
+               addr2 = results.rows.item(0).addressLine2 + ", "
+            }else{
+                addr2 = " "
+            }
+            let addrCity = results.rows.item(0).city + ", "
+            if(results.rows.item(0).state != null){
+                addrState = results.rows.item(0).state + ", "
+             }else{
+                 addrState = " "
+             }
+            let addrPostal = results.rows.item(0).postalCode + ", "
+            let addrCountry = results.rows.item(0).country + " "
+            document.getElementById("ShipToAddress").value = addr1+addr2+addrCity+addrState+addrPostal+addrCountry
         }, null);
     });
 }
@@ -199,8 +218,57 @@ function fillBillToLine(){
     let text = e.options[e.selectedIndex].text;
     var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
     db.transaction(function (tx) {
-        tx.executeSql('SELECT addressLine1 FROM customersAddresses WHERE customerNumber = ? AND addressNumber = ? AND DELETE_FLAG = "No"', [custNumber,text], function (tx, results) {
-            document.getElementById("BillToAddress").value = results.rows.item(0).addressLine1
+        tx.executeSql('SELECT * FROM customersAddresses WHERE customerNumber = ? AND addressNumber = ? AND DELETE_FLAG = "No"', [custNumber,text], function (tx, results) {
+            let addr1 = results.rows.item(0).addressLine1
+            let addr2 
+            let addrState
+            if(results.rows.item(0).addressLine2 != null){
+               addr2 = results.rows.item(0).addressLine2 + ", "
+            }else{
+                addr2 = " "
+            }
+            let addrCity = results.rows.item(0).city + ", "
+            if(results.rows.item(0).state != null){
+                addrState = results.rows.item(0).state + ", "
+             }else{
+                 addrState = " "
+             }
+            let addrPostal = results.rows.item(0).postalCode + ", "
+            let addrCountry = results.rows.item(0).country + " "
+            document.getElementById("BillToAddress").value = addr1+addr2+addrCity+addrState+addrPostal+addrCountry
+        }, null);
+    });
+}
+
+function place_order(){
+    var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+    let reqDate = ""
+    let cNum = document.getElementById("checkout_custNum").value
+    let e1 = document.getElementById("checkout_ShipTo")
+    let textShipTo = e1.options[e1.selectedIndex].text;
+    let e2 = document.getElementById("checkout_BillTo")
+    let textBillTo = e2.options[e2.selectedIndex].text;
+    let total = parseFloat(document.getElementById("cartTotal").textContent.replace("$","")).toFixed(2)
+    let mpointGet = parseInt(3*(total / 100))
+    let cpCode =document.getElementById("DiscountCode").value
+    db.transaction(function (tx) {
+        tx.executeSql('SELECT MAX(orderNumber) as MorderNum FROM orders', [], function (tx, results) {
+            let orderNum = results.rows.item(0).MorderNum
+            tx.executeSql('SELECT * FROM carts',[],function (tx, results) {
+                let len = results.rows.length, i;
+                for (i = 0; i < len; i++) {
+                    let pcode = results.rows.item(i).productCode
+                    let pQty = results.rows.item(i).Qty
+                    let pPrice = results.rows.item(i).price
+                    tx.executeSql('INSERT INTO orderdetails VALUES(?,?,?,?,1)',[orderNum,pcode,pQty,pPrice])
+                    tx.executeSql('UPDATE products SET quantityInStock = quantityInStock - ? WHERE productCode = ?',[pQty,pcode])
+                }
+                tx.executeSql('INSERT INTO orders VALUE(?,DATE("now"),?,"-","In Process","-",?,?,?,?)',[orderNum,reqDate,cNum,mpointGet,textShipTo,textBillTo])
+                tx.executeSql('UPDATE customers SET mPoint = mPoint + ?',[mpointGet])
+                tx.executeSql('UPDATE coupons SET timeCanUse = timeCanUse - 1 WHERE discountCode = ?',[cpCode])
+                cart_Clear()
+            },null);
+            
         }, null);
     });
 }
