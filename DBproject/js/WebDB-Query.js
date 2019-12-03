@@ -80,7 +80,6 @@ function employeesQuery() {
   });
 }
 
-<<<<<<< HEAD
 function employeeStatus() {
   
   let enumber;
@@ -116,10 +115,7 @@ function employeeStatus() {
 }
 
 
-function employeeEdit(location) { console.log(location.parentNode.parentNode.firstChild.nextSibling.textContent)
-=======
 function employeeEdit(location) {
->>>>>>> 280d1f9c7612817422aa3a063618233fe4b54b4a
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let enumber;
   let fname;
