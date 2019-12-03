@@ -169,6 +169,7 @@ function addEmployee() {
   db.transaction(function (tx) {
     tx.executeSql('INSERT INTO employees VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [employeeNumber, lastName, firstName, extension, email, officeCode, reportTo, jobTitle, passHash]);
   });
+  this.location.reload(true)
 }
 
 function editEmployee(location) {
@@ -210,6 +211,7 @@ function editEmployeeApply() {
     tx.executeSql('UPDATE employees SET email = ?, jobTitle = ? WHERE employeeNumber = ?',
       [mail, jobtitle, eedEmployee]);
   });
+  this.location.reload(true)
 }
 
 
@@ -271,6 +273,7 @@ function viewCustomerAddr(location) {
   let state;
   let postalCode;
   let country;
+  let addrNum
   const cNum = location.textContent;
   const viewAddr = document.querySelector('#viewAddresses');
   viewAddr.innerHTML = "";
@@ -285,8 +288,10 @@ function viewCustomerAddr(location) {
         state = results.rows.item(i).state
         postalCode = results.rows.item(i).postalCode
         country = results.rows.item(i).country
+        addrNum = results.rows.item(i).addressNumber
         let node = `
         <tr align="center">
+        <td>`+ addrNum +`</td>
         <td>`+ cNumber + `</td>
         <td>`+ addrline1 + `</td>
         <td>`+ addrline2 + `</td>
@@ -317,6 +322,7 @@ function editCustomerAddr(location) {
   initAddrLine1 = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.textContent;
   editBody.innerHTML = `
   <tr>
+  <td><input type="text" class="form-control" id="edit0"></td>
   <td><input type="text" class="form-control" id="edit1"></td>
   <td><input type="text" class="form-control" id="edit2"></td>
   <td><input type="text" class="form-control" id="edit3"></td>
@@ -325,7 +331,7 @@ function editCustomerAddr(location) {
   <td><input type="text" class="form-control" id="edit6"></td>
 </tr>
   `
-
+  document.getElementById("edit0").value = location.parentNode.parentNode.firstChild.nextSibling.textContent
   document.getElementById("edit1").value = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.textContent
   document.getElementById("edit2").value = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.textContent
   document.getElementById("edit3").value = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.textContent
@@ -338,6 +344,7 @@ function editAddressApply() {
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let initAddrLine11 = initAddrLine1;
   let cNumber = editCusNum;
+  let addrNum = document.getElementById("edit0").value
   let addrline1 = document.getElementById("edit1").value
   let addrline2 = document.getElementById("edit2").value
   let city = document.getElementById("edit3").value
@@ -345,9 +352,10 @@ function editAddressApply() {
   let postalCode = document.getElementById("edit5").value
   let country = document.getElementById("edit6").value
   db.transaction(function (tx) {
-    tx.executeSql('UPDATE customersAddresses SET addressLine1 = ?, addressLine2 = ?, city = ?, state = ?, postalCode = ?, country = ? WHERE customerNumber = ? AND addressLine1 = ?',
-      [addrline1, addrline2, city, state, postalCode, country, cNumber, initAddrLine11]);
+    tx.executeSql('UPDATE customersAddresses SET addressLine1 = ?, addressLine2 = ?, city = ?, state = ?, postalCode = ?, country = ?, addressNumber = ? WHERE customerNumber = ? AND addressLine1 = ?',
+      [addrline1, addrline2, city, state, postalCode, country,addrNum, cNumber, initAddrLine11]);
   });
+  this.location.reload(true)
 }
 
 function deleteCustomerAddr(location) {
@@ -452,6 +460,7 @@ function addCustomer() {
     tx.executeSql('INSERT INTO customers VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [cNumber, cName, contactLName, contactFName, cPhone, saleRep, creditLimit, memberPoint]);
     tx.executeSql('INSERT INTO customersAddresses VALUES (?, ?, ?, ?, ?, ?, ?, ?, "No")', [cNumber, addrline1, addrline2, city, state, postalCode, country, addrNumber]);
   });
+  this.location.reload(true)
 }
 
 function addCustomerAddress() {
@@ -467,7 +476,7 @@ function addCustomerAddress() {
   db.transaction(function (tx) {
     tx.executeSql('INSERT INTO customersAddresses VALUES (?, ?, ?, ?, ?, ?, ?, ?,"No")', [cNumber, addrline1, addrline2, city, state, postalCode, country, addrNum]);
   });
-
+  this.location.reload(true)
 }
 
 function clearAddAddrForm() {
@@ -618,6 +627,7 @@ function editOrderApply() {
     tx.executeSql('UPDATE orders SET shippedDate = ?, status = ?, comments = ? WHERE customerNumber = ? AND orderNumber = ?',
       [shippedDate, status, comments, cNum, orderNum]);
   });
+  this.location.reload(true)
 }
 
 function paymentApply() {
@@ -630,6 +640,7 @@ function paymentApply() {
     tx.executeSql('INSERT INTO payments VALUES (?,?,?,?)',
       [cNum, pCheck, pDate, pAmount]);
   });
+  this.location.reload(true)
 }
 
 function paymentsQuery() {
@@ -773,6 +784,7 @@ function addProduct() {
   db.transaction(function (tx) {
     tx.executeSql('INSERT INTO products VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [productCode, productName, productLine, productScale, productVendor, productDescription, quantityInStock, buyPrice, MSRP]);
   });
+  this.location.reload(true)
 }
 
 function editProduct(location) {
@@ -816,6 +828,7 @@ function editProductApply() {
     tx.executeSql('UPDATE products SET productName = ?, productScale = ?, productVendor = ?, quantityInStock = ?, buyPrice = ?, MSRP = ? WHERE productCode = ?',
       [eeproductName, eeproductScale, eeproductVendor, eequantityInStock, eebuyPrice, eeMSRP, eeproductCode]);
   });
+  this.location.reload(true)
 }
 
 function couponQuery() {
@@ -859,6 +872,7 @@ function addCoupon() {
   db.transaction(function (tx) {
     tx.executeSql('INSERT INTO coupons VALUES (?, ?, ?, ?)', [discountCode, discountAmount, timeCanUse, expiryDate]);
   });
+  this.location.reload(true)
 }
 
 function deleteCoupon(location) {
@@ -906,13 +920,12 @@ function clearStockRow() {
 function updateStock() {
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let stockNum = document.getElementById("updateStock").value
-  let date = document.getElementById("stockInDate").value
   let productCode
   let qty
   db.transaction(function (tx) {
     tx.executeSql('SELECT sum(quantity) as qty FROM stockDetails WHERE stockNumber = ?', [stockNum], function (tx, results) {
       let totalQty = results.rows.item(0).qty
-      tx.executeSql('INSERT INTO stock VALUES (?, ?, ?)', [stockNum, date, totalQty]);
+      tx.executeSql("INSERT INTO stock VALUES (?, date('now'), ?)", [stockNum,totalQty]);
     }, null);
     tx.executeSql('SELECT * FROM stockDetails WHERE stockNumber = ?', [stockNum], function (tx, results) {
       let len = results.rows.length, i;
@@ -921,6 +934,7 @@ function updateStock() {
         qty = results.rows.item(i).quantity
         tx.executeSql('UPDATE products SET quantityInStock = quantityInStock + ? WHERE productCode = ?', [qty, productCode]);
       }
+      this.location.reload(true)
     }, null);
 
   });

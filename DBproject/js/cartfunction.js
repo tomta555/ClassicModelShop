@@ -242,28 +242,28 @@ function fillBillToLine(){
 
 function place_order(){
     var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
-    let reqDate = ""
     let cNum = document.getElementById("checkout_custNum").value
     let e1 = document.getElementById("checkout_ShipTo")
-    let textShipTo = e1.options[e1.selectedIndex].text;
+    let textShipTo = parseInt(e1.options[e1.selectedIndex].text);
     let e2 = document.getElementById("checkout_BillTo")
-    let textBillTo = e2.options[e2.selectedIndex].text;
+    let textBillTo = parseInt(e2.options[e2.selectedIndex].text);
     let total = parseFloat(document.getElementById("cartTotal").textContent.replace("$","")).toFixed(2)
     let mpointGet = parseInt(3*(total / 100))
     let cpCode =document.getElementById("DiscountCode").value
     db.transaction(function (tx) {
         tx.executeSql('SELECT MAX(orderNumber) as MorderNum FROM orders', [], function (tx, results) {
-            let orderNum = results.rows.item(0).MorderNum
+            let orderNum = results.rows.item(0).MorderNum + 1 
+            let linenumber = 1
             tx.executeSql('SELECT * FROM carts',[],function (tx, results) {
                 let len = results.rows.length, i;
                 for (i = 0; i < len; i++) {
                     let pcode = results.rows.item(i).productCode
                     let pQty = results.rows.item(i).Qty
                     let pPrice = results.rows.item(i).price
-                    tx.executeSql('INSERT INTO orderdetails VALUES(?,?,?,?,1)',[orderNum,pcode,pQty,pPrice])
+                    tx.executeSql('INSERT INTO orderdetails VALUES(?,?,?,?,?)',[orderNum,pcode,pQty,pPrice,linenumber])
                     tx.executeSql('UPDATE products SET quantityInStock = quantityInStock - ? WHERE productCode = ?',[pQty,pcode])
                 }
-                tx.executeSql('INSERT INTO orders VALUE(?,DATE("now"),?,"-","In Process","-",?,?,?,?)',[orderNum,reqDate,cNum,mpointGet,textShipTo,textBillTo])
+                tx.executeSql("INSERT INTO orders VALUES(?,date('now'),date('now','007 days'),'-','In Process','-',?,?,?,?)",[orderNum,cNum,mpointGet,textShipTo,textBillTo])
                 tx.executeSql('UPDATE customers SET mPoint = mPoint + ?',[mpointGet])
                 tx.executeSql('UPDATE coupons SET timeCanUse = timeCanUse - 1 WHERE discountCode = ?',[cpCode])
                 cart_Clear()
