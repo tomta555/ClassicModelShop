@@ -119,6 +119,22 @@ function employeeEdit(location) { console.log(location.parentNode.parentNode.fir
   });
 }
 
+function addEmployee() {
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  let employeeNumber = document.getElementById("enumber").value;
+  let firstName = document.getElementById("fname").value;
+  let lastName = document.getElementById("lname").value;
+  let extension = document.getElementById("exten").value;
+  let email = document.getElementById("email").value;
+  let officeCode = document.getElementById("office").value;
+  let reportTo = document.getElementById("reportsto").value;
+  let jobTitle = document.getElementById("title").value;
+  let passHash = "No"
+  db.transaction(function (tx) {
+    tx.executeSql('INSERT INTO employees VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [employeeNumber, lastName, firstName, extension, email, officeCode, reportTo, jobTitle, passHash]);
+  });
+}
+
 
 function customerQuery() {
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
@@ -343,6 +359,7 @@ function addCustomer() {
   let contactFName = document.getElementById("cFName").value;
   let contactLName = document.getElementById("cLName").value;
   let cPhone = document.getElementById("cPhone").value;
+  let addrNumber = document.getElementById("cAddrNum1").value;
   let addrline1 = document.getElementById("cAddr1").value;
   let addrline2 = document.getElementById("cAddr2").value;
   let city = document.getElementById("cCity").value;
@@ -354,7 +371,7 @@ function addCustomer() {
   let memberPoint = 0;
   db.transaction(function (tx) {
     tx.executeSql('INSERT INTO customers VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [cNumber, cName, contactLName, contactFName, cPhone, saleRep, creditLimit, memberPoint]);
-    tx.executeSql('INSERT INTO customersAddresses VALUES (?, ?, ?, ?, ?, ?, ?)', [cNumber, addrline1, addrline2, city, state, postalCode, country]);
+    tx.executeSql('INSERT INTO customersAddresses VALUES (?, ?, ?, ?, ?, ?, ?, ?, "No")', [cNumber, addrline1, addrline2, city, state, postalCode, country, addrNumber]);
   });
 }
 
@@ -663,6 +680,21 @@ function ProductEdit(location) {
   });
 }
 
+function addProduct() {
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  let productCode = document.getElementById("productCode").value;
+  let productName = document.getElementById("productName").value;
+  let productLine = document.getElementById("productLine").value;
+  let productScale = document.getElementById("productScale").value;
+  let productVendor = document.getElementById("productVendor").value;
+  let productDescription = document.getElementById("productDescription").value;
+  let quantityInStock = document.getElementById("quantityInStock").value;
+  let buyPrice = document.getElementById("buyPrice").value;
+  let MSRP = document.getElementById("MSRP").value;
+  db.transaction(function (tx) {
+    tx.executeSql('INSERT INTO products VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [productCode, productName, productLine,productScale, productVendor, productDescription, quantityInStock, buyPrice, MSRP]);
+  });
+}
 
 
 function couponQuery() {
