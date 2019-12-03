@@ -50,7 +50,7 @@ function employeesQuery() {
   const tableBody = document.querySelector('#TableBody')
   db.transaction(function (tx) {
     var ps = getCookie("empNum")
-    tx.executeSql('SELECT * FROM employees WHERE employeeNumber = ? or reportsTo = ? ', [ps, ps], function (tx, results) {
+    tx.executeSql('SELECT * FROM employees WHERE reportsTo = ? ', [ps], function (tx, results) {
       let len = results.rows.length, i;
       for (i = 0; i < len; i++) {
         enumber = results.rows.item(i).employeeNumber
@@ -172,12 +172,6 @@ function addEmployee() {
 }
 
 function editEmployee(location) {
-  let job1;
-  let job2;
-  let job3;
-  let job4;
-  let job5;
-  let job6;
   const editBody = document.querySelector('#editemployee')
   edEmployee = location.parentNode.parentNode.firstChild.nextSibling.textContent;
   edmail = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.textContent;
@@ -190,7 +184,6 @@ function editEmployee(location) {
   <div class="row">
       <div class="col-8 col-md-6">     
         <select class="custom-select" id="edit2">
-          <option selected>`+edTitle+`</option>
           <option value="VP Sales">VP Sales</option>
           <option value="VP Marketing">VP Marketing</option>
           <option value="Sales Manager (APAC)">Sales Manager (APAC)</option>
