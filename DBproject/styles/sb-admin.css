@@ -3282,7 +3282,7 @@ input[type="button"].btn-block {
 .dropright,
 .dropdown,
 .dropleft {
-  position: relative;
+  position: inherit;
 }
 
 .dropdown-toggle {
@@ -6287,6 +6287,7 @@ a.close.disabled {
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   padding: 1rem;
+  /* overflow-y: visible; */
 }
 
 .modal-footer {
