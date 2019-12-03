@@ -1,5 +1,4 @@
 
-
 function loginSubmit(){
 require(['bcrypt'], function(bcrypt) {
     var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);

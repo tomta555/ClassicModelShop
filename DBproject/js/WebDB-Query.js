@@ -49,7 +49,8 @@ function employeesQuery() {
   let title;
   const tableBody = document.querySelector('#TableBody')
   db.transaction(function (tx) {
-    tx.executeSql('SELECT * FROM employees', [], function (tx, results) {
+    var ps = getCookie("empNum")
+    tx.executeSql('SELECT * FROM employees WHERE employeeNumber = ? or reportsTo = ? ', [ps, ps], function (tx, results) {
       let len = results.rows.length, i;
       for (i = 0; i < len; i++) {
         enumber = results.rows.item(i).employeeNumber
@@ -70,7 +71,7 @@ function employeesQuery() {
         <td>`+ office + `</td>
         <td>`+ reportsto + `</td>
         <td>`+ title + `</td>
-        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#employeeEditModal" onclick="employeeEdit(this)">
+        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#employeeEditModal" onclick="editEmployee(this)">
         Edit</button></td>
       </tr>`;
         tableBody.insertAdjacentHTML('beforeend', node)
@@ -79,10 +80,10 @@ function employeesQuery() {
   });
 }
 
-function employeeEdit(location) { console.log(location.parentNode.parentNode.firstChild.nextSibling.textContent)
+function employeeEdit(location) {
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let enumber;
-  let fname;  
+  let fname;
   let lname;
   let exten;
   let email;
@@ -94,15 +95,15 @@ function employeeEdit(location) { console.log(location.parentNode.parentNode.fir
   tableBody.innerHTML = ""
   db.transaction(function (tx) {
     tx.executeSql('SELECT * FROM employees WHERE employeeNumber = ?', [Enumbers], function (tx, results) {
-        enumber = results.rows.item(0).employeeNumber
-        fname = results.rows.item(0).lastName
-        lname = results.rows.item(0).firstName
-        exten = results.rows.item(0).extension
-        email = results.rows.item(0).email
-        office = results.rows.item(0).officeCode
-        reportsto = results.rows.item(0).reportsTo
-        title = results.rows.item(0).jobTitle
-        let node = `
+      enumber = results.rows.item(0).employeeNumber
+      fname = results.rows.item(0).lastName
+      lname = results.rows.item(0).firstName
+      exten = results.rows.item(0).extension
+      email = results.rows.item(0).email
+      office = results.rows.item(0).officeCode
+      reportsto = results.rows.item(0).reportsTo
+      title = results.rows.item(0).jobTitle
+      let node = `
         <tr align="center">
         <td>`+ enumber + `</td>
         <td>`+ fname + `</td>
@@ -113,11 +114,58 @@ function employeeEdit(location) { console.log(location.parentNode.parentNode.fir
         <td>`+ reportsto + `</td>
         <td>`+ title + `</td>
       </tr>`;
-        tableBody.insertAdjacentHTML('beforeend', node)
-      
+      tableBody.insertAdjacentHTML('beforeend', node)
+
     }, null);
   });
 }
+
+function addEmployee() {
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  let employeeNumber = document.getElementById("enumber").value;
+  let firstName = document.getElementById("fname").value;
+  let lastName = document.getElementById("lname").value;
+  let extension = document.getElementById("exten").value;
+  let email = document.getElementById("email").value;
+  let officeCode = document.getElementById("office").value;
+  let reportTo = document.getElementById("reportsto").value;
+  let jobTitle = document.getElementById("title").value;
+  let passHash = "No"
+  db.transaction(function (tx) {
+    tx.executeSql('INSERT INTO employees VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [employeeNumber, lastName, firstName, extension, email, officeCode, reportTo, jobTitle, passHash]);
+  });
+}
+
+function editEmployee(location) {
+  const editBody = document.querySelector('#editemployee')
+  edEmployee = location.parentNode.parentNode.firstChild.nextSibling.textContent;
+  edmail = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.textContent;
+  edTitle = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.textContent;
+  editBody.innerHTML = `
+  <tr>
+
+  <td><input type="text" class="form-control" id="edit1"></td>
+  <td><input type="text" class="form-control" id="edit2"></td>
+  
+</tr>
+  `
+  document.getElementById("edit1").value = edmail
+  document.getElementById("edit2").value = edTitle
+
+}
+
+function editEmployeeApply() {
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  let eedEmployee = edEmployee;
+  let mail = document.getElementById("edit1").value
+  let jobtitle = document.getElementById("edit2").value
+  db.transaction(function (tx) {
+    tx.executeSql('UPDATE employees SET email = ?, jobTitle = ? WHERE employeeNumber = ?',
+      [mail, jobtitle, eedEmployee]);
+  });
+}
+
+
 
 
 function customerQuery() {
@@ -343,6 +391,7 @@ function addCustomer() {
   let contactFName = document.getElementById("cFName").value;
   let contactLName = document.getElementById("cLName").value;
   let cPhone = document.getElementById("cPhone").value;
+  let addrNumber = document.getElementById("cAddrNum1").value;
   let addrline1 = document.getElementById("cAddr1").value;
   let addrline2 = document.getElementById("cAddr2").value;
   let city = document.getElementById("cCity").value;
@@ -354,7 +403,7 @@ function addCustomer() {
   let memberPoint = 0;
   db.transaction(function (tx) {
     tx.executeSql('INSERT INTO customers VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [cNumber, cName, contactLName, contactFName, cPhone, saleRep, creditLimit, memberPoint]);
-    tx.executeSql('INSERT INTO customersAddresses VALUES (?, ?, ?, ?, ?, ?, ?)', [cNumber, addrline1, addrline2, city, state, postalCode, country]);
+    tx.executeSql('INSERT INTO customersAddresses VALUES (?, ?, ?, ?, ?, ?, ?, ?, "No")', [cNumber, addrline1, addrline2, city, state, postalCode, country, addrNumber]);
   });
 }
 
@@ -369,7 +418,7 @@ function addCustomerAddress() {
   let country = document.getElementById("cCountry2").value;
   var addrNum = document.getElementById("cAddrNum").value;
   db.transaction(function (tx) {
-    tx.executeSql('INSERT INTO customersAddresses VALUES (?, ?, ?, ?, ?, ?, ?, ?,"No")', [cNumber, addrline1, addrline2, city, state, postalCode, country,addrNum]);
+    tx.executeSql('INSERT INTO customersAddresses VALUES (?, ?, ?, ?, ?, ?, ?, ?,"No")', [cNumber, addrline1, addrline2, city, state, postalCode, country, addrNum]);
   });
 
 }
@@ -524,7 +573,7 @@ function editOrderApply() {
   });
 }
 
-function paymentApply(){
+function paymentApply() {
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let cNum = document.getElementById("paymentCNum").value
   let pCheck = document.getElementById("paymentCheck").value
@@ -536,7 +585,7 @@ function paymentApply(){
   });
 }
 
-function paymentsQuery(){
+function paymentsQuery() {
   let db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let customerNumber
   let checkNumber
@@ -553,7 +602,7 @@ function paymentsQuery(){
         amount = results.rows.item(i).amount
         let node = `
         <tr align="center">
-        <td>`+ customerNumber+ `</td>
+        <td>`+ customerNumber + `</td>
         <td>`+ checkNumber + `</td>
         <td>`+ paymentDate + `</td>
         <td>`+ amount + `</td>
@@ -598,7 +647,7 @@ function productQuery() {
         <td>`+ MSRP + `</td>
         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ProductDesModal" onclick="ProductDescription(this)">
         Product Description</button></td>
-        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productEditModal" onclick="ProductEdit(this)">
+        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productEditModal" onclick="editProduct(this)">
         Edit</button></td>
       </tr>`;
         tableBody.insertAdjacentHTML('beforeend', node)
@@ -607,7 +656,7 @@ function productQuery() {
   });
 }
 
-function ProductDescription(location) { 
+function ProductDescription(location) {
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let productCodeLocation = location.parentNode.parentNode.firstChild.nextSibling.textContent
   const tableBody = document.querySelector('#viewProDes')
@@ -615,16 +664,16 @@ function ProductDescription(location) {
   db.transaction(function (tx) {
     tx.executeSql('SELECT * FROM products WHERE productCode = ?', [productCodeLocation], function (tx, results) {
       let ProductDescription
-        ProductDescription = results.rows.item(0).productDescription
-        let node = `
-        <div><a>`+ProductDescription+`</a></div>
+      ProductDescription = results.rows.item(0).productDescription
+      let node = `
+        <div><a>`+ ProductDescription + `</a></div>
         `;
-        tableBody.insertAdjacentHTML('beforeend', node)
+      tableBody.insertAdjacentHTML('beforeend', node)
     }, null);
   });
 }
 
-function ProductEdit(location) { 
+function ProductEdit(location) {
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let productCode
   let productName
@@ -639,15 +688,15 @@ function ProductEdit(location) {
   tableBody.innerHTML = ""
   db.transaction(function (tx) {
     tx.executeSql('SELECT * FROM products WHERE productCode = ?', [productCodeLocation], function (tx, results) {
-        productCode = results.rows.item(0).productCode
-        productName = results.rows.item(0).productName
-        productScale = results.rows.item(0).productScale
-        productVendor = results.rows.item(0).productVendor
-        ProductDescription = results.rows.item(0).productDescription
-        quantityInStock = results.rows.item(0).quantityInStock
-        buyPrice = results.rows.item(0).buyPrice
-        MSRP = results.rows.item(0).MSRP
-        let node = `
+      productCode = results.rows.item(0).productCode
+      productName = results.rows.item(0).productName
+      productScale = results.rows.item(0).productScale
+      productVendor = results.rows.item(0).productVendor
+      ProductDescription = results.rows.item(0).productDescription
+      quantityInStock = results.rows.item(0).quantityInStock
+      buyPrice = results.rows.item(0).buyPrice
+      MSRP = results.rows.item(0).MSRP
+      let node = `
         <tr align="center">
         <td>`+ productCode + `</td>
         <td>`+ productName + `</td>
@@ -657,13 +706,70 @@ function ProductEdit(location) {
         <td>`+ buyPrice + `</td>
         <td>`+ MSRP + `</td>
       </tr>`;
-        tableBody.insertAdjacentHTML('beforeend', node)
-      
+      tableBody.insertAdjacentHTML('beforeend', node)
+
     }, null);
   });
 }
 
+function addProduct() {
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  let productCode = document.getElementById("productCode").value;
+  let productName = document.getElementById("productName").value;
+  let productLine = document.getElementById("productLine").value;
+  let productScale = document.getElementById("productScale").value;
+  let productVendor = document.getElementById("productVendor").value;
+  let productDescription = document.getElementById("productDescription").value;
+  let quantityInStock = document.getElementById("quantityInStock").value;
+  let buyPrice = document.getElementById("buyPrice").value;
+  let MSRP = document.getElementById("MSRP").value;
+  db.transaction(function (tx) {
+    tx.executeSql('INSERT INTO products VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [productCode, productName, productLine, productScale, productVendor, productDescription, quantityInStock, buyPrice, MSRP]);
+  });
+}
 
+function editProduct(location) {
+  const editBody = document.querySelector('#editProduct')
+  eproductCode = location.parentNode.parentNode.firstChild.nextSibling.textContent;
+  eproductName = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.textContent;
+  eproductScale = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.textContent;
+  eproductVendor = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.textContent;
+  ebuyPrice = location.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.textContent;
+  eMSRP = location.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.textContent;
+  equantityInStock = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.textContent;
+  editBody.innerHTML = `
+  <tr>
+
+  <td><input type="text" class="form-control" id="edit2"></td>
+  <td><input type="text" class="form-control" id="edit3"></td>
+  <td><input type="text" class="form-control" id="edit4"></td>
+  <td><input type="text" class="form-control" id="edit5"></td>
+  <td><input type="text" class="form-control" id="edit6"></td>
+  <td><input type="text" class="form-control" id="edit7"></td>
+</tr>
+  `
+  document.getElementById("edit2").value = eproductName
+  document.getElementById("edit3").value = eproductScale
+  document.getElementById("edit4").value = eproductVendor
+  document.getElementById("edit5").value = equantityInStock
+  document.getElementById("edit6").value = ebuyPrice
+  document.getElementById("edit7").value = eMSRP
+}
+
+function editProductApply() {
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  let eeproductCode = eproductCode;
+  let eeproductName = document.getElementById("edit2").value
+  let eeproductScale = document.getElementById("edit3").value
+  let eeproductVendor = document.getElementById("edit4").value
+  let eequantityInStock = document.getElementById("edit5").value
+  let eebuyPrice = document.getElementById("edit6").value
+  let eeMSRP = document.getElementById("edit7").value
+  db.transaction(function (tx) {
+    tx.executeSql('UPDATE products SET productName = ?, productScale = ?, productVendor = ?, quantityInStock = ?, buyPrice = ?, MSRP = ? WHERE productCode = ?',
+      [eeproductName, eeproductScale, eeproductVendor, eequantityInStock, eebuyPrice, eeMSRP, eeproductCode]);
+  });
+}
 
 function couponQuery() {
   let db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
@@ -697,18 +803,18 @@ function couponQuery() {
   });
 }
 
-function addCoupon(){
+function addCoupon() {
   let discountCode = document.getElementById("disCode").value
   let discountAmount = document.getElementById("disAmount").value
   let timeCanUse = document.getElementById("disUse").value
   let expiryDate = document.getElementById("disExp").value
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   db.transaction(function (tx) {
-    tx.executeSql('INSERT INTO coupons VALUES (?, ?, ?, ?)', [discountCode,discountAmount,timeCanUse,expiryDate]);
+    tx.executeSql('INSERT INTO coupons VALUES (?, ?, ?, ?)', [discountCode, discountAmount, timeCanUse, expiryDate]);
   });
 }
 
-function deleteCoupon(location){
+function deleteCoupon(location) {
   const code = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.textContent
   const table = document.querySelector('#TableBody');
   const delRow = location.parentNode.parentNode.rowIndex - 1;
@@ -719,7 +825,7 @@ function deleteCoupon(location){
   });
 }
 
-function clearDetailRow(){
+function clearDetailRow() {
   let addStock = document.querySelector("#DetailRow")
   addStock.innerHTML = `                            
   <div class="form-group">
@@ -734,45 +840,46 @@ function clearDetailRow(){
   <div>`
 }
 
-function addStock(){ 
+function addStock() {
   let stockNum = document.getElementById("stockNumD").value
   let productCode = document.getElementById("productCodeD").value
   let qty = document.getElementById("qtyD").value
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   db.transaction(function (tx) {
-    tx.executeSql('INSERT INTO stockDetails VALUES (?, ?, ?)', [stockNum,productCode,qty]);
+    tx.executeSql('INSERT INTO stockDetails VALUES (?, ?, ?)', [stockNum, productCode, qty]);
   });
 }
 
-function clearStockRow(){
+function clearStockRow() {
   document.getElementById("updateStock").value = ""
   document.getElementById("stockInDate").value = ""
-  
+
 }
 
-function updateStock(){
+function updateStock() {
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let stockNum = document.getElementById("updateStock").value
+  let date = document.getElementById("stockInDate").value
   let productCode
   let qty
   db.transaction(function (tx) {
     tx.executeSql('SELECT sum(quantity) as qty FROM stockDetails WHERE stockNumber = ?', [stockNum], function (tx, results) {
       let totalQty = results.rows.item(0).qty
-        tx.executeSql('INSERT INTO stock VALUES (?, date("now"), ?)', [stockNum,totalQty]);
+      tx.executeSql('INSERT INTO stock VALUES (?, ?, ?)', [stockNum, date, totalQty]);
     }, null);
     tx.executeSql('SELECT * FROM stockDetails WHERE stockNumber = ?', [stockNum], function (tx, results) {
       let len = results.rows.length, i;
       for (i = 0; i < len; i++) {
         productCode = results.rows.item(i).productCode
         qty = results.rows.item(i).quantity
-        tx.executeSql('UPDATE products SET quantityInStock = quantityInStock + ? WHERE productCode = ?', [qty,productCode]);
+        tx.executeSql('UPDATE products SET quantityInStock = quantityInStock + ? WHERE productCode = ?', [qty, productCode]);
       }
     }, null);
-    
+
   });
 }
 
-function stockQuery(){
+function stockQuery() {
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let stockNum = ""
   let date = ""
@@ -802,7 +909,7 @@ function stockQuery(){
   });
 }
 
-function viewStockDetail(location){
+function viewStockDetail(location) {
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let stockNum = location.parentNode.parentNode.firstChild.nextSibling.textContent
   let productCode
@@ -865,3 +972,18 @@ function tableSearch() {
 // function AddtoCart(){
 
 //   }
+// getCookie
+function getCookie(cname) {
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
