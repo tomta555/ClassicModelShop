@@ -102,7 +102,7 @@ function cart_subtotal() {
 
 function cart_total() {
     var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
-    let discount = parseFloat(document.getElementById("DiscountAmt").textContent.replace("$", ''))
+    let discount = parseFloat(document.getElementById("DiscountAmt").textContent.replace("$", '')).toFixed(2)
     db.transaction(function (tx) {
         tx.executeSql('SELECT price*Qty as Sum FROM carts', [], function (tx, results) {
             let len = results.rows.length, i;
@@ -118,16 +118,18 @@ function cart_total() {
 function cart_discount() {
     let discountCode = document.getElementById("DiscountCode").value
     var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+    if(discountCode != ""){
     db.transaction(function (tx) {
-        tx.executeSql('SELECT julianday("expiryDate")-julianday("now") as gap, discountAmount FROM coupons WHERE discountCode = ?', [discountCode], function (tx, results) {
+        tx.executeSql('SELECT julianday("expiryDate")-julianday("now") as gap, discountAmount,timeCanUse FROM coupons WHERE discountCode = ?', [discountCode], function (tx, results) {
             let gap = results.rows.item(0).gap
-            if (gap <= 0) {
+            let time = results.rows.item(0).timeCanUse
+            if (gap <= 0 || time <= 0) {
                 document.getElementById("DiscountAmt").textContent = "$" + 0
-            } else {
+            } else{
                 let disAmt = results.rows.item(0).discountAmount
                 document.getElementById("DiscountAmt").textContent = "$" + disAmt
             }
-            let discount = parseFloat(document.getElementById("DiscountAmt").textContent.replace("$", ''))
+            let discount = parseFloat(document.getElementById("DiscountAmt").textContent.replace("$", '')).toFixed(2)
             tx.executeSql('SELECT price*Qty as Sum FROM carts', [], function (tx, results) {
                 let len = results.rows.length, i;
                 let subtotal = 0
@@ -139,6 +141,7 @@ function cart_discount() {
             }, null);
         }, null);
     });
+}
 }
 
 function SubQty(location) {
@@ -153,4 +156,51 @@ function AddQty(location) {
     let originalValue = parseFloat(location.previousSibling.previousSibling.previousSibling.previousSibling.textContent)
     let newValue = originalValue + 1
     location.previousSibling.previousSibling.previousSibling.previousSibling.textContent = newValue.toString()
+}
+
+function get_custAddr(){
+    let custNumber = document.getElementById("checkout_custNum").value
+    let op1 = document.getElementById("checkout_ShipTo")
+    let op2 = document.getElementById("checkout_BillTo")
+    op1.innerHTML = "<option>Select</option>"
+    op2.innerHTML = "<option>Select</option>"
+    var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+    db.transaction(function (tx) {
+        tx.executeSql('SELECT addressNumber FROM customersAddresses WHERE customerNumber = ? AND DELETE_FLAG = "No"', [custNumber], function (tx, results) {
+            let len = results.rows.length, i;
+            for (i = 0; i < len; i++) {
+                let addrNum = results.rows.item(i).addressNumber
+                let node = `
+                <option>`+addrNum+`</option>
+                `
+                op1.insertAdjacentHTML('beforeend', node)
+                op2.insertAdjacentHTML('beforeend', node)
+            }
+
+        }, null);
+    });
+}
+
+function fillShipToLine(){
+    let custNumber = document.getElementById("checkout_custNum").value
+    let e = document.getElementById("checkout_ShipTo")
+    let text = e.options[e.selectedIndex].text;
+    var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+    db.transaction(function (tx) {
+        tx.executeSql('SELECT addressLine1 FROM customersAddresses WHERE customerNumber = ? AND addressNumber = ? AND DELETE_FLAG = "No"', [custNumber,text], function (tx, results) {
+            document.getElementById("ShipToAddress").value = results.rows.item(0).addressLine1
+        }, null);
+    });
+}
+
+function fillBillToLine(){
+    let custNumber = document.getElementById("checkout_custNum").value
+    let e = document.getElementById("checkout_BillTo")
+    let text = e.options[e.selectedIndex].text;
+    var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+    db.transaction(function (tx) {
+        tx.executeSql('SELECT addressLine1 FROM customersAddresses WHERE customerNumber = ? AND addressNumber = ? AND DELETE_FLAG = "No"', [custNumber,text], function (tx, results) {
+            document.getElementById("BillToAddress").value = results.rows.item(0).addressLine1
+        }, null);
+    });
 }
