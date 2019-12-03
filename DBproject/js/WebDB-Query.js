@@ -186,9 +186,8 @@ function editEmployee(location) {
       <div class="col-8 col-md-6">     
         <select class="custom-select" id="edit2">
           <option value="VP Sales">VP Sales</option>
-          <option value="VP Marketing">VP Marketing</option>
           <option value="Sales Manager (APAC)">Sales Manager (APAC)</option>
-          <option value="Sale Manager (EMEA)">Sale Manager (EMEA)</option>
+          <option value="Sales Manager (EMEA)">Sales Manager (EMEA)</option>
           <option value="Sales Manager (NA)">Sales Manager (NA)</option>
           <option value="Sales Rep">Sales Rep</option>
         </select>   
@@ -318,8 +317,8 @@ var initAddrLine1;
 
 function editCustomerAddr(location) {
   const editBody = document.querySelector('#editAddress')
-  editCusNum = location.parentNode.parentNode.firstChild.nextSibling.textContent;
-  initAddrLine1 = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.textContent;
+  editCusNum = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.textContent;
+  initAddrLine1 = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.textContent;
   editBody.innerHTML = `
   <tr>
   <td><input type="text" class="form-control" id="edit0"></td>
@@ -362,8 +361,10 @@ function deleteCustomerAddr(location) {
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   const table = document.querySelector('#viewAddresses');
   const delRow = location.parentNode.parentNode.rowIndex - 1;
-  editCusNum = location.parentNode.parentNode.firstChild.nextSibling.textContent;
-  initAddrLine1 = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.textContent;
+  editCusNum = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.textContent;
+  initAddrLine1 = location.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.textContent;
+  console.log(editCusNum)
+  console.log(initAddrLine1)
   if (table.rows.length != 1) {
     table.deleteRow(delRow)
     db.transaction(function (tx) {
@@ -1030,9 +1031,6 @@ function tableSearch() {
 
 }
 
-// function AddtoCart(){
-
-//   }
 // getCookie
 function getCookie(cname) {
   var name = cname + "=";

@@ -1,6 +1,8 @@
 function deletecookie(){
-var x = getCookie("empNum");
-setCookie("empNum",x,0)
+let empNum = getCookie("empNum");
+let title = getCookie("title");
+setCookie("title",title,0);
+setCookie("empNum",empNum,0);
  location.href ='index.html'
 }
 

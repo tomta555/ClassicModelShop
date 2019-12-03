@@ -6,20 +6,32 @@ function loginSubmit() {
         var empPass = document.getElementById("inputPassword").value
         if ((empNum != '' && empNum != null) && (empPass != '' && empPass != null)) {
             db.transaction(function (tx) {
-                tx.executeSql('SELECT passHash FROM employees WHERE employeeNumber = ?', [empNum], function (tx, results) {
+                tx.executeSql('SELECT passHash, jobTitle FROM employees WHERE employeeNumber = ?', [empNum], function (tx, results) {
                     let len = results.rows.length;
                     if (len > 0) {
                         let passHash = results.rows.item(0).passHash
-                        console.log(bcrypt.compareSync(empPass, passHash))
+                        let jobtitle = results.rows.item(0).jobTitle
                         if (bcrypt.compareSync(empPass, passHash)) {
                             // Create Cookie    
-                            console.log("login_complete")
+                            // console.log("login_complete")
+                            let saletitle = ""
                             setCookie("empNum", empNum, 1);
-                            location.href = 'admin.html'
+                            if(jobtitle.match(/Sales/g) != null){
+                                saletitle = jobtitle.match(/Sales/g)[0]
+                            }
+                            
+                            if(jobtitle == "VP Marketing"){
+                                setCookie("title","VPMarketing",1);
+                            }else if(saletitle == "Sales"){
+                                setCookie("title","Sales",1);
+                            }else{
+                                setCookie("title","Alien",1);
+                            }
+                            location.href = 'orders.html'
                         } else {
                             // setCookie(empNum,empNum,0);
 
-                            console.log("password incorrect")
+                            // console.log("password incorrect")
 
                         }
                     } else {

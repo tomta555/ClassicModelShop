@@ -16,21 +16,78 @@ function getCookie(cname) {
     var user = getCookie("empNum");
     if (user == "") {
       if(this.location.pathname == '/login.html'){
-
+        //do nothing
       }else{
         location.href = 'login.html'
       }
     }else {
       if(this.location.pathname == '/login.html'){
-        location.href = 'admin.html'
+        location.href = 'orders.html'
       }
-        
-      // user = prompt("Please enter your name:", "");
-      // if (user != "" && user != null) {
-      //   setCookie("username", user, 365);
-      // }
     }
-  
+
+
+    if(this.location.pathname == '/admin.html'){
+      checktitleForEmployee('admin.html')
+    }else if(this.location.pathname == '/stocks.html'){
+      checktitleForStock('stocks.html')
+    }
+
+
+function checktitleForEmployee(site){
+  var title = getCookie("title");
+  if(title == "Sales"){
+    if(this.location.pathname != '/admin.html'){
+      location.href = '/' + site 
+    }else{
+      //do nothing
+    }
+  }else{
+    if(this.location.pathname == '/admin.html'){
+      location.href = '/orders.html'
+      alert("Access Denied, Jobtile not 'sales' ")
+    }else{
+      alert("Access Denied, Jobtile not 'sales' ")
+    }
+  }
+}
+function checktitleForStock(site){
+  var title = getCookie("title");
+  if(title == "Sales"){
+    if(this.location.pathname != '/stocks.html'){
+      location.href = '/' + site 
+    }else{
+      //do nothing
+    }
+  }else{
+    if(this.location.pathname == '/stocks.html'){
+      location.href = '/orders.html'
+      alert("Access Denied, Jobtile not 'sales' ")
+    }else{
+      alert("Access Denied, Jobtile not 'sales' ")
+    }
+  }
+}
+
+
+function checktitleForVPMarket(site){
+  var title = getCookie("title");
+  if(title == "VPMarketing"){
+    if(this.location.pathname != '/coupons.html'){
+      location.href = '/' + site 
+    }else{
+      //do nothing
+    }
+  }else{
+    if(this.location.pathname == '/coupons.html'){
+      location.href = '/orders.html'
+      alert("Access Denied, Jobtile not 'VP Marketing' ")
+    }else{
+      alert("Access Denied, Jobtile not 'VP Marketing' ")
+    }
+  }
+}
+
 
  //https://www.w3schools.com/js/js_cookies.asp
 
