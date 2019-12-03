@@ -38,12 +38,12 @@
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto ml-md-0">
       <li class="nav-item dropdown no-arrow">
-        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-user-circle fa-fw"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-          <a class="dropdown-item" href="#">Settings</a>
-          <a class="dropdown-item" href="#">Activity Log</a>
+          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#statusModal" onclick ="employeeStatus()">Status</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
         </div>
@@ -63,7 +63,8 @@
         </a>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-fw fa-folder"></i>
           <span>Pages</span>
         </a>
@@ -126,7 +127,7 @@
           <li class="breadcrumb-item">
             <a href="#">Employee</a>
           </li>
-          
+
         </ol>
 
         <!-- viewProductEdit -->
@@ -200,7 +201,7 @@
                     <th>lastName</th>
                     <th>extension</th>
                     <th>email</th>
-                    <th >officeCode</th>
+                    <th>officeCode</th>
                     <th>reportTo</th>
                     <th>jobTitle</th>
                     <th>Edit</th>
@@ -220,8 +221,8 @@
                   </tr>
                 </tfoot>
                 <tbody id="TableBody">
-                  
-                
+
+
                 </tbody>
               </table>
             </div>
@@ -233,69 +234,68 @@
       <!-- /.container-fluid -->
       <!-- Employee Add-->
       <div class="modal fade" id="AddEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="AddEmployeeTitle"
-      aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="AddEmployTitle">Add Employee</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <!--Infromation Add-->
-            <div class="table-responsive">
-              <form>
-
-                <div class="form-group">
-                  <label class="col-form-label">employeeNumber:</label>
-                  <input type="number" class="form-control" id="enumber">
-                </div>
-
-                <div class="form-group">
-                  <label class="col-form-label">firstName:</label>
-                  <input type="text" class="form-control" id="fname">
-                </div>
-
-                <div class="form-group">
-                  <label class="col-form-label">lastName:</label>
-                  <input type="text" class="form-control" id="lname">
-                </div>
-
-                <div class="form-group">
-                  <label class="col-form-label">extension:</label>
-                  <input type="text" class="form-control" id="exten">
-                </div>
-
-                <div class="form-group">
-                  <label class="col-form-label">email:</label>
-                  <input type="text" class="form-control" id="email">
-                </div>
-                <div class="form-group">
-                  <label class="col-form-label">officeCode:</label>
-                  <input type="text" class="form-control" id="office">
-                </div>
-                <div class="form-group">
-                  <label class="col-form-label">reportTo:</label>
-                  <input type="number" class="form-control" id="reportsto">
-                </div>
-
-                <div class="form-group">
-                  <label class="col-form-label">jobTitle:</label>
-                  <input type="text" class="form-control" id="title">
-                </div>
-              </form>
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="AddEmployTitle">Add Employee</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-          </div>
-          <!-- Employee Add-->
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-success" onclick="addEmployee()"
-              data-dismiss="modal">Add</button>
+            <div class="modal-body">
+              <!--Infromation Add-->
+              <div class="table-responsive">
+                <form>
+
+                  <div class="form-group">
+                    <label class="col-form-label">employeeNumber:</label>
+                    <input type="number" class="form-control" id="enumber">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-form-label">firstName:</label>
+                    <input type="text" class="form-control" id="fname">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-form-label">lastName:</label>
+                    <input type="text" class="form-control" id="lname">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-form-label">extension:</label>
+                    <input type="text" class="form-control" id="exten">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-form-label">email:</label>
+                    <input type="text" class="form-control" id="email">
+                  </div>
+                  <div class="form-group">
+                    <label class="col-form-label">officeCode:</label>
+                    <input type="text" class="form-control" id="office">
+                  </div>
+                  <div class="form-group">
+                    <label class="col-form-label">reportTo:</label>
+                    <input type="number" class="form-control" id="reportsto">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-form-label">jobTitle:</label>
+                    <input type="text" class="form-control" id="title">
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!-- Employee Add-->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-success" onclick="addEmployee()" data-dismiss="modal">Add</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
       <!-- Sticky Footer -->
       <footer class="sticky-footer">
@@ -317,8 +317,24 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
+  <div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Employee Status </h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body" id="statusemployee"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -330,7 +346,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" onclick="deletecookie()" >Logout</a>
+          <a class="btn btn-primary" onclick="deletecookie()">Logout</a>
         </div>
       </div>
     </div>
@@ -339,10 +355,10 @@
 
   <script src="js/WebDB-Query.js"></script>
   <!-- Bootstrap core JavaScript-->
-   <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="js/deletecookie.js"></script>
-  
+
   <!-- Core plugin JavaScript-->
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
@@ -354,7 +370,7 @@
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin.min.js"></script>
 
-  
+
 
 </body>
 

@@ -81,6 +81,41 @@ function employeesQuery() {
   });
 }
 
+function employeeStatus() {
+  
+  let enumber;
+  let fname;
+  let lname;
+  let exten;
+  let email;
+  let title;
+  const Body = document.querySelector('#statusemployee')
+  Body.innerHTML=""
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  db.transaction(function (tx) {
+    var ps = getCookie("empNum")
+    tx.executeSql('SELECT * FROM employees WHERE employeeNumber = ? ', [ps], function (tx, results) {
+      let len = results.rows.length, i=0;
+        enumber = results.rows.item(i).employeeNumber
+        fname = results.rows.item(i).firstName
+        lname = results.rows.item(i).lastName
+        exten = results.rows.item(i).extension
+        email = results.rows.item(i).email
+        title = results.rows.item(i).jobTitle
+        let node = `        
+        <font size = 4 ; ><b>`+"EmployeeID  :  "+`</b><i>`+ enumber + `</i><br>
+        <b>`+"FirstName  :  "+`</b><i>`+ fname + `</i><br>
+        <b>`+"LastName  :  "+`</b><i>`+ lname + `</i><br>
+        <b>`+"Exten  :  "+`</b><i>`+ exten + `</i><br>
+        <b>`+"Email  :  "+`</b><i>`+ email + `</i><br>
+        <b>`+ "JobTitle  :  "+`</b><i>` + title + `</i></font>`;
+        Body.insertAdjacentHTML('beforeend', node)
+      
+    }, null);
+  });
+}
+
+
 function employeeEdit(location) { console.log(location.parentNode.parentNode.firstChild.nextSibling.textContent)
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
   let enumber;
