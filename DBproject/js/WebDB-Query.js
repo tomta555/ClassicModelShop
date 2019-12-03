@@ -50,7 +50,7 @@ function employeesQuery() {
   const tableBody = document.querySelector('#TableBody')
   db.transaction(function (tx) {
     var ps = getCookie("empNum")
-    tx.executeSql('SELECT * FROM employees WHERE employeeNumber = ? or reportsTo = ? ', [ps, ps], function (tx, results) {
+    tx.executeSql('SELECT * FROM employees WHERE reportsTo = ? ', [ps], function (tx, results) {
       let len = results.rows.length, i;
       for (i = 0; i < len; i++) {
         enumber = results.rows.item(i).employeeNumber
@@ -79,6 +79,41 @@ function employeesQuery() {
     }, null);
   });
 }
+
+function employeeStatus() {
+  
+  let enumber;
+  let fname;
+  let lname;
+  let exten;
+  let email;
+  let title;
+  const Body = document.querySelector('#statusemployee')
+  Body.innerHTML=""
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  db.transaction(function (tx) {
+    var ps = getCookie("empNum")
+    tx.executeSql('SELECT * FROM employees WHERE employeeNumber = ? ', [ps], function (tx, results) {
+      let len = results.rows.length, i=0;
+        enumber = results.rows.item(i).employeeNumber
+        fname = results.rows.item(i).firstName
+        lname = results.rows.item(i).lastName
+        exten = results.rows.item(i).extension
+        email = results.rows.item(i).email
+        title = results.rows.item(i).jobTitle
+        let node = `        
+        <font size = 4 ; ><b>`+"EmployeeID  :  "+`</b><i>`+ enumber + `</i><br>
+        <b>`+"FirstName  :  "+`</b><i>`+ fname + `</i><br>
+        <b>`+"LastName  :  "+`</b><i>`+ lname + `</i><br>
+        <b>`+"Exten  :  "+`</b><i>`+ exten + `</i><br>
+        <b>`+"Email  :  "+`</b><i>`+ email + `</i><br>
+        <b>`+ "JobTitle  :  "+`</b><i>` + title + `</i></font>`;
+        Body.insertAdjacentHTML('beforeend', node)
+      
+    }, null);
+  });
+}
+
 
 function employeeEdit(location) {
   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
@@ -145,12 +180,24 @@ function editEmployee(location) {
   <tr>
 
   <td><input type="text" class="form-control" id="edit1"></td>
-  <td><input type="text" class="form-control" id="edit2"></td>
-  
+  <td><div class="container">
+  <div class="row">
+      <div class="col-8 col-md-6">     
+        <select class="custom-select" id="edit2">
+          <option value="VP Sales">VP Sales</option>
+          <option value="VP Marketing">VP Marketing</option>
+          <option value="Sales Manager (APAC)">Sales Manager (APAC)</option>
+          <option value="Sale Manager (EMEA)">Sale Manager (EMEA)</option>
+          <option value="Sales Manager (NA)">Sales Manager (NA)</option>
+          <option value="Sales Rep">Sales Rep</option>
+        </select>   
+      </div>
+  </div></td>  
 </tr>
   `
   document.getElementById("edit1").value = edmail
   document.getElementById("edit2").value = edTitle
+  
 
 }
 
