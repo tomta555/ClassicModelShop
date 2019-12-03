@@ -14,19 +14,16 @@ function registerSubmit() {
                 db.transaction(function (tx) {
                     tx.executeSql('SELECT passHash FROM employees WHERE employeeNumber = ?', [empNum],function (tx, results) {
                         let pass = results.rows.item(0).passHash
-                        location.href='login.html'
                         if(pass != null){
                             alert("There exists password for this user")
                             throw new Error("There exists password for this user");
-                            
+                        }else{
+                            var salt = bcrypt.genSaltSync(10);
+                            var hash = bcrypt.hashSync(empPass, salt);
+                            tx.executeSql('UPDATE employees SET passHash = ? WHERE employeeNumber = ?', [hash, empNum]);
+                            location.href = 'login.html'
                         }
                     })
-                });
-                //password still change when there exists one in the table
-                var salt = bcrypt.genSaltSync(10);
-                var hash = bcrypt.hashSync(empPass, salt);
-                db.transaction(function (tx) {
-                    tx.executeSql('UPDATE employees SET passHash = ? WHERE employeeNumber = ?', [hash, empNum]);
                 });
             }
         }

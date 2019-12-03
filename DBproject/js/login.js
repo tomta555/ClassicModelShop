@@ -30,12 +30,12 @@ function loginSubmit() {
                             location.href = 'orders.html'
                         } else {
                             // setCookie(empNum,empNum,0);
-
+                            alert("Can't find user in database or Invalid Password")
                             // console.log("password incorrect")
 
                         }
                     } else {
-                        alert("Can't find user in database or Password not match!!")
+                        alert("Can't find user in database or Invalid Password")
                     }
 
                 })
