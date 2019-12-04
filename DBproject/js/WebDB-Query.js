@@ -371,8 +371,6 @@ function deleteCustomerAddr(location) {
       tx.executeSql('UPDATE customersAddresses SET DELETE_FLAG = "Yes" WHERE customerNumber = ? AND addressLine1 = ?', [editCusNum, initAddrLine1]);
     });
   }
-
-
 }
 
 function viewOrderedHistory(location) {
@@ -384,6 +382,8 @@ function viewOrderedHistory(location) {
   let status;
   let customerNumber;
   let memberPoint;
+  let shipTo;
+  let billTo;
   const cNum = location.textContent;
   const viewHistory = document.querySelector('#viewHistory');
   viewHistory.innerHTML = "";
@@ -399,6 +399,8 @@ function viewOrderedHistory(location) {
           status = results.rows.item(i).status
           customerNumber = results.rows.item(i).customerNumber
           memberPoint = results.rows.item(i).mPointGet
+          shipTo = results.rows.item(i).shipToAddressNo = results.rows.item(i).shipToAddressNo
+          billTo = results.rows.item(i).billToAddressNo
           let node = `
           <tr align="center">
           <td>`+ customerNumber + `</td>
@@ -409,14 +411,100 @@ function viewOrderedHistory(location) {
           <td>`+ status + `</td>
           <td>`+ memberPoint + `</td>
           <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentModal" onclick="viewComment(this.parentNode.parentNode.firstChild.nextSibling)">
-        View comments</button></td>
-        </tr>
-        `;
+          View comments</button></td>
+          <td style="display:none;">`+shipTo+`</td>
+          <td style="display:none;">`+billTo+`</td>
+          <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewHisAddrModal" onclick="viewShipAddr(this)">
+          View</button></td>
+          <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewHisAddrModal" onclick="viewBillAddr(this)">
+          View</button></td>
+          </tr>
+          `;
           viewHistory.insertAdjacentHTML('beforeend', node)
         }
       } else {
         viewHistory.innerHTML += `<h1 align="center">No Data</h1>`
       }
+    }, null);
+  });
+}
+
+function viewShipAddr(location){
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  let addrline1;
+  let addrline2;
+  let city;
+  let state;
+  let postalCode;
+  let country;
+  let addrNum
+  const cNum = location.parentNode.parentNode.firstChild.nextSibling.textContent;
+  const ShipAddr = location.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.textContent
+  const viewAddr = document.querySelector('#viewHisAddr');
+  viewAddr.innerHTML = "";
+  db.transaction(function (tx) {
+    tx.executeSql('SELECT * FROM customersAddresses WHERE customerNumber = ? AND AddressNumber = ?', [cNum,ShipAddr], function (tx, results) {
+        let i = 0;
+        addrline1 = results.rows.item(i).addressLine1
+        addrline2 = results.rows.item(i).addressLine2
+        city = results.rows.item(i).city
+        state = results.rows.item(i).state
+        postalCode = results.rows.item(i).postalCode
+        country = results.rows.item(i).country
+        addrNum = results.rows.item(i).addressNumber
+        let node = `
+        <tr align="center">
+        <td>`+ addrNum +`</td>
+        <td>`+ addrline1 + `</td>
+        <td>`+ addrline2 + `</td>
+        <td>`+ city + `</td>
+        <td>`+ state + `</td>
+        <td>`+ postalCode + `</td>
+        <td>`+ country + `</td>
+        </tr>
+      `;
+        viewAddr.insertAdjacentHTML('beforeend', node)
+    }, null);
+  });
+}
+
+function viewBillAddr(location){
+  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+  let cNumber;
+  let addrline1;
+  let addrline2;
+  let city;
+  let state;
+  let postalCode;
+  let country;
+  let addrNum
+  const cNum = location.parentNode.parentNode.firstChild.nextSibling.textContent;
+  const BillAddr = location.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.textContent
+  const viewAddr = document.querySelector('#viewHisAddr');
+  viewAddr.innerHTML = "";
+  db.transaction(function (tx) {
+    tx.executeSql('SELECT * FROM customersAddresses WHERE customerNumber = ? AND AddressNumber = ?', [cNum,BillAddr], function (tx, results) {
+        let i=0
+        addrline1 = results.rows.item(i).addressLine1
+        addrline2 = results.rows.item(i).addressLine2
+        city = results.rows.item(i).city
+        state = results.rows.item(i).state
+        postalCode = results.rows.item(i).postalCode
+        country = results.rows.item(i).country
+        addrNum = results.rows.item(i).addressNumber
+        let node = `
+        <tr align="center">
+        <td>`+ addrNum +`</td>
+        <td>`+ addrline1 + `</td>
+        <td>`+ addrline2 + `</td>
+        <td>`+ city + `</td>
+        <td>`+ state + `</td>
+        <td>`+ postalCode + `</td>
+        <td>`+ country + `</td>
+        </tr>
+      `;
+        viewAddr.insertAdjacentHTML('beforeend', node)
+      
     }, null);
   });
 }
@@ -562,7 +650,9 @@ function viewOrderDetail(location) {
   let orderLineNumber
   const orderNum = location.textContent;
   const viewOrderDetail = document.querySelector('#viewOrderDetail');
+  const viewOrderAddress = document.getElementById("viewOrderAddress");
   viewOrderDetail.innerHTML = "";
+  viewOrderAddress.innerHTML = "";
   db.transaction(function (tx) {
     tx.executeSql('SELECT * FROM orderdetails WHERE orderNumber = ?', [orderNum], function (tx, results) {
       let len = results.rows.length, i;
@@ -584,6 +674,63 @@ function viewOrderDetail(location) {
         viewOrderDetail.insertAdjacentHTML('beforeend', node)
       }
     }, null);
+    tx.executeSql('SELECT customerNumber, shipToAddressNo, billToAddressNo FROM orders WHERE orderNumber = ? ',[orderNum],function(tx,results){
+      let custNum = results.rows.item(0).customerNumber
+      let shipNo = results.rows.item(0).shipToAddressNo
+      let billNo = results.rows.item(0).billToAddressNo
+      tx.executeSql('SELECT * FROM customersAddresses WHERE customerNumber = ? AND addressNumber = ?',[custNum,shipNo],function(tx,results){
+        let addrline1 = results.rows.item(0).addressLine1
+        let addrline2 = results.rows.item(0).addressLine2
+        let city = results.rows.item(0).city
+        let state = results.rows.item(0).state
+        let postalCode = results.rows.item(0).postalCode
+        let country = results.rows.item(0).country
+        let addrNum = results.rows.item(0).addressNumber
+        console.log(addrline1)
+        let node = `
+        <tr align="center">
+        <td>Shipping</td>
+        <td>`+ addrNum +`</td>
+        <td>`+ addrline1 + `</td>
+        <td>`+ addrline2 + `</td>
+        <td>`+ city + `</td>
+        <td>`+ state + `</td>
+        <td>`+ postalCode + `</td>
+        <td>`+ country + `</td>
+        </tr>
+      `;
+      viewOrderAddress.insertAdjacentHTML('beforeend', node)
+
+      },null)
+      tx.executeSql('SELECT * FROM customersAddresses WHERE customerNumber = ? AND addressNumber = ?',[custNum,billNo],function(tx,results){
+        let addrline1 = results.rows.item(0).addressLine1
+        let addrline2 = results.rows.item(0).addressLine2
+        let city = results.rows.item(0).city
+        let state = results.rows.item(0).state
+        let postalCode = results.rows.item(0).postalCode
+        let country = results.rows.item(0).country
+        let addrNum = results.rows.item(0).addressNumber
+        console.log(addrline1)
+        let node = `
+        <tr align="center">
+        <td>Billing</td>
+        <td>`+ addrNum +`</td>
+        <td>`+ addrline1 + `</td>
+        <td>`+ addrline2 + `</td>
+        <td>`+ city + `</td>
+        <td>`+ state + `</td>
+        <td>`+ postalCode + `</td>
+        <td>`+ country + `</td>
+        </tr>
+      `;
+      viewOrderAddress.insertAdjacentHTML('beforeend', node)
+
+      },null)
+
+    },null)
+
+
+
   });
 }
 

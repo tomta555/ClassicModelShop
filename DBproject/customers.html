@@ -425,8 +425,10 @@
                                   <th>requiredDate</th>
                                   <th>shippedDate</th>
                                   <th>status</th>
-                                  <th>memberPointGet</th>
+                                  <th>PointGet</th>
                                   <th>comments</th>
+                                  <th>ShipTo</th>
+                                  <th>BillTo</th>
                                 </tr>
                               </thead>
                               <tbody id="viewHistory">
@@ -520,7 +522,51 @@
               </div>
             </div>
           </div><!-- close2-->
+          <div class="modal fade" id="viewHisAddrModal" tabindex="-1" role="dialog" aria-labelledby="viewHisAddrModalLabel"
+          aria-hidden="true">
+          <!-- open2-->
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="HviewHisAddrModalLabel">Address</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <!-- information -->
+                <div class="card mb-3">
+                  <div class="card-header">
+                    <i class="fas fa-table"></i>
+                    Address</div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-bordered" id="dataTable9" width="100%" cellspacing="0">
+                        <thead>
+                          <tr align="center">
+                            <th>addressNo.</th>
+                            <th>addressLine1</th>
+                            <th>addressLine2</th>
+                            <th>city</th>
+                            <th>state</th>
+                            <th>postalCode</th>
+                            <th>country</th>
+                          </tr>
+                        </thead>
+                        <tbody id="viewHisAddr">
 
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- close2-->
 
         </div>
         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
