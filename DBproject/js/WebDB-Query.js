@@ -190,7 +190,6 @@ function editEmployee(location) {
           <option value="Sales Manager (EMEA)">Sales Manager (EMEA)</option>
           <option value="Sales Manager (NA)">Sales Manager (NA)</option>
           <option value="Sales Rep">Sales Rep</option>
-          <option value="VP Marketing">VP Marketing</option>
         </select>   
       </div>
   </div></td>  
