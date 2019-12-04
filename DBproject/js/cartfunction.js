@@ -98,7 +98,7 @@ function cart_subtotal() {
             for (i = 0; i < len; i++) {
                 subtotal += results.rows.item(i).Sum
             }
-            document.getElementById("subTotal").textContent = "$" + subtotal
+            document.getElementById("subTotal").textContent = "$" + subtotal.toFixed(2)
         }, null);
     });
 }
@@ -249,7 +249,8 @@ function place_order(){
     let textBillTo = parseInt(e2.options[e2.selectedIndex].text);
     let total = parseFloat(document.getElementById("cartTotal").textContent.replace("$","")).toFixed(2)
     let mpointGet = parseInt(3*(total / 100))
-    let cpCode =document.getElementById("DiscountCode").value
+    let cpCode = document.getElementById("DiscountCode").value
+    let reqDate = document.getElementById("reqDate").value
     db.transaction(function (tx) {
         tx.executeSql('SELECT MAX(orderNumber) as MorderNum FROM orders', [], function (tx, results) {
             let orderNum = results.rows.item(0).MorderNum + 1 
@@ -263,7 +264,11 @@ function place_order(){
                     tx.executeSql('INSERT INTO orderdetails VALUES(?,?,?,?,?)',[orderNum,pcode,pQty,pPrice,linenumber])
                     tx.executeSql('UPDATE products SET quantityInStock = quantityInStock - ? WHERE productCode = ?',[pQty,pcode])
                 }
-                tx.executeSql("INSERT INTO orders VALUES(?,date('now'),date('now','007 days'),'-','In Process','-',?,?,?,?)",[orderNum,cNum,mpointGet,textShipTo,textBillTo])
+                if(reqDate == ""){
+                    tx.executeSql("INSERT INTO orders VALUES(?,date('now'),date('now','007 days'),null,'In Process',null,?,?,?,?)",[orderNum,cNum,mpointGet,textShipTo,textBillTo])
+                }else{
+                    tx.executeSql("INSERT INTO orders VALUES(?,date('now'),?,null,'In Process',null,?,?,?,?)",[orderNum,reqDate,cNum,mpointGet,textShipTo,textBillTo])
+                }
                 tx.executeSql('UPDATE customers SET mPoint = mPoint + ?',[mpointGet])
                 tx.executeSql('UPDATE coupons SET timeCanUse = timeCanUse - 1 WHERE discountCode = ?',[cpCode])
                 tx.executeSql('DELETE FROM carts')

@@ -101,7 +101,8 @@
 			<nav class="sidebar_nav">
 				<ul>
 					<li><a href="index.html">Home<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-					<li><a href="categories.html">categories<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+					<li><a href="categories.html">categories<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+					</li>
 					<li><a href="admin.html">Admin<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 					<li><a href="orders.html">Orders<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
 					<li><a href="stocks.html">Stock<i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
@@ -153,17 +154,19 @@
 
 								<!-- Billing -->
 								<div class="billing checkout_box">
-									<div class="checkout_title">Billing Address</div>
+									<div class="checkout_title">Shipping&Billing Address</div>
 									<div class="checkout_form_container">
+
 										<form id="checkout_form" class="checkout_form">
 											<label>Customer Number</label>
 											<div class="coupon_form_container">
 												<!-- Customer -->
-												
+
 												<form action="#">
 													<input type="text" id="checkout_custNum" class="checkout_input"
 														required="required">
-													<button class="coupon_button" type="button" onclick="get_custAddr()">Search</button>
+													<button class="coupon_button" type="button"
+														onclick="get_custAddr()">Search</button>
 												</form>
 
 											</div>
@@ -171,7 +174,8 @@
 												<!-- Country -->
 												<label for="checkout_ShipTo">Ship To</label>
 												<select name="checkout_ShipTo" id="checkout_ShipTo"
-													class="dropdown_item_select checkout_input" require="required" onchange="fillShipToLine()">
+													class="dropdown_item_select checkout_input" require="required"
+													onchange="fillShipToLine()">
 												</select>
 											</div>
 											<div>
@@ -182,15 +186,21 @@
 											<div>
 												<label for="checkout_BillTo">Bill To</label>
 												<select name="checkout_BillTo" id="checkout_BillTo"
-													class="dropdown_item_select checkout_input" require="required" onchange="fillBillToLine()">
+													class="dropdown_item_select checkout_input" require="required"
+													onchange="fillBillToLine()">
 												</select>
 											</div>
 											<div>
-													<!-- Address -->
-													<label for="checkout_address">Address</label>
-													<input type="text" id="BillToAddress" class="checkout_input"
-														required="required" readonly>
-												</div>
+												<!-- Address -->
+												<label for="checkout_address">Address</label>
+												<input type="text" id="BillToAddress" class="checkout_input"
+													required="required" readonly>
+											</div>
+											<div>
+												<!-- Address -->
+												<label for="checkout_address">Required Date</label>
+												<input type="text" id="reqDate" class="checkout_input">
+											</div>
 										</form>
 									</div>
 								</div>
@@ -203,7 +213,8 @@
 											<form action="#" id="coupon_form" class="coupon_form">
 												<input id="DiscountCode" type="text" class="coupon_input"
 													required="required">
-												<button class="coupon_button" type="button" onclick="cart_discount()">Apply
+												<button class="coupon_button" type="button"
+													onclick="cart_discount()">Apply
 													code</button>
 											</form>
 										</div>
@@ -226,7 +237,8 @@
 											</li>
 										</ul>
 
-										<div class="checkout_button trans_200"><a onclick="place_order()">place order</a>
+										<div class="checkout_button trans_200"><a onclick="place_order()">place
+												order</a>
 										</div>
 									</div>
 								</div>
@@ -240,29 +252,29 @@
 
 		<!-- Newsletter -->
 
-	
 
-			<!-- Credits -->
-			<div class="credits">
-				<div class="section_container">
-					<div class="container">
-						<div class="row">
-							<div class="col">
-								<div class="credits_content d-flex flex-row align-items-center justify-content-end">
-									<div class="credits_text">
-										<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-										Copyright &copy;
-										<script>document.write(new Date().getFullYear());</script> All rights reserved |
-										This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by
-										<a href="https://colorlib.com" target="_blank">Colorlib</a>
-										<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-									</div>
+
+		<!-- Credits -->
+		<div class="credits">
+			<div class="section_container">
+				<div class="container">
+					<div class="row">
+						<div class="col">
+							<div class="credits_content d-flex flex-row align-items-center justify-content-end">
+								<div class="credits_text">
+									<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+									Copyright &copy;
+									<script>document.write(new Date().getFullYear());</script> All rights reserved |
+									This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by
+									<a href="https://colorlib.com" target="_blank">Colorlib</a>
+									<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 		</footer>
 
 	</div>
