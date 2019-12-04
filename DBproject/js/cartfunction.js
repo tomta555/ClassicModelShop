@@ -266,9 +266,9 @@ function place_order(){
                 tx.executeSql("INSERT INTO orders VALUES(?,date('now'),date('now','007 days'),'-','In Process','-',?,?,?,?)",[orderNum,cNum,mpointGet,textShipTo,textBillTo])
                 tx.executeSql('UPDATE customers SET mPoint = mPoint + ?',[mpointGet])
                 tx.executeSql('UPDATE coupons SET timeCanUse = timeCanUse - 1 WHERE discountCode = ?',[cpCode])
-                cart_Clear()
-            },null);
-            
+                tx.executeSql('DELETE FROM carts')
+            },alert("Order Placed"),location.href = '/categories.html');
         }, null);
     });
+    // location.href = '/categories.html'
 }
