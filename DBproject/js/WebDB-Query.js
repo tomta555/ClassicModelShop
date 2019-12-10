@@ -73,7 +73,7 @@ function employeesQuery() {
         <td>`+ title + `</td>
         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#employeeEditModal" onclick="editEmployee(this)">
         Edit</button></td>
-        <td><button type="button" class="btn btn-danger" onclick="DeleteEmployee(this)">
+        <td style="display:none ;"><button type="button" class="btn btn-danger" onclick="DeleteEmployee(this)">
         Delete</button></td>
       </tr>`;
         tableBody.insertAdjacentHTML('beforeend', node)
@@ -81,16 +81,16 @@ function employeesQuery() {
     }, null);
   });
 }
-function DeleteEmployee(loc){
-  const empNum = loc.parentNode.parentNode.firstChild.nextSibling.textContent
-  const table = document.querySelector('#TableBody');
-  const delRow = loc.parentNode.parentNode.rowIndex - 1;
-  table.deleteRow(delRow)
-  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
-  db.transaction(function (tx) {
-    tx.executeSql('DELETE FROM employees WHERE employeeNumber = ?', [empNum]);
-  });
-}
+// function DeleteEmployee(loc){
+//   const empNum = loc.parentNode.parentNode.firstChild.nextSibling.textContent
+//   const table = document.querySelector('#TableBody');
+//   const delRow = loc.parentNode.parentNode.rowIndex - 1;
+//   table.deleteRow(delRow)
+//   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+//   db.transaction(function (tx) {
+//     tx.executeSql('DELETE FROM employees WHERE employeeNumber = ?', [empNum]);
+//   });
+// }
 
 function employeeStatus() {
   
@@ -867,7 +867,7 @@ function productQuery() {
         Product Description</button></td>
         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productEditModal" onclick="editProduct(this)">
         Edit</button></td>
-        <td><button type="button" class="btn btn-danger" onclick="DeleteProduct(this)">
+        <td style="display:none ;"><button type="button" class="btn btn-danger" onclick="DeleteProduct(this)">
         Delete</button></td>
         </tr>`;
         tableBody.insertAdjacentHTML('beforeend', node)
@@ -948,18 +948,18 @@ function addProduct() {
   });
   this.location.reload(true)
 }
-function DeleteProduct(loc){
-  const pCode = loc.parentNode.parentNode.firstChild.nextSibling.textContent
-  const table = document.querySelector('#TableBody');
-  const delRow = loc.parentNode.parentNode.rowIndex - 1;
-  table.deleteRow(delRow)
-  var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
-  db.transaction(function (tx) {
-    tx.executeSql('DELETE FROM products WHERE productCode = ?', [pCode]);
-  });
 
+// function DeleteProduct(loc){
+//   const pCode = loc.parentNode.parentNode.firstChild.nextSibling.textContent
+//   const table = document.querySelector('#TableBody');
+//   const delRow = loc.parentNode.parentNode.rowIndex - 1;
+//   table.deleteRow(delRow)
+//   var db = openDatabase('ClassicModelShop', '1.0', 'Classic model shop v.1', 2 * 1024 * 1024);
+//   db.transaction(function (tx) {
+//     tx.executeSql('DELETE FROM products WHERE productCode = ?', [pCode]);
+//   });
+// }
 
-}
 function editProduct(location) {
   const editBody = document.querySelector('#editProduct')
   eproductCode = location.parentNode.parentNode.firstChild.nextSibling.textContent;
